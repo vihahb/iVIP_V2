@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnNotification"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:layout_marginTop="@dimen/size_16"
+        android:text="Notification" />
+
+    <Button
+        android:id="@+id/btn_notification_news"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:layout_marginTop="@dimen/size_16"
+        android:text="News" />
+
+    <Button
+        android:id="@+id/btn_notification_location"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:layout_marginTop="@dimen/size_16"
+        android:text="Location" />
+
+    <Button
+        android:id="@+id/btn_notification_update"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:layout_marginTop="@dimen/size_16"
+        android:text="Update" />
+
+</LinearLayout>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "746445450024",
+    "firebase_url": "https://ivipu-31b5d.firebaseio.com",
+    "project_id": "ivipu-31b5d",
+    "storage_bucket": "ivipu-31b5d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746445450024:android:b2fffaecbe4de727",
+        "android_client_info": {
+          "package_name": "com.xtel.ivipu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "746445450024-1vcrgbmdnm4ckt3bp91fol7vo0a8gqol.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0706yEkdJZrNU-RoWIHcraupcP5kFrFU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "746445450024-1vcrgbmdnm4ckt3bp91fol7vo0a8gqol.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

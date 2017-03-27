@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/action_update"
+        android:icon="@drawable/ic_action_update"
+        android:showAsAction="always"
+        android:title="@string/update"
+        android:visible="true"
+        app:showAsAction="always"
+        tools:ignore="AppCompatResource" />
+    <item
+        android:id="@+id/action_update_done"
+        android:icon="@drawable/ic_action_done"
+        android:showAsAction="always"
+        android:title="@string/done"
+        android:visible="false"
+        app:showAsAction="always"
+        tools:ignore="AppCompatResource" />
+</menu>

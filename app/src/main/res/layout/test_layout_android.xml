@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_250"
+    android:background="@mipmap/bgr_app"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@mipmap/img_demo" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_130"
+            android:layout_gravity="bottom">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.7"
+                android:background="@mipmap/background_news_6" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/size_14"
+                android:paddingStart="@dimen/size_14"
+                android:paddingTop="@dimen/size_70">
+
+                <TextView
+                    android:id="@+id/tv_shop_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Shop Name 1 - Address (HN City or HCM City)"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_48"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:orientation="horizontal"
+                        android:paddingRight="@dimen/size_16">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="@dimen/size_16"
+                            android:text="10:00"
+                            android:textColor="@android:color/white" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="01/17/2017"
+                            android:textColor="@android:color/white" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/size_22"
+                                android:layout_height="@dimen/size_22"
+                                android:src="@drawable/ic_action_eye" />
+
+                            <TextView
+                                android:id="@+id/tv_shop_member"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/size_6"
+                                android:text="100"
+                                android:textColor="@android:color/white"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/size_16">
+
+                            <ImageView
+                                android:layout_width="@dimen/size_22"
+                                android:layout_height="@dimen/size_22"
+                                android:src="@drawable/ic_action_favorite_white" />
+
+                            <TextView
+                                android:id="@+id/tv_shop_location"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/size_6"
+                                android:text="100"
+                                android:textColor="@android:color/white"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/size_16">
+
+                            <ImageView
+                                android:layout_width="@dimen/size_22"
+                                android:layout_height="@dimen/size_22"
+                                android:src="@drawable/ic_action_comment" />
+
+                            <TextView
+                                android:id="@+id/tv_shop_comment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/size_6"
+                                android:text="100"
+                                android:textColor="@android:color/white"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="@dimen/size_70"
+            android:layout_height="@dimen/size_70"
+            android:layout_gravity="center_vertical|left"
+            android:layout_marginLeft="@dimen/size_16"
+            android:layout_marginStart="@dimen/size_16"
+            android:layout_marginTop="@dimen/size_2">
+
+            <com.xtel.ivipu.view.widget.RoundImage
+                android:id="@+id/img_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_action_name" />
+        </FrameLayout>
+    </FrameLayout>
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_250"-->
+    <!--android:layout_margin="@dimen/size_6"-->
+    <!--android:orientation="vertical"-->
+    <!--app:cardBackgroundColor="@android:color/transparent"-->
+    <!--app:cardCornerRadius="@dimen/size_3">-->
+
+    <!--<FrameLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<LinearLayout-->
+    <!--android:weightSum="2"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_weight="1"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_125">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/img_banner_shop"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:src="@mipmap/img_demo" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_weight="1"-->
+    <!--android:id="@+id/ln_content"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_125"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:background="@color/colorPrimary"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:orientation="vertical"-->
+    <!--android:padding="@dimen/size_6"-->
+    <!--android:paddingLeft="@dimen/size_14"-->
+    <!--android:paddingStart="@dimen/size_14">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_shop_name"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Shop Name"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:textSize="18sp"-->
+    <!--android:textStyle="bold" />-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/size_48"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:weightSum="3">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="@dimen/size_22"-->
+    <!--android:layout_height="@dimen/size_22"-->
+    <!--android:src="@drawable/ic_action_eye" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_shop_member"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingLeft="@dimen/size_6"-->
+    <!--android:text="100"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:textSize="15sp" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:paddingLeft="@dimen/size_16">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="@dimen/size_22"-->
+    <!--android:layout_height="@dimen/size_22"-->
+    <!--android:src="@drawable/ic_action_favorite_white" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_shop_location"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingLeft="@dimen/size_6"-->
+    <!--android:text="100"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:textSize="15sp" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:paddingLeft="@dimen/size_16">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="@dimen/size_22"-->
+    <!--android:layout_height="@dimen/size_22"-->
+    <!--android:src="@drawable/ic_action_comment" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_shop_comment"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingLeft="@dimen/size_6"-->
+    <!--android:text="100"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:textSize="15sp" />-->
+    <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="0.8"></LinearLayout>-->
+    <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<FrameLayout-->
+    <!--android:layout_width="@dimen/size_70"-->
+    <!--android:layout_height="@dimen/size_70"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:layout_marginEnd="@dimen/size_16"-->
+    <!--android:layout_marginRight="@dimen/size_16"-->
+    <!--android:layout_marginTop="@dimen/size_32">-->
+
+    <!--<ivipuew.widget.RoundImage-->
+    <!--android:id="@+id/img_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:scaleType="fitCenter"-->
+    <!--android:src="@drawable/ic_action_name" />-->
+    <!--</FrameLayout>-->
+    <!--</FrameLayout>-->
+
+    <!--</android.support.v7.widget.CardView>-->
+
+</LinearLayout>

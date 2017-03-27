@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:apps="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/nav_info_properties"
+        android:icon="@mipmap/ic_infomation"
+        android:title="@string/nav_info_properties"
+        apps:showAsAction="always"/>
+
+    <item
+        android:id="@+id/nav_info_address"
+        android:icon="@mipmap/ic_address"
+        android:title="@string/nav_info_address"
+        apps:showAsAction="always"/>
+
+    <item
+        android:id="@+id/nav_info_gallery"
+        android:icon="@mipmap/ic_gallery"
+        android:title="@string/nav_info_gallery"
+        apps:showAsAction="always"/>
+
+    <item
+        android:id="@+id/nav_info_suggestion"
+        android:icon="@mipmap/ic_suggestion"
+        android:title="@string/nav_info_suggestion"
+        apps:showAsAction="always"/>
+</menu>

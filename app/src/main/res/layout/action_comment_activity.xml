@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@mipmap/bgr_app"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:alpha="0.5"
+            android:background="@color/color_toolbar" />
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="0dp"
+            tools:targetApi="lollipop">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_comment_action"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@drawable/button_transparent"
+                android:elevation="@dimen/size_6"
+                app:popupTheme="@style/AppTheme.AppBarOverlay" />
+        </android.support.design.widget.AppBarLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/size_16"
+        android:paddingRight="@dimen/size_16">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8"
+            android:orientation="horizontal">
+
+            <com.xtel.ivipu.view.widget.RoundImage
+                android:id="@+id/cmt_avatar"
+                android:layout_width="@dimen/size_60"
+                android:layout_height="@dimen/size_60"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_user"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_12"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/cmt_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Full Name"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font_20" />
+
+                <TextView
+                    android:id="@+id/cmt_date_reg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_8"
+                    android:text="Ngày tham gia"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font_15" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_16">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_layout">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_120"
+                    android:alpha="0.2"
+                    android:background="@drawable/background_layout_black"/>
+
+                <EditText
+                    android:id="@+id/edt_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:gravity="top"
+                    android:minLines="5"
+                    android:padding="@dimen/size_4"
+                    android:textColor="@android:color/white"/>
+            </FrameLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

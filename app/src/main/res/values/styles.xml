@@ -1,0 +1,166 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
+        <item name="android:windowTranslucentNavigation" tools:ignore="NewApi">true</item>
+        <item name="android:windowContentTransitions" tools:ignore="NewApi">true</item>
+        <item name="android:windowDisablePreview">true</item>
+
+        <!--&lt;!&ndash; specify enter and exit transitions &ndash;&gt;-->
+        <!--&lt;!&ndash; options are: explode, slide, fade &ndash;&gt;-->
+        <item name="android:windowEnterTransition" tools:ignore="NewApi">
+            @transition/change_image_transform
+        </item>
+        <item name="android:windowExitTransition" tools:ignore="NewApi">
+            @transition/change_image_transform
+        </item>
+
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition" tools:ignore="NewApi">
+            @transition/change_image_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition" tools:ignore="NewApi">
+            @transition/change_image_transform
+        </item>
+
+        <item name="android:textColorHint">@color/secondary_text</item>
+        <!--EditText-->
+        <item name="colorControlNormal">#c5c5c5</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+    </style>
+
+    <!-- Dialog Time & Date Picker Theme Style -->
+    <style name="TimePicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="colorPrimary">@color/color_accent_picker</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/color_accent_picker</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <!-- Dialog Theme Style -->
+    <style name="Theme_Transparent" parent="@style/AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+    </style>
+
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <!--<item name="android:textColorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="android:background">@color/colorPrimary</item>-->
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MaterialDialogSheet" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/MaterialDialogSheetAnimation</item>
+    </style>
+
+    <style name="MaterialDialogSheetAnimation">
+        <item name="android:windowEnterAnimation">@anim/popup_show</item>
+        <item name="android:windowExitAnimation">@anim/popup_hide</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="Scanner_TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:paddingLeft">@dimen/size_16</item>
+        <item name="android:paddingRight">@dimen/size_16</item>
+        <item name="android:textSize">@dimen/font_13</item>
+    </style>
+
+    <!-- AccountKit -->
+    <style name="AppLoginTheme" parent="Theme.AccountKit">
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="com_accountkit_title_text_color">#ffffff</item>
+        <item name="com_accountkit_primary_text_color">#ffffff</item>
+        <item name="com_accountkit_primary_color">#ffffff</item>
+        <item name="com_accountkit_status_bar_color">@color/btn_style</item>
+        <item name="com_accountkit_header_text_color">#ffffff</item>
+        <item name="com_accountkit_text_color">#ffffff</item>
+        <item name="com_accountkit_background_color">@android:color/transparent</item>
+        <item name="com_accountkit_input_background_color">@android:color/transparent</item>
+        <item name="com_accountkit_input_text_color">#FFFFFF</item>
+        <item name="com_accountkit_input_border_color">#FFFFFF</item>
+        <item name="com_accountkit_button_background_color">@color/btn_style</item>
+        <item name="com_accountkit_header_background_color">@color/color_toolbar</item>
+        <item name="com_accountkit_background">@mipmap/bgr_app</item>
+    </style>
+
+    <style name="Theme_Activity_Transparent" parent="@style/AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <!-- Popup Theme -->
+    <style name="Xtel.PopupMenu" parent="android:Widget.Holo.Light.ListPopupWindow">
+        <item name="android:popupBackground">#21B6A8</item>
+    </style>
+
+    <style name="Xtel.TextAppearance" parent="@android:style/Widget.Holo.Light.TextView">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- TabLayout Theme -->
+    <style name="TabLayout.Theme" parent="android:Widget">
+        <item name="android:tabStripEnabled">true</item>
+        <item name="tabIndicatorColor">@color/tab_selected</item>
+        <item name="tabIndicatorHeight">2dp</item>
+    </style>
+
+    <!-- Spinner Theme -->
+    <style name="Spinner_Item">
+        <item name="android:paddingLeft">@dimen/size_8</item>
+        <item name="android:paddingRight">@dimen/size_8</item>
+        <item name="android:textSize">@dimen/font_13</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <!-- Rating bar style -->
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/rating_none</item>
+        <item name="colorControlActivated">@color/rating_checked</item>
+        <item name="colorControlHighlight">@color/rating_checked</item>
+    </style>
+
+    <style name="Theme.MyAppTheme" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@null</item>
+    </style>
+
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_200"
+            android:alpha="0.9"
+            android:background="@android:color/white"/>
+
+        <ImageView
+            android:id="@+id/img_info_banner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_200"
+            android:scaleType="fitXY"
+            android:transitionName="@string/transition_shop_img"/>
+    </FrameLayout>
+</LinearLayout>

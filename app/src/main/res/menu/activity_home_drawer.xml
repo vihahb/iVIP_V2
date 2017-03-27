@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_nav_home"
+            android:title="Trang chủ" />
+    <group
+        android:id="@+id/grp0"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_my_shop"
+            android:icon="@mipmap/ic_history_checkin"
+            android:title="Lịch sử checkin" />
+    </group>
+    <group
+        android:id="@+id/grp1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_member_card"
+            android:icon="@mipmap/ic_member_card"
+            android:title="Thẻ thành viên" />
+    </group>
+    <group
+        android:id="@+id/grp2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_nav_faq"
+            android:title="Hướng dẫn sử dụng" />
+    </group>
+    <group
+        android:id="@+id/grp3"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_privacy"
+            android:icon="@drawable/ic_nav_privacy"
+            android:title="Chính sách ứng dụng" />
+    </group>
+    <group
+        android:id="@+id/grp4"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_faq"
+            android:icon="@drawable/ic_nav_help"
+            android:title="FAQ?" />
+    </group>
+    <group
+        android:id="@+id/grp5"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_menu_about"
+            android:title="Về chúng tôi" />
+    </group>
+    <group
+        android:id="@+id/grp6"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_exit"
+            android:icon="@drawable/ic_menu_exit"
+            android:title="Thoát" />
+    </group>
+    <group
+        android:id="@+id/grp7"
+        android:checkableBehavior="single"></group>
+</menu>

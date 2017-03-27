@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:apps="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/nav_profile_profile"
+        android:icon="@mipmap/ic_user"
+        android:title="@string/nav_Profile"
+        apps:showAsAction="always"/>
+    <item
+        android:id="@+id/nav_profile_history"
+        android:icon="@mipmap/ic_history"
+        android:title="@string/nav_history"
+        apps:showAsAction="always"/>
+
+    <item
+        android:id="@+id/nav_profile_favorite"
+        android:icon="@mipmap/ic_favorite"
+        android:title="@string/nav_favorite"
+        apps:showAsAction="always"/>
+
+    <item
+        android:id="@+id/nav_profile_notify"
+        android:icon="@mipmap/ic_notification"
+        android:title="@string/nav_notify"
+        apps:showAsAction="always"/>
+</menu>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ln_popup"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btn_nav_news"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:background="@android:color/white"
+        android:drawableLeft="@drawable/ic_action_news"
+        android:drawablePadding="@dimen/size_16"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="@dimen/size_16"
+        android:paddingRight="@dimen/size_16"
+        android:text="News" />
+
+    <Button
+        android:id="@+id/btn_nav_news_location"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_48"
+        android:background="@android:color/white"
+        android:drawableLeft="@drawable/ic_action_news_location"
+        android:drawablePadding="@dimen/size_16"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="@dimen/size_16"
+        android:paddingRight="@dimen/size_16"
+        android:text="News for Location" />
+</LinearLayout>

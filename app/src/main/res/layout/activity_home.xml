@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <include
+        layout="@layout/activity_home_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignEnd="@+id/nav_view"
+            android:layout_alignLeft="@+id/nav_view"
+            android:layout_alignRight="@+id/nav_view"
+            android:layout_alignStart="@+id/nav_view"
+            android:alpha="0.8"
+            android:background="@color/color_accent_picker"/>
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:paddingBottom="@dimen/size_28"
+            app:itemBackground="@android:color/transparent"
+            app:itemIconTint="@android:color/white"
+
+            app:itemTextColor="@android:color/white"
+            app:menu="@menu/activity_home_drawer" />
+    </RelativeLayout>
+</android.support.v4.widget.DrawerLayout>

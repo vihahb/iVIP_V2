@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/inc_gift_code"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/size_4">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_36"
+            android:layout_marginRight="@dimen/size_36"
+            android:background="@drawable/linear_custom_background"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/size_8">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_20"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:paddingTop="@dimen/size_6"
+                android:text="Mã giảm giá: "
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_13"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_28"
+                android:layout_marginLeft="@dimen/size_22"
+                android:layout_marginRight="@dimen/size_22"
+                android:layout_marginTop="@dimen/size_10"
+                android:background="@drawable/textview_custom_background"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/size_6"
+                android:paddingLeft="@dimen/size_6"
+                android:paddingRight="@dimen/size_6"
+                android:paddingTop="@dimen/size_6">
+
+                <TextView
+                    android:id="@+id/tv_voucher_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_20"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="iVIP-VOUCHER_CODE"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font_13"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/size_6"
+                android:background="@drawable/layout_outline"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/size_8">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hiệu lực tới: "
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font_13" />
+
+                <TextView
+                    android:id="@+id/tv_voucher_expired_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_3"
+                    android:layout_marginStart="@dimen/size_3"
+                    android:text="2017-01-30"
+                    android:textColor="@color/backgroun_round_red"
+                    android:textSize="@dimen/font_13" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_90"
+                    android:gravity="center_horizontal|bottom"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/img_qr_code"
+                            android:layout_width="@dimen/size_80"
+                            android:layout_height="@dimen/size_80"
+                            android:src="@mipmap/qr_code"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/img_bar_code"
+                            android:layout_width="@dimen/size_40"
+                            android:layout_height="@dimen/size_40"
+                            android:padding="@dimen/size_3"
+                            android:src="@mipmap/bar_code_icon"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_qr_reward"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:layout_margin="@dimen/size_8"
+                    android:text="@string/qr_reward"
+                    android:textColor="@android:color/white"
+                    android:visibility="gone"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

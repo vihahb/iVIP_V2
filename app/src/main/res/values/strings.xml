@@ -1,0 +1,151 @@
+<resources>
+    <string name="app_name">iVip</string>
+    <string name="home_name">iVIP Project</string>
+    <string name="ivip_for_user_not_cap">iVIP for uer</string>
+
+    <string name="facebook_app_id">615022045348242</string>
+    <string name="ak_login_protocol_scheme">ak615022045348242</string>
+    <string name="fb_login_protocol_scheme">615022045348242</string>
+    <string name="account_kit_client_token">4a9f9e329c65d64d04315ade049b9b9a</string>
+    <string name="google_map_api_key">AIzaSyBptEkjuZRCbJ3FABfWbsbz4v37Q_31310</string>
+    <string name="xtel_service_code">XTL-IVIP-U</string>
+
+    <!-- Transition -->
+    <!-- Shop -->
+    <string name="transition_name_shop">shop_info</string>
+    <string name="transition_shop_img">shop_img</string>
+    <string name="transition_shop_ava">shop_ava</string>
+    <string name="transition_shop_name">shop_name</string>
+    <string name="transition_shop_content">shop_content</string>
+
+    <!-- Activity Title -->
+    <string name="activity_login">Đăng nhập</string>
+    <string name="activity_reset">Khôi phục mật khẩu</string>
+    <string name="activity_reactive">Xác thực lại</string>
+    <string name="activity_reg">Đăng ký</string>
+    <string name="activity_profile">Thông tin người dùng</string>
+    <string name="activity_info_content">Thông tin cửa hàng</string>
+    <string name="fragment_myshop_content">Lịch sử checkin</string>
+    <string name="fragment_member_card_content">Thẻ thành viên</string>
+    <string name="activity_checkin_content">Check in</string>
+    <string name="activity_checkin">Check in</string>
+    <string name="activity_comment">Bình luận</string>
+    <string name="activity_history_transaction">Lịch sử giao dịch</string>
+
+    <!-- Nav title -->
+    <string name="nav_Profile">Thông tin cá nhân</string>
+    <string name="nav_history">Lịch sử</string>
+    <string name="nav_favorite">Yêu thích</string>
+    <string name="nav_notify">Thông báo</string>
+    <string name="nav_user">Người dùng</string>
+    <string name="nav_send">Gửi</string>
+
+    <string name="nav_info_properties">Thông tin</string>
+    <string name="nav_info_address">Địa chỉ</string>
+    <string name="nav_info_gallery">Thư viện</string>
+    <string name="nav_info_suggestion">Bản tin liên quan</string>
+
+    <string name="nav_new_list">Tin mới nhất</string>
+    <string name="nav_fashion">Thời trang \u0026 Làm đẹp</string>
+    <string name="nav_food">Ẩm thực</string>
+    <string name="nav_technology">Công nghệ</string>
+    <string name="nav_health">Sức khỏe</string>
+    <string name="nav_services">Dịch vụ khác</string>
+    <string name="nav_news_for_me">Bản tin quanh bạn</string>
+    <string name="nav_other">Khác</string>
+
+    <string name="tab_properties">Thông tin</string>
+    <string name="tab_address">Địa chỉ</string>
+    <string name="tab_gallery">Thư viện</string>
+    <string name="tab_suggestion">Thể loại liên quan</string>
+
+
+    <!-- Action -->
+    <string name="action_settings">Setting</string>
+    <string name="action_success">Success</string>
+    <string name="action_error">Error</string>
+    <string name="expand">Xem thêm</string>
+    <string name="collapse">Thu nhỏ</string>
+    <string name="action_login_account_kit">Đăng nhập bằng Account Kit</string>
+    <string name="action_login_facebook">FACEBOOK</string>
+    <string name="action_login_phone">SỐ ĐIỆN THOẠI</string>
+    <string name="action_login_with">Đăng nhập bằng</string>
+    <string name="action_login">Đăng nhập</string>
+    <string name="action_reactive">Xác thực lại</string>
+    <string name="action_reset">Đổi mật khẩu</string>
+    <string name="action_reg">Đăng ký</string>
+    <string name="try_again">Chạm để thử lại</string>
+    <string name="loading_data">Đang tải dữ liệu</string>
+    <string name="updated_data">Cập nhật thành công</string>
+    <string name="text_back_press_to_exit">Nhấn back lần nữa để thoát app</string>
+    <string name="put_qr_code_into_the_frame">Đưa mã QR hoặc Bar Code vào đúng khung hình</string>
+    <string name="checkin_now">Checkin ngay để nhận được những phần quà hấp dẫn</string>
+    <string name="checkin_success">Check in thành công</string>
+    <string name="action_notify">Thông báo</string>
+    <string name="action_checkin_success">Chúc Mừng!</string>
+    <!--<string name="action_checkin_success_content"></string>-->
+    <string name="action_checkin_success_score_reward">1000</string>
+    <string name="rate_news">Đánh giá bản tin</string>
+    <string name="rate_action">Đánh giá</string>
+    <string name="rate_action_success">Cám ơn bạn đã đánh giá bản tin.</string>
+
+    <!-- Message App -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <!-- Request -->
+    <string name="error_server_request">Không thể kết nối tới Server</string>
+    <string name="err_post">Đăng tin thất bại</string>
+
+    <!-- Permission && Code error -->
+    <string name="error_code_2">Phiên không hợp lệ</string>
+    <string name="error_code_3">Bạn không có quyền hạn này</string>
+    <string name="error_code_4">Lỗi hệ thống</string>
+    <string name="error_code_1001">Bãi đỗ không tồn tại</string>
+
+    <!-- Text Demo -->
+    <string name="text">Chương trình khuyến mại: "NESCAFE TẾT 2017 - KHAI XUÂN ĐÓN LỘC" Khuyến mại tất cả sản phẩm NESCAFE bao bì tết có in thông tin về chương trình khuyến mại. "NESCAFE TẾT 2017 - KHAI XUÂN ĐÓN LỘC" Khuyến mại tất cả sản phẩm NESCAFE bao bì tết có in thông tin về chương trình khuyến mại. "NESCAFE TẾT 2017 - KHAI XUÂN ĐÓN LỘC" Khuyến mại tất cả sản phẩm NESCAFE bao bì tết có in thông tin về chương trình khuyến mại.</string>
+    <string name="text_location">Địa bàn(Phạm vi) khuyến mại: Toàn quốc</string>
+    <string name="qr_reward"><u>Nhập mã QR</u></string>
+
+    <!-- Error code -->
+    <string name="no_connection">Không có kết nối</string>
+    <string name="no_content">Không có dữ liệu</string>
+    <string name="no_name">Chưa có tên</string>
+    <string name="no_phone">Chưa có số điện thoại</string>
+    <string name="no_address">Chưa có địa chỉ</string>
+    <string name="no_birth_day">Chưa có thông tin</string>
+    <string name="no_rank">Chưa có cấp bậc</string>
+    <string name="no_reg_date">Chưa có thông tin đăng ký</string>
+    <string name="no_score">Chưa có điểm thưởng</string>
+    <string name="update">Update</string>
+    <string name="updating">Loading data</string>
+    <string name="done">Done</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_internet">Không có kết nối internet</string>
+    <string name="no_news">Không có bản tin</string>
+    <string name="txt_store_name">Tên cửa hàng</string>
+    <string name="txt_user">User</string>
+    <string name="demo_address">Shop Name 1 - Address (HN City or HCM City)</string>
+    <string name="need_login_to_get_voucher">Vui lòng đăng nhập để lấy mã giảm giá</string>
+    <string name="need_login_to_rate_news">Vui lòng đăng nhập để đánh giá bản tin</string>
+    <string name="need_login_to_action">Vui lòng đăng nhập để sử dụng chức năng</string>
+    <string name="need_login_to_check_in">Vui lòng đăng nhập để check in</string>
+    <string name="name_null">Chưa có tên</string>
+    <string name="date_reg_null">Ngày đăng ký: Chưa có</string>
+    <string name="point_null">Điểm thưởng: Chưa có</string>
+    <string name="rank_null">Xếp hạng: Chưa có</string>
+    <string name="phone_null">Chưa có số điện thoại</string>
+    <string name="address_null">Chưa có địa chỉ</string>
+    <string name="birth_day_null">Chưa có ngày sinh</string>
+    <string name="btn_logout">Đăng xuất</string>
+    <string name="btn_login">Đăng nhập</string>
+    <string name="need_login">Vui lòng đăng nhập</string>
+
+    <array name="gender_profile">
+        <item>Nữ</item>
+        <item>Nam</item>
+        <item>Khác</item>
+    </array>
+</resources>

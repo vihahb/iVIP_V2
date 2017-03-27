@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_news"
+        android:icon="@mipmap/ic_news_list"
+        android:showAsAction="always"
+        android:title="@string/nav_new_list"/>
+
+    <item
+        android:id="@+id/nav_fashion"
+        android:icon="@mipmap/ic_fashion"
+        android:showAsAction="always"
+        android:title="@string/nav_fashion"/>
+
+    <item
+        android:id="@+id/nav_food"
+        android:icon="@mipmap/ic_food"
+        android:showAsAction="always"
+        android:title="@string/nav_food"/>
+
+    <item
+        android:id="@+id/nav_technology"
+        android:icon="@mipmap/ic_technology"
+        android:showAsAction="always"
+        android:title="@string/nav_technology"/>
+
+    <item
+        android:id="@+id/nav_list_item"
+        android:icon="@mipmap/ic_list_tab"
+        android:showAsAction="always"
+        android:title="@string/nav_other"/>
+</menu>
