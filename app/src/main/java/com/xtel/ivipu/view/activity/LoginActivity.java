@@ -33,7 +33,7 @@ public class LoginActivity extends BasicActivity implements ILoginView, View.OnC
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.v2_activity_welcome);
         presenter = new LoginPresenter(this);
         presenter.createCallBackManager();
         presenter.createNipCallbackManager();
@@ -44,19 +44,24 @@ public class LoginActivity extends BasicActivity implements ILoginView, View.OnC
     private void initView() {
         btn_login_facebook = (Button) findViewById(R.id.btn_facebook_login);
         btn_login_account_kit = (Button) findViewById(R.id.btn_phone_login);
+        tv_Signup = (TextView) findViewById(R.id.tv_signup);
 
-        img_login_phone = (ImageView) findViewById(R.id.img_login_phone);
-        img_login_facebook = (ImageView) findViewById(R.id.img_login_facebook);
+//        img_login_phone = (ImageView) findViewById(R.id.img_login_phone);
+//        img_login_facebook = (ImageView) findViewById(R.id.img_login_facebook);
 
 //        tv_Signup = (TextView) findViewById(R.id.tv_signup);
 
         btn_login_facebook.setOnClickListener(this);
         btn_login_account_kit.setOnClickListener(this);
-        img_login_phone.setOnClickListener(this);
-        img_login_facebook.setOnClickListener(this);
+        tv_Signup.setOnClickListener(this);
+//        img_login_phone.setOnClickListener(this);
+//        img_login_facebook.setOnClickListener(this);
 //        tv_Signup.setOnClickListener(this);
     }
 
+    private void onSignup() {
+        startActivity(RegisterPhone.class);
+    }
 
     @Override
     public void onSuccess() {
@@ -110,11 +115,14 @@ public class LoginActivity extends BasicActivity implements ILoginView, View.OnC
             onLoginFacebook();
         } else if (id == R.id.btn_phone_login) {
             onLoginGroup();
-        } else if (id == R.id.img_login_phone) {
-            onLoginGroup();
-        } else if (id == R.id.img_login_facebook) {
-            onLoginFacebook();
+        } else if (id == R.id.tv_signup) {
+            onSignup();
         }
+//        else if (id == R.id.img_login_phone) {
+//            onLoginGroup();
+//        } else if (id == R.id.img_login_facebook) {
+//            onLoginFacebook();
+//        }
     }
 
     @Override

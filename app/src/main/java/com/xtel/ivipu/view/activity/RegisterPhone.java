@@ -35,12 +35,12 @@ public class RegisterPhone extends BasicActivity implements IRegisterPhoneView, 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_phone_action);
+        setContentView(R.layout.v2_layout_register);
 
         presenter = new RegisterPhonePresenter(this);
         presenter.createCallbackManager();
 
-        initToolbars();
+//        initToolbars();
         initView();
     }
 
@@ -49,8 +49,8 @@ public class RegisterPhone extends BasicActivity implements IRegisterPhoneView, 
         edt_password = (EditText) findViewById(R.id.edt_password);
         edt_re_password = (EditText) findViewById(R.id.edt_re_password);
 
-        tv_callback = (TextView) findViewById(R.id.tv_callback);
-        tv_callback.setOnClickListener(this);
+//        tv_callback = (TextView) findViewById(R.id.tv_callback);
+//        tv_callback.setOnClickListener(this);
 
         btn_reg = (Button) findViewById(R.id.btn_reg);
 
@@ -223,9 +223,10 @@ public class RegisterPhone extends BasicActivity implements IRegisterPhoneView, 
 
         if (id == R.id.btn_reg) {
             checkDataInput();
-        } else if (id == R.id.tv_callback) {
-            finishActivity();
         }
+//        else if (id == R.id.tv_callback) {
+//            finishActivity();
+//        }
     }
 
     @Override

@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -277,5 +279,12 @@ public class WidgetHelper {
             }
         }
         return ret;
+    }
+
+    public void setUnderLine(String content, TextView textView) {
+        String mystring = new String(content);
+        SpannableString underLineString = new SpannableString(mystring);
+        underLineString.setSpan(new UnderlineSpan(), 0, mystring.length(), 0);
+        textView.setText(content);
     }
 }

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.presenter.LoginGroupPresenter;
 import com.xtel.ivipu.view.activity.inf.ILoginGroup;
+import com.xtel.ivipu.view.widget.WidgetHelper;
 import com.xtel.sdk.callback.DialogListener;
 
 /**
@@ -26,7 +27,7 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
 
     private EditText edt_user, edt_pass;
     private Button btn_login;
-    private TextView tv_register, tv_reseet, tv_active;
+    private TextView tv_register, tv_reset, tv_active;
 
 
     private LoginGroupPresenter presenter;
@@ -34,10 +35,10 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_group);
+        setContentView(R.layout.v2_login_phone);
         presenter = new LoginGroupPresenter(this);
         presenter.createCallbackManager();
-        initToolbars();
+//        initToolbars();
         initView();
     }
 
@@ -46,15 +47,21 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
         edt_pass = (EditText) findViewById(R.id.edt_login_password);
         btn_login = (Button) findViewById(R.id.btn_login_tonip);
 
-        tv_register = (TextView) findViewById(R.id.tv_signup);
+//        tv_register = (TextView) findViewById(R.id.tv_signup);
         tv_active = (TextView) findViewById(R.id.tv_re_active);
-        tv_reseet = (TextView) findViewById(R.id.tv_reset);
+        tv_reset = (TextView) findViewById(R.id.tv_reset);
 
-        tv_register.setOnClickListener(this);
-        tv_reseet.setOnClickListener(this);
+//        tv_register.setOnClickListener(this);
+        tv_reset.setOnClickListener(this);
         tv_active.setOnClickListener(this);
 
         btn_login.setOnClickListener(this);
+        setUnderLine();
+    }
+
+    private void setUnderLine() {
+        WidgetHelper.getInstance().setUnderLine("Kích hoạt tài khoản?", tv_active);
+        WidgetHelper.getInstance().setUnderLine("Quên mật khẩu?", tv_reset);
     }
 
 
@@ -149,13 +156,14 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
         int id = v.getId();
         if (id == R.id.btn_login_tonip) {
             onLoginToNIP();
-        } else if (id == R.id.tv_signup) {
-            onSignup();
         } else if (id == R.id.tv_reset) {
             onReset();
         } else if (id == R.id.tv_re_active) {
             onReActive();
         }
+//        else if (id == R.id.tv_signup) {
+//            onSignup();
+//        }
     }
 
     private void onReActive() {
@@ -164,10 +172,6 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
 
     private void onReset() {
         presenter.onLoginAccountKit();
-    }
-
-    private void onSignup() {
-        startActivity(RegisterPhone.class);
     }
 
     private void onLoginToNIP() {
