@@ -1,67 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_nav_home"
-            android:title="Trang chủ" />
+
     <group
         android:id="@+id/grp0"
         android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_home"
+            android:icon="@mipmap/ic_menu_home"
+            android:title="Trang chủ" />
+        <item
+            android:id="@+id/nav_member_card"
+            android:icon="@mipmap/ic_menu_member_card"
+            android:title="Thẻ thành viên" />
+        <item
             android:id="@+id/nav_my_shop"
-            android:icon="@mipmap/ic_history_checkin"
+            android:icon="@mipmap/ic_menu_checkin_history"
             android:title="Lịch sử checkin" />
     </group>
+
     <group
         android:id="@+id/grp1"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_member_card"
-            android:icon="@mipmap/ic_member_card"
-            android:title="Thẻ thành viên" />
-    </group>
-    <group
-        android:id="@+id/grp2"
-        android:checkableBehavior="single">
+            android:id="@+id/nav_notify"
+            android:icon="@mipmap/ic_menu_notification"
+            android:title="Thông báo"
+            app:actionLayout="@layout/menu_item_counter" />
+
         <item
-            android:id="@+id/nav_help"
-            android:icon="@drawable/ic_nav_faq"
-            android:title="Hướng dẫn sử dụng" />
-    </group>
-    <group
-        android:id="@+id/grp3"
-        android:checkableBehavior="single">
+            android:id="@+id/nav_voucher"
+            android:icon="@mipmap/ic_menu_voucher"
+            android:title="Thẻ giảm giá" />
+
         <item
-            android:id="@+id/nav_privacy"
-            android:icon="@drawable/ic_nav_privacy"
-            android:title="Chính sách ứng dụng" />
+            android:id="@+id/nav_news_favorite"
+            android:icon="@mipmap/ic_menu_favorite"
+            android:title="Bản tin yêu thích" />
+
+        <item
+            android:id="@+id/nav_news_history"
+            android:icon="@mipmap/ic_menu_view_history"
+            android:title="Bản tin đã xem" />
     </group>
+
     <group
         android:id="@+id/grp4"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_faq"
-            android:icon="@drawable/ic_nav_help"
+            android:icon="@mipmap/ic_menu_faq"
             android:title="FAQ?" />
-    </group>
-    <group
-        android:id="@+id/grp5"
-        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_about"
-            android:icon="@drawable/ic_menu_about"
+            android:icon="@mipmap/ic_menu_info"
             android:title="Về chúng tôi" />
-    </group>
-    <group
-        android:id="@+id/grp6"
-        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_exit"
-            android:icon="@drawable/ic_menu_exit"
+            android:icon="@mipmap/ic_menu_logout"
             android:title="Thoát" />
     </group>
-    <group
-        android:id="@+id/grp7"
-        android:checkableBehavior="single"></group>
 </menu>

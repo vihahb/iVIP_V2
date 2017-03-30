@@ -47,7 +47,7 @@ public class WidgetHelper {
         }
     }
 
-    public void setImageURL(RoundImage view, String url) {
+    public void setImageURL(ImageView view, String url) {
         if (url == null || url.isEmpty())
             return;
 
@@ -56,6 +56,7 @@ public class WidgetHelper {
         Picasso.with(MyApplication.context)
                 .load(finalUrl)
                 .noPlaceholder()
+                .fit().centerInside()
                 .error(R.color.colorPrimary)
                 .into(view, new Callback() {
                     @Override

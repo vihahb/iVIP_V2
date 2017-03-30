@@ -8,8 +8,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.squareup.picasso.Picasso;
 import com.xtel.ivipu.R;
+import com.xtel.ivipu.view.widget.WidgetHelper;
 
 /**
  * Created by vivhp on 1/24/2017.
@@ -26,11 +26,7 @@ public abstract class IActivity extends BasicActivity {
         Button txt_close = (Button) bottomSheetDialog.findViewById(R.id.dialog_txt_close);
         ImageView img_qr_code = (ImageView) bottomSheetDialog.findViewById(R.id.dialog_qr_code);
 
-        Picasso.with(this)
-                .load(url)
-                .noPlaceholder()
-                .error(R.mipmap.ic_error)
-                .into(img_qr_code);
+        WidgetHelper.getInstance().setImageURL(img_qr_code, url);
 
         if (txt_close != null)
             txt_close.setOnClickListener(new View.OnClickListener() {

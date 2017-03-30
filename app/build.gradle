@@ -29,6 +29,9 @@ android {
 //        jackOptions {
 //            enabled true
 //        }
+        dexOptions {
+            jumboMode true
+        }
     }
 
 //    compileOptions {
@@ -70,6 +73,7 @@ dependencies {
     compile project(':NIPmodule')
     compile('com.crashlytics.sdk.android:crashlytics:2.6.6@aar') {
         transitive = true;
+
     }
     //noinspection GradleCompatible
     //noinspection GradleCompatible

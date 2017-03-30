@@ -36,7 +36,7 @@ public class AdapterRecycleHistory extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_VIEW) {
-            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_history, parent, false));
+            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.v2_item_layout_news, parent, false));
         } else if (viewType == TYPE_LOAD) {
             return new ViewProgressBar(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_progress_bar, parent, false));
         }
@@ -55,14 +55,15 @@ public class AdapterRecycleHistory extends RecyclerView.Adapter<RecyclerView.Vie
             Log.e("Arr adapter", arrayList.toString());
             final RESP_NewEntity newsEntity = arrayList.get(position);
 
-            WidgetHelper.getInstance().setAvatarImageURL(viewHolder.img_his_brand, newsEntity.getLogo());
-            WidgetHelper.getInstance().setAvatarImageURL(viewHolder.img_his_banner, newsEntity.getBanner());
-            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_name_news, newsEntity.getTitle());
-            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_shop_name, newsEntity.getStore_name());
-            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_view, String.valueOf(newsEntity.getView()));
-            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_like, String.valueOf(newsEntity.getLike()));
-            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_comment, String.valueOf(newsEntity.getComment()));
-            WidgetHelper.getInstance().setTextViewDate(viewHolder.txt_time, "Thời gian: ", newsEntity.getCreate_time());
+            WidgetHelper.getInstance().setAvatarImageURL(viewHolder.im_news_store, newsEntity.getLogo());
+            WidgetHelper.getInstance().setAvatarImageURL(viewHolder.im_news_banner, newsEntity.getBanner());
+            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.tv_news_title, newsEntity.getTitle());
+            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.tv_news_store_name, newsEntity.getStore_name());
+            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.tv_news_view, String.valueOf(newsEntity.getView()));
+            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.tv_news_like, String.valueOf(newsEntity.getLike()));
+            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.tv_news_comment, String.valueOf(newsEntity.getComment()));
+            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.tv_news_rates, String.valueOf(newsEntity.getRate()));
+            viewHolder.tv_news_store_name.setSelected(true);
 
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -106,19 +107,20 @@ public class AdapterRecycleHistory extends RecyclerView.Adapter<RecyclerView.Vie
 
     private class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView img_his_brand, img_his_banner;
-        private TextView txt_name_news, txt_shop_name, txt_time, txt_view, txt_like, txt_comment;
+        private ImageView im_news_store, im_news_banner;
+        private TextView tv_news_title, tv_news_store_name, tv_news_rates, tv_news_view, tv_news_like, tv_news_comment;
 
         ViewHolder(View itemView) {
             super(itemView);
-            img_his_brand = (ImageView) itemView.findViewById(R.id.img_brand_shop);
-            img_his_banner = (ImageView) itemView.findViewById(R.id.img_banner);
-            txt_name_news = (TextView) itemView.findViewById(R.id.tv_history_title);
-            txt_shop_name = (TextView) itemView.findViewById(R.id.tv_history_shop_name);
-            txt_time = (TextView) itemView.findViewById(R.id.tv_history_time);
-            txt_view = (TextView) itemView.findViewById(R.id.tv_history_view);
-            txt_like = (TextView) itemView.findViewById(R.id.tv_history_like);
-            txt_comment = (TextView) itemView.findViewById(R.id.tv_history_comment);
+            im_news_store = (ImageView) itemView.findViewById(R.id.im_news_store);
+            im_news_banner = (ImageView) itemView.findViewById(R.id.im_news_banner);
+            tv_news_title = (TextView) itemView.findViewById(R.id.tv_news_title);
+            tv_news_store_name = (TextView) itemView.findViewById(R.id.tv_news_store_name);
+//            txt_time = (TextView) itemView.findViewById(R.id.tv_history_time);
+            tv_news_view = (TextView) itemView.findViewById(R.id.tv_news_view);
+            tv_news_like = (TextView) itemView.findViewById(R.id.tv_news_like);
+            tv_news_comment = (TextView) itemView.findViewById(R.id.tv_news_comment);
+            tv_news_rates = (TextView) itemView.findViewById(R.id.tv_news_rates);
         }
     }
 

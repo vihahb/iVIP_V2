@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent"
@@ -11,9 +12,9 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/size_8"
-            android:layout_marginRight="@dimen/size_8">
+            android:layout_height="@dimen/size_100"
+            android:layout_marginLeft="@dimen/size_12"
+            android:layout_marginRight="@dimen/size_12">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -29,9 +30,9 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/size_4"
-            android:layout_marginRight="@dimen/size_4"
+            android:layout_height="@dimen/size_100"
+            android:layout_marginLeft="@dimen/size_8"
+            android:layout_marginRight="@dimen/size_8"
             android:layout_marginTop="@dimen/size_8">
 
             <FrameLayout
@@ -48,119 +49,132 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_16">
 
-            <FrameLayout
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/white" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/size_16">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_32"
-                    android:alpha="0.9"
-                    android:background="@color/colorAccent">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/size_16"
-                        android:gravity="center_vertical"
-                        android:text="Đăng nhập"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/font_18" />
-                </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/size_4"
+                card_view:cardCornerRadius="0dp"
+                card_view:elevation="10dp">
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_48"
-                    android:layout_marginTop="@dimen/size_8"
-                    android:paddingLeft="@dimen/size_16"
-                    android:paddingRight="@dimen/size_16">
+                    android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:layout_width="@dimen/size_48"
-                        android:layout_height="@dimen/size_48"
-                        android:paddingBottom="@dimen/size_16"
-                        android:paddingRight="@dimen/size_16"
-                        android:paddingTop="@dimen/size_12"
-                        android:src="@mipmap/ic_phone" />
-
-                    <EditText
-                        android:id="@+id/edt_login_phone"
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="Số điện thoại"
-                        android:inputType="phone"
-                        android:paddingLeft="@dimen/size_50"
-                        android:textColor="@color/color_accent_button"
-                        android:textColorHint="@color/color_accent_button"
-                        android:textSize="@dimen/font_15" />
-                </FrameLayout>
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white" />
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_48"
-                    android:paddingLeft="@dimen/size_16"
-                    android:paddingRight="@dimen/size_16">
-
-                    <ImageView
-                        android:layout_width="@dimen/size_48"
-                        android:layout_height="@dimen/size_48"
-                        android:paddingBottom="@dimen/size_16"
-                        android:paddingRight="@dimen/size_16"
-                        android:paddingTop="@dimen/size_12"
-                        android:src="@mipmap/ic_password" />
-
-                    <EditText
-                        android:id="@+id/edt_login_password"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="Mật khẩu"
-                        android:inputType="textPassword"
-                        android:paddingLeft="@dimen/size_50"
-                        android:textColor="@color/color_accent_button"
-                        android:textColorHint="@color/color_accent_button"
-                        android:textSize="@dimen/font_15" />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/size_16">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_40"
+                            android:alpha="0.9"
+                            android:background="@color/colorAccent">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="@dimen/size_16"
+                                android:gravity="center_vertical"
+                                android:text="Đăng nhập"
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/font_18" />
+                        </LinearLayout>
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_48"
+                            android:layout_marginTop="@dimen/size_8"
+                            android:paddingLeft="@dimen/size_16"
+                            android:paddingRight="@dimen/size_16">
+
+                            <ImageView
+                                android:layout_width="@dimen/size_48"
+                                android:layout_height="@dimen/size_48"
+                                android:paddingBottom="@dimen/size_16"
+                                android:paddingRight="@dimen/size_16"
+                                android:paddingTop="@dimen/size_12"
+                                android:src="@mipmap/ic_phone" />
+
+                            <EditText
+                                android:id="@+id/edt_login_phone"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:hint="Số điện thoại"
+                                android:inputType="phone"
+                                android:paddingLeft="@dimen/size_50"
+                                android:textColor="@color/color_accent_button"
+                                android:textColorHint="@color/color_accent_button"
+                                android:textSize="@dimen/font_15" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_48"
+                            android:paddingLeft="@dimen/size_16"
+                            android:paddingRight="@dimen/size_16">
+
+                            <ImageView
+                                android:layout_width="@dimen/size_48"
+                                android:layout_height="@dimen/size_48"
+                                android:paddingBottom="@dimen/size_16"
+                                android:paddingRight="@dimen/size_16"
+                                android:paddingTop="@dimen/size_12"
+                                android:src="@mipmap/ic_password" />
+
+                            <EditText
+                                android:id="@+id/edt_login_password"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:hint="Mật khẩu"
+                                android:inputType="textPassword"
+                                android:paddingLeft="@dimen/size_50"
+                                android:textColor="@color/color_accent_button"
+                                android:textColorHint="@color/color_accent_button"
+                                android:textSize="@dimen/font_15" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/tv_reset"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/size_10"
+                            android:gravity="center"
+                            android:padding="@dimen/size_4"
+                            android:text="Quên mật khẩu?" />
+
+                        <TextView
+                            android:id="@+id/tv_re_active"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="@dimen/size_4"
+                            android:text="Kích hoạt tài khoản?" />
+
+                        <Button
+                            android:id="@+id/btn_login_tonip"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_48"
+                            android:layout_gravity="right"
+                            android:layout_marginLeft="@dimen/size_16"
+                            android:layout_marginRight="@dimen/size_16"
+                            android:layout_marginTop="@dimen/size_8"
+                            android:background="@drawable/btn_outline_color_primary"
+                            android:text="Đăng nhập"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorAccent" />
+                    </LinearLayout>
                 </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tv_reset"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/size_10"
-                    android:gravity="center"
-                    android:padding="@dimen/size_4"
-                    android:text="Quên mật khẩu?" />
-
-                <TextView
-                    android:id="@+id/tv_re_active"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="@dimen/size_4"
-                    android:text="Kích hoạt tài khoản?" />
-
-                <Button
-                    android:id="@+id/btn_login_tonip"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_48"
-                    android:layout_gravity="right"
-                    android:layout_marginLeft="@dimen/size_16"
-                    android:layout_marginRight="@dimen/size_16"
-                    android:layout_marginTop="@dimen/size_8"
-                    android:background="@drawable/btn_outline_color_primary"
-                    android:text="Đăng nhập"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorAccent" />
-            </LinearLayout>
+            </android.support.v7.widget.CardView>
         </FrameLayout>
     </FrameLayout>
 </LinearLayout>

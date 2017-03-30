@@ -5,6 +5,11 @@
     <color name="colorPrimaryDark">#37474f</color>
     <!--<color name="colorAccent">#026c5f</color>-->
     <color name="colorAccent">#4CAD50</color>
+    <color name="colorAccentOpacity">#334CAD50</color>
+    <color name="text_style">#545454</color>
+    <color name="notification_bg">#FF0000</color>
+    <color name="divider_news_item">#2a6db0</color>
+
     <color name="test">#FFAB1594</color>
     <color name="test1">#156dab</color>
 

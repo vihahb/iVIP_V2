@@ -5,9 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,14 +24,14 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.RESP.RESP_Short;
 import com.xtel.ivipu.model.entity.UserShort;
 import com.xtel.ivipu.presenter.HomePresenter;
 import com.xtel.ivipu.view.activity.inf.IHome;
+import com.xtel.ivipu.view.fragment.FavoriteFragment;
 import com.xtel.ivipu.view.fragment.FragmentHomeFashionMakeUp;
 import com.xtel.ivipu.view.fragment.FragmentHomeFood;
 import com.xtel.ivipu.view.fragment.FragmentHomeHealth;
@@ -44,12 +41,13 @@ import com.xtel.ivipu.view.fragment.FragmentHomeOtherService;
 import com.xtel.ivipu.view.fragment.FragmentHomeTechnology;
 import com.xtel.ivipu.view.fragment.FragmentMemberCard;
 import com.xtel.ivipu.view.fragment.FragmentMyShop;
-import com.xtel.ivipu.view.widget.CircleTransform;
+import com.xtel.ivipu.view.fragment.HistoryFragment;
+import com.xtel.ivipu.view.fragment.NotifyFragment;
 import com.xtel.ivipu.view.widget.LinearLayoutAnimationSlideBottom;
 import com.xtel.ivipu.view.widget.WidgetHelper;
 import com.xtel.nipservicesdk.LoginManager;
 import com.xtel.sdk.commons.Constants;
-import com.xtel.sdk.dialog.BadgeIcon;
+import com.xtel.sdk.commons.NetWorkInfo;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
 
@@ -57,10 +55,10 @@ import me.leolin.shortcutbadger.ShortcutBadger;
  * Created by vivhp on 12/29/2016.
  */
 
-public class HomeActivity extends BasicActivity implements NavigationView.OnNavigationItemSelectedListener, IHome, View.OnClickListener {
+public class HomeActivity extends IActivity implements NavigationView.OnNavigationItemSelectedListener, IHome, View.OnClickListener {
     HomePresenter presenter;
     Toolbar toolbar;
-    LinearLayout ln_layout_transparent, ln_layout_nav_item;
+    LinearLayout ln_layout_transparent, ln_layout_nav_item, ln_count;
     LinearLayoutAnimationSlideBottom ln_popup_item;
     BottomNavigationView nav_bottom_home;
     FrameLayout fr_home_overlay;
@@ -80,6 +78,11 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     private boolean item_health_selected = false;
     private boolean item_service_selected = false;
     private boolean item_news_for_me_selected = false;
+    private ImageView im_drawer_avatar, im_drawer_qr_code, im_drawer_background;
+    private TextView tv_drawer_fullname;
+    private String TAG = "Home Activity";
+    private int notificationId = R.id.nav_notify;
+    private int toProfile = 1, toNotification = 2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,19 +91,29 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         presenter = new HomePresenter(this);
 //        presenter.onGetUserNip();
         mContext = HomeActivity.this;
-        presenter.postFCMKey();
-        presenter.onGetShortUser();
-        presenter.onGetUserNip();
-        loginActivity = new LoginActivity();
         initView();
         initNavigation();
         initNavigationWidget();
         initBottomNavigation();
+        presenter.postFCMKey();
+        presenter.onGetShortUser();
+        presenter.onGetUserNip();
+        loginActivity = new LoginActivity();
         getData();
     }
 
     private void initNavigationWidget() {
-//        View view = navigationView.getHeaderView(0);
+        View view = navigationView.getHeaderView(0);
+        im_drawer_avatar = (ImageView) view.findViewById(R.id.im_avatar);
+        im_drawer_qr_code = (ImageView) view.findViewById(R.id.im_qr_code);
+        im_drawer_background = (ImageView) view.findViewById(R.id.im_background);
+        tv_drawer_fullname = (TextView) view.findViewById(R.id.tv_user_name);
+        im_drawer_avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pushData(toProfile);
+            }
+        });
     }
 
     public void initBottomNavigation() {
@@ -189,6 +202,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         ln_popup_item = (LinearLayoutAnimationSlideBottom) findViewById(R.id.ln_popup_item);
         ln_popup_item.setVisibility(View.GONE);
         ln_layout_transparent.setOnClickListener(this);
+
         btn_health = (Button) findViewById(R.id.btn_health);
         btn_health.setOnClickListener(this);
         btn_service = (Button) findViewById(R.id.btn_service);
@@ -197,7 +211,6 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         btn_news_for_location.setOnClickListener(this);
         fr_home_overlay = (FrameLayout) findViewById(R.id.fr_home_overlay);
         fr_home_overlay.setOnClickListener(this);
-
         drawer.setOnClickListener(this);
     }
 
@@ -263,8 +276,24 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
+//        toggle.setDrawerIndicatorEnabled(false);
         toggle.syncState();
+        toolbar.setNavigationIcon(R.drawable.ic_drwable_menu_icon);
+//        toolbar.setNavigationOnClickListener(this);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void setNotificationMenuCounter(int count) {
+        TextView view = (TextView) navigationView.getMenu().findItem(notificationId).getActionView().findViewById(R.id.nav_tv_count);
+        ln_count = (LinearLayout) navigationView.getMenu().findItem(notificationId).getActionView().findViewById(R.id.ln_count);
+        if (count > 0) {
+            ln_count.setBackgroundResource(R.drawable.notification_count_circle);
+            if (count < 100)
+                view.setText(String.valueOf(count));
+            else
+                view.setText("99+");
+        }
+//        view.setText(count > 0 ? String.valueOf(count) : null);
     }
 
     @Override
@@ -297,33 +326,23 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        mMenuItem = menu.findItem(R.id.action_user);
-        if (avatar != null) {
-//            setDrawableResource(userShort.getAvatar(), mMenuItem);
-        }
+//        mMenuItem = menu.findItem(R.id.action_user);
+//        if (avatar != null) {
+////            setDrawableResource(userShort.getAvatar(), mMenuItem);
+//        }
         return true;
     }
 
-    private void setImgUser2Toolbar(String avatar_url, final int notification_count) {
-        final ImageView imageView = new ImageView(this);
-        imageView.setVisibility(View.GONE);
-        Picasso.with(getApplicationContext())
-                .load(avatar_url)
-                .noPlaceholder()
-                .transform(new CircleTransform())
-                .error(R.mipmap.ic_launcher)
-                .into(imageView, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        mMenuItem.setIcon(imageView.getDrawable());
-                        imageView.destroyDrawingCache();
-                    }
-
-                    @Override
-                    public void onError() {
-                    }
-                });
-    }
+//    private void setImgUser2Toolbar(String avatar_url) {
+//        final ImageView imageView = new ImageView(this);
+//        imageView.setVisibility(View.GONE);
+//        Picasso.with(getApplicationContext())
+//                .load(avatar_url)
+//                .noPlaceholder()
+//                .transform(new CircleTransform())
+//                .error(R.mipmap.ic_launcher)
+//                .into(imageView);
+//    }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
@@ -334,10 +353,11 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_user) {
-            pushData();
-            return true;
-        } else if (id == R.id.action_qr) {
+//        if (id == R.id.action_user) {
+//            pushData();
+//            return true;
+//        } else
+        if (id == R.id.action_qr) {
             checkInQrBar();
         }
         return super.onOptionsItemSelected(item);
@@ -348,26 +368,26 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         startActivty(QrCheckIn.class);
     }
 
-    @SuppressLint("ObsoleteSdkInt")
-    private void onCreteBadgeItem(int paramsInt) {
-        if (Build.VERSION.SDK_INT <= 15) {
-            return;
-        }
-        LayerDrawable layerDrawable = (LayerDrawable) mMenuItem.getIcon();
-        Drawable userBadgeDrawable = layerDrawable.findDrawableByLayerId(R.id.action_user);
-        BadgeIcon badgeIcon;
-        if ((userBadgeDrawable != null)
-                && ((userBadgeDrawable instanceof BadgeIcon))
-                && (paramsInt < 0)) {
-            badgeIcon = (BadgeIcon) userBadgeDrawable;
-        } else {
-            badgeIcon = new BadgeIcon(this);
-        }
-        badgeIcon.setCount(paramsInt);
-        layerDrawable.mutate();
-        layerDrawable.setDrawableByLayerId(R.id.action_user, badgeIcon);
-        mMenuItem.setIcon(layerDrawable);
-    }
+//    @SuppressLint("ObsoleteSdkInt")
+//    private void onCreteBadgeItem(int paramsInt) {
+//        if (Build.VERSION.SDK_INT <= 15) {
+//            return;
+//        }
+//        LayerDrawable layerDrawable = (LayerDrawable) mMenuItem.getIcon();
+//        Drawable userBadgeDrawable = layerDrawable.findDrawableByLayerId(R.id.action_user);
+//        BadgeIcon badgeIcon;
+//        if ((userBadgeDrawable != null)
+//                && ((userBadgeDrawable instanceof BadgeIcon))
+//                && (paramsInt < 0)) {
+//            badgeIcon = (BadgeIcon) userBadgeDrawable;
+//        } else {
+//            badgeIcon = new BadgeIcon(this);
+//        }
+//        badgeIcon.setCount(paramsInt);
+//        layerDrawable.mutate();
+//        layerDrawable.setDrawableByLayerId(R.id.action_user, badgeIcon);
+//        mMenuItem.setIcon(layerDrawable);
+//    }
 
     private void replaceDefaultFragment() {
         replaceFragment(R.id.home_frame, new FragmentHomeNewsList(), "NEWS");
@@ -395,8 +415,18 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
             } else {
                 alertLogin();
             }
-        } else if (id == R.id.nav_help) {
-        } else if (id == R.id.nav_privacy) {
+        } else if (id == R.id.nav_notify) {
+            pushData(toNotification);
+        } else if (id == R.id.nav_news_history) {
+            disableItem();
+            nav_bottom_home.setVisibility(View.GONE);
+            replaceFragment(R.id.home_frame, new HistoryFragment(), "HISTORY");
+            renameToolbar(R.string.nav_history);
+        } else if (id == R.id.nav_news_favorite) {
+            disableItem();
+            nav_bottom_home.setVisibility(View.GONE);
+            replaceFragment(R.id.home_frame, new FavoriteFragment(), "FAVORITE");
+            renameToolbar(R.string.nav_favorite);
         } else if (id == R.id.nav_faq) {
         } else if (id == R.id.nav_about) {
         } else if (id == R.id.nav_exit) {
@@ -440,7 +470,8 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         avatar = userShort.getAvatar();
         Log.e("Avatar Home", avatar);
 //            setDrawableResource(userShort.getAvatar(), mMenuItem);
-        setImgUser2Toolbar(avatar, notifications);
+//        setImgUser2Toolbar(avatar);
+        setNotificationMenuCounter(notifications);
 //        if (notifications != 0) {
 ////            onCreteBadgeItem(notifications);
 ////            ShortcutBadger.applyCount(getBaseContext(), notifications);
@@ -449,10 +480,34 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
 //        }
     }
 
+    @Override
+    public void getSuccessUser(String avatar, final String qr_code, String fullname) {
+        Log.e(TAG, "name: " + fullname + ", Avatar: " + avatar + ", Qr: " + qr_code);
+        WidgetHelper.getInstance().setAvatarImageURL(im_drawer_avatar, avatar);
+        WidgetHelper.getInstance().setAvatarImageURL(im_drawer_background, avatar);
+        WidgetHelper.setContent2TextView(fullname, tv_drawer_fullname);
+        final String qr_code_uer = qr_code;
+        im_drawer_qr_code.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.showQrCode(qr_code_uer);
+            }
+        });
+    }
+
 
     @Override
     public void onNetworkDisable() {
         WidgetHelper.getInstance().showAlertNetwork(this);
+    }
+
+    @Override
+    public void onShowQrCode(String url) {
+        if (NetWorkInfo.isOnline(this)) {
+            showQrCode(url);
+        } else {
+            showShortToast(getString(R.string.no_connection));
+        }
     }
 
     @Override
@@ -493,11 +548,20 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
         }
     }
 
-    private void pushData() {
+    private void pushData(int type) {
         if (session != null) {
-            disableItem();
-            Intent intent = new Intent(this, ProfileActivity.class);
-            startActivity(intent);
+            if (type == 1) {
+                disableItem();
+                drawer.closeDrawer(GravityCompat.START);
+                Intent intent = new Intent(this, ProfileActivity.class);
+                startActivity(intent);
+            } else if (type == 2) {
+                disableItem();
+                drawer.closeDrawer(GravityCompat.START);
+                nav_bottom_home.setVisibility(View.GONE);
+                replaceFragment(R.id.home_frame, new NotifyFragment(), "NOTIFY");
+                renameToolbar(R.string.action_notify);
+            }
         } else {
             alertLogin();
         }
@@ -533,6 +597,7 @@ public class HomeActivity extends BasicActivity implements NavigationView.OnNavi
     @Override
     protected void onResume() {
         presenter.onGetShortUser();
+        presenter.onGetUserNip();
         if (notifications != 0) {
 //            onCreteBadgeItem(notifications);
             ShortcutBadger.applyCount(getBaseContext(), notifications);

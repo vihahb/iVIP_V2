@@ -1,4 +1,4 @@
-package com.xtel.ivipu.view.activity;
+package com.xtel.ivipu.view.fragment;
 
 import android.app.Dialog;
 import android.os.Handler;
@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 
 import com.squareup.picasso.Picasso;
 import com.xtel.ivipu.R;
-import com.xtel.ivipu.view.fragment.BasicFragment;
 
 /**
  * Created by vivhp on 2/7/2017.

@@ -36,8 +36,6 @@ public class HomePresenter {
     }
 
     public void postFCMKey() {
-
-
         if (session != null) {
             Log.e("session ", session);
             String url_fcm_key = Constants.SERVER_IVIP + Constants.REG_FCM_KEY;
@@ -134,6 +132,7 @@ public class HomePresenter {
                                 obj.getLevel(),
                                 obj.getJoin_date()
                         );
+                        view.getSuccessUser(obj.getAvatar(), obj.getQr_code(), obj.getFullname());
                     }
 
                     @Override
@@ -254,5 +253,11 @@ public class HomePresenter {
         SharedPreferencesUtils.getInstance().putStringValue(Constants.PROFILE_LEVEL, level);
         SharedPreferencesUtils.getInstance().putLongValue(Constants.PROFILE_JOINT_DATE, joint_date);
         Log.e(TAG + " share", full_name);
+    }
+
+    public void showQrCode(String url_qr) {
+        if (url_qr != null) {
+            view.onShowQrCode(url_qr);
+        }
     }
 }

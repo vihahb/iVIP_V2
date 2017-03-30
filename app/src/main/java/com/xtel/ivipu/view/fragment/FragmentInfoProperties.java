@@ -28,7 +28,6 @@ import com.xtel.ivipu.model.RESP.RESP_Voucher;
 import com.xtel.ivipu.model.entity.NewsObj;
 import com.xtel.ivipu.model.entity.VoucherObj;
 import com.xtel.ivipu.presenter.ActivityInfoPropertiesPresenter;
-import com.xtel.ivipu.view.activity.IFragment;
 import com.xtel.ivipu.view.activity.ListCommentActivity;
 import com.xtel.ivipu.view.activity.inf.IActivityInfo;
 import com.xtel.ivipu.view.widget.AppBarStateChangeListener;

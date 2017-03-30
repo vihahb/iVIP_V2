@@ -20,7 +20,11 @@ public interface IHome {
 
     void getShortUser(RESP_Short userShort);
 
+    void getSuccessUser(String avatar, String qr_code, String fullname);
+
     void onNetworkDisable();
+
+    void onShowQrCode(String url);
 
     Activity getActivity();
 }

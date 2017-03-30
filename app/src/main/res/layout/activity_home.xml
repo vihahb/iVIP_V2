@@ -28,18 +28,18 @@
             android:layout_alignRight="@+id/nav_view"
             android:layout_alignStart="@+id/nav_view"
             android:alpha="0.8"
-            android:background="@color/color_accent_picker"/>
+            android:background="@android:color/white" />
 
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:paddingBottom="@dimen/size_28"
-            app:itemBackground="@android:color/transparent"
-            app:itemIconTint="@android:color/white"
-
-            app:itemTextColor="@android:color/white"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/nav_header_main"
+            app:itemBackground="@drawable/item_selected"
+            app:itemIconTint="@color/text_style"
+            app:itemTextColor="@color/text_style"
             app:menu="@menu/activity_home_drawer" />
     </RelativeLayout>
 </android.support.v4.widget.DrawerLayout>

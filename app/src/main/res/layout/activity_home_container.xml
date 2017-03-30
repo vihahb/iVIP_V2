@@ -4,20 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bgr_app"
+    android:background="@color/colorPrimary"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="com.xtel.ivipu.view.activity.HomeActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:alpha="0.5"
-            android:background="@color/color_toolbar" />
+            android:background="@color/colorPrimary" />
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -56,6 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="#B7B7B7"
             android:orientation="vertical">
 
             <FrameLayout
@@ -74,12 +76,12 @@
                     android:layout_weight="1" />
 
                 <FrameLayout
-                    android:visibility="invisible"
                     android:id="@+id/fr_home_overlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:alpha="0.7"
                     android:background="@android:color/black"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:visibility="invisible" />
 
                 <com.xtel.ivipu.view.widget.LinearLayoutAnimationSlideBottom
                     android:id="@+id/ln_popup_item"
@@ -89,13 +91,13 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:visibility="invisible"
-                        android:alpha="0.6"
                         android:id="@+id/ln_layout_transparent"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:orientation="vertical"/>
+                        android:alpha="0.6"
+                        android:orientation="vertical"
+                        android:visibility="invisible" />
 
                     <LinearLayout
                         android:id="@+id/ln_layout_nav_item"
@@ -235,7 +237,7 @@
                 android:layout_height="@dimen/size_56"
                 android:layout_alignParentBottom="true"
                 android:theme="@style/AppTheme.AppBarOverlay"
-                app:itemBackground="@android:color/transparent"
+                app:itemBackground="@color/colorPrimary"
                 app:itemIconTint="@android:color/white"
                 app:itemTextColor="@android:color/white"
                 app:menu="@menu/bottom_nav_home"/>

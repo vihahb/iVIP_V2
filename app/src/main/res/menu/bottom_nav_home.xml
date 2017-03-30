@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <item
         android:id="@+id/nav_news"
         android:icon="@mipmap/ic_news_list"
         android:showAsAction="always"
-        android:title="@string/nav_new_list"/>
+        android:title="@string/nav_new_list"
+        tools:ignore="AppCompatResource" />
 
     <item
         android:id="@+id/nav_fashion"
-        android:icon="@mipmap/ic_fashion"
+        android:icon="@mipmap/ic_tab_clother"
         android:showAsAction="always"
-        android:title="@string/nav_fashion"/>
+        android:title="@string/nav_fashion"
+        tools:ignore="AppCompatResource" />
 
     <item
         android:id="@+id/nav_food"
         android:icon="@mipmap/ic_food"
         android:showAsAction="always"
-        android:title="@string/nav_food"/>
+        android:title="@string/nav_food"
+        tools:ignore="AppCompatResource" />
 
     <item
         android:id="@+id/nav_technology"
-        android:icon="@mipmap/ic_technology"
+        android:icon="@mipmap/ic_tab_tech"
         android:showAsAction="always"
-        android:title="@string/nav_technology"/>
+        android:title="@string/nav_technology"
+        tools:ignore="AppCompatResource" />
 
     <item
         android:id="@+id/nav_list_item"
-        android:icon="@mipmap/ic_list_tab"
+        android:icon="@mipmap/ic_tab_more"
         android:showAsAction="always"
-        android:title="@string/nav_other"/>
+        android:title="@string/nav_other"
+        tools:ignore="AppCompatResource" />
 </menu>
