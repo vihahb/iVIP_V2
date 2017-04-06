@@ -24,7 +24,7 @@ import com.xtel.sdk.commons.NetWorkInfo;
 public class FragmentFoodPresenter {
 
     private IFragmentFoodView view;
-
+    private String TAG = "Food Pre";
     public FragmentFoodPresenter(IFragmentFoodView view) {
         this.view = view;
     }
@@ -51,22 +51,27 @@ public class FragmentFoodPresenter {
                 @Override
                 public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
                     int code = error.getCode();
-                    if (code == 2) {
-                        CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
-                            @Override
-                            public void onSuccess(RESP_Login success) {
-                                getFood(type, page, pagesize);
-                            }
+                    if (String.valueOf(code) != null) {
+                        if (code == 2) {
+                            CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                                @Override
+                                public void onSuccess(RESP_Login success) {
+                                    getFood(type, page, pagesize);
+                                }
 
-                            @Override
-                            public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
-                                view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-                                view.startActivityAndFinish(LoginGroupActivity.class);
-                            }
-                        });
+                                @Override
+                                public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+                                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                    view.startActivityAndFinish(LoginGroupActivity.class);
+                                }
+                            });
+                        } else {
+                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
+                            Log.e("Code err shop", String.valueOf(code));
+                        }
                     } else {
-                        view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
-                        Log.e("Code err shop", String.valueOf(code));
+                        Log.e(TAG, "Err " + JsonHelper.toJson(error));
+                        view.showShortToast("Co loi");
                     }
                 }
             });

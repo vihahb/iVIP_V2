@@ -23,7 +23,7 @@ public class RESP_NewsObject extends RESP_Basic {
     @Expose
     private int comment;
     @Expose
-    private int rate;
+    private double rate;
     @Expose
     private int view;
     @Expose
@@ -95,7 +95,7 @@ public class RESP_NewsObject extends RESP_Basic {
         this.comment = comment;
     }
 
-    public int getRate() {
+    public double getRate() {
         return rate;
     }
 

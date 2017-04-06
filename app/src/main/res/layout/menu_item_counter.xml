@@ -5,8 +5,8 @@
 
     <LinearLayout
         android:id="@+id/ln_count"
-        android:layout_width="@dimen/size_32"
-        android:layout_height="@dimen/size_30"
+        android:layout_width="@dimen/size_24"
+        android:layout_height="@dimen/size_24"
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical|clip_horizontal">
 

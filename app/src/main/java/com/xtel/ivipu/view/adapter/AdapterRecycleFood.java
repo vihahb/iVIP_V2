@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -17,7 +16,6 @@ import com.xtel.ivipu.view.fragment.inf.IFragmentFoodView;
 import com.xtel.ivipu.view.widget.WidgetHelper;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by vivhp on 1/23/2017.
@@ -25,31 +23,20 @@ import java.util.Random;
 
 public class AdapterRecycleFood extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    Random random = new Random();
     private ArrayList<RESP_NewEntity> arrayList;
     private IFragmentFoodView fragmentFoodView;
-    private ArrayList<Integer> background_alpha_item;
     private boolean isLoadMore = true;
     private int TYPE_VIEW = 1, TYPE_LOAD = 2;
 
     public AdapterRecycleFood(ArrayList<RESP_NewEntity> arrayList, IFragmentFoodView fragmentFoodView) {
         this.arrayList = arrayList;
         this.fragmentFoodView = fragmentFoodView;
-        background_alpha_item = new ArrayList<>();
-        background_alpha_item.add(R.drawable.item_background_1);
-        background_alpha_item.add(R.drawable.item_background_2);
-        background_alpha_item.add(R.drawable.item_background_3);
-        background_alpha_item.add(R.drawable.item_background_4);
-        background_alpha_item.add(R.drawable.item_background_5);
-        background_alpha_item.add(R.drawable.item_background_6);
-        background_alpha_item.add(R.drawable.item_background_7);
-        background_alpha_item.add(R.drawable.item_background_8);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_VIEW) {
-            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item_food, parent, false));
+            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.v2_item_rcl_news_home, parent, false));
         } else if (viewType == TYPE_LOAD) {
             return new ViewProgressBar(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_progress_bar, parent, false));
         }
@@ -68,21 +55,19 @@ public class AdapterRecycleFood extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         if (holder instanceof ViewHolder) {
             ViewHolder viewHolder = (ViewHolder) holder;
-            if (arrayList.get(position).getBg_position() == 0) {
-                arrayList.get(position).setBg_position(background_alpha_item.get(random.nextInt(background_alpha_item.size())));
-            }
-
             final RESP_NewEntity newsEntity = arrayList.get(position);
             Log.e("Arr adapter", arrayList.toString());
 
-            WidgetHelper.getInstance().setAvatarImageURL(viewHolder.img_view, newsEntity.getLogo());
-            WidgetHelper.getInstance().setAvatarImageURL(viewHolder.img_banner_shop, newsEntity.getBanner());
-            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_Name, newsEntity.getTitle());
-            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_View, String.valueOf(newsEntity.getView()));
-            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_Like, String.valueOf(newsEntity.getLike()));
-            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_comment, String.valueOf(newsEntity.getComment()));
-            WidgetHelper.getInstance().setTextViewDate(viewHolder.tv_date_time, "", newsEntity.getCreate_time());
-            WidgetHelper.getInstance().setViewBackground(viewHolder.fr_canvas, newsEntity.getBg_position());
+            WidgetHelper.getInstance().setAvatarImageURL(viewHolder.im_news_store, newsEntity.getLogo());
+            WidgetHelper.getInstance().setAvatarImageURL(viewHolder.im_news_banner, newsEntity.getBanner());
+            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.tv_news_title, newsEntity.getTitle());
+            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.tv_news_store_name, newsEntity.getStore_name());
+            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.tv_news_view, String.valueOf(newsEntity.getView()));
+            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.tv_news_like, String.valueOf(newsEntity.getLike()));
+            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.tv_news_comment, String.valueOf(newsEntity.getComment()));
+            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.tv_news_rates, String.valueOf(newsEntity.getRate()));
+            WidgetHelper.getInstance().comparingTime(viewHolder.tv_create_time, newsEntity.getCreate_time());
+            viewHolder.tv_news_store_name.setSelected(true);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -120,20 +105,22 @@ public class AdapterRecycleFood extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView img_view, img_banner_shop;
-        private TextView txt_Name, txt_View, txt_Like, txt_comment, tv_date_time;
-        private FrameLayout fr_canvas;
+        private final TextView tv_create_time;
+        private ImageView im_news_store, im_news_banner;
+        private TextView tv_news_title, tv_news_store_name, tv_news_rates, tv_news_view, tv_news_like, tv_news_comment;
 
         ViewHolder(View itemView) {
             super(itemView);
-            img_view = (ImageView) itemView.findViewById(R.id.img_view);
-            img_banner_shop = (ImageView) itemView.findViewById(R.id.img_banner_shop);
-            txt_Name = (TextView) itemView.findViewById(R.id.tv_shop_name);
-            txt_View = (TextView) itemView.findViewById(R.id.tv_shop_view);
-            txt_Like = (TextView) itemView.findViewById(R.id.tv_shop_like);
-            tv_date_time = (TextView) itemView.findViewById(R.id.tv_date_time);
-            txt_comment = (TextView) itemView.findViewById(R.id.tv_shop_comment);
-            fr_canvas = (FrameLayout) itemView.findViewById(R.id.color_canvas);
+            im_news_store = (ImageView) itemView.findViewById(R.id.im_news_store);
+            im_news_banner = (ImageView) itemView.findViewById(R.id.im_news_banner);
+            tv_news_title = (TextView) itemView.findViewById(R.id.tv_news_title);
+            tv_news_store_name = (TextView) itemView.findViewById(R.id.tv_news_store_name);
+//            txt_time = (TextView) itemView.findViewById(R.id.tv_history_time);
+            tv_news_view = (TextView) itemView.findViewById(R.id.tv_news_view);
+            tv_news_like = (TextView) itemView.findViewById(R.id.tv_news_like);
+            tv_news_comment = (TextView) itemView.findViewById(R.id.tv_news_comment);
+            tv_news_rates = (TextView) itemView.findViewById(R.id.tv_news_rates);
+            tv_create_time = (TextView) itemView.findViewById(R.id.tv_create_time);
         }
     }
 

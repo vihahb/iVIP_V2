@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/size_8">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/size_6">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_his_trans_type"
+                android:layout_width="@dimen/size_32"
+                android:layout_height="@dimen/size_32"
+                android:layout_marginLeft="@dimen/size_16"
+                android:src="@mipmap/icon_01" />
+
+            <TextView
+                android:id="@+id/tv_action_des"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/size_8"
+                android:paddingRight="@dimen/size_16"
+                android:text="Tiêu 10000 đồng tích lũy 10 điểm tại cửa hàng Hà nội computer 115 Thái hà"
+                android:textColor="@color/text_style"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_action_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingLeft="@dimen/size_8"
+            android:paddingRight="@dimen/size_16"
+            android:text="1 phút trước"
+            android:textColor="@color/colorAccent"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/text_style" />
+</LinearLayout>

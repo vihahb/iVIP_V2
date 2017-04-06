@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/size_8">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/size_10"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:gravity="top"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/size_4">
+
+            <ImageView
+                android:id="@+id/im_notification_type"
+                android:layout_width="@dimen/size_32"
+                android:layout_height="@dimen/size_32"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_tech" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/size_6">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_20">
+
+                <TextView
+                    android:id="@+id/tv_notification_store_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="Hanoi Computer"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_notification_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2 phút trước"
+                android:textColor="@color/text_style"
+                android:textSize="13sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/tv_notification_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_2"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Chào hè 2017 Hanoi computer giảm giá 30% các sản phẩm phụ liện cho game thủ."
+                android:textColor="@color/text_style"
+                android:textSize="@dimen/font_15" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/im_notification_status"
+                android:layout_width="@dimen/size_10"
+                android:layout_height="@dimen/size_10"
+                android:layout_marginTop="@dimen/size_4"
+                android:src="@mipmap/ic_notification_new"
+                android:visibility="visible" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/divider_news_item_v2" />
+</LinearLayout>

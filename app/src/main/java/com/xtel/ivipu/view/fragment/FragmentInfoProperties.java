@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -48,7 +47,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
     private static final String TAG = "Info Properties";
     ActivityInfoPropertiesPresenter presenter;
     private RESP_NewEntity newEntity;
-    private TextView txt_info_shop_name, txt_info_shop_view, txt_info_shop_like, txt_info_shop_rate, tv_info_shop_title;
+    private TextView txt_info_shop_name, txt_info_shop_view, txt_info_shop_like, txt_info_shop_rate, tv_info_shop_title, tv_info_shop_view_comment;
     private TextView tv_qr_reward, tv_set_expand, tv_status, tv_Expand, tv_rate_time, tv_voucher_cocde, tv_voucher_expired_time, tv_temp_text;
     private RoundImage img_brand, img_avatar, img_avatar_background;
     private ImageView img_qr_code, img_bar_code, img_content_banner;
@@ -58,17 +57,16 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
     private AppBarLayout appBarLayout;
     private String qr_code_voucher, barcode_voucher;
     private NewsObj newsObject;
-    private ImageButton img_button_expand;
     private String avatar_user;
     private int REQUEST_COMMENT = 101;
     private RatingBar ratingBar;
     private ExpandableTextView expandableTextView;
-    private double rated;
+    private float rated;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_info_properties, container, false);
+        return inflater.inflate(R.layout.v2_fragment_info_properties, container, false);
     }
 
     @Override
@@ -80,11 +78,12 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
 
 
     private void initView(View view) {
-        appBarLayout = (AppBarLayout) view.findViewById(R.id.app_bar);
+//        appBarLayout = (AppBarLayout) view.findViewById(R.id.app_bar);
 
         txt_info_shop_name = (TextView) view.findViewById(R.id.tv_info_shop_name);
         txt_info_shop_view = (TextView) view.findViewById(R.id.tv_info_shop_view);
         txt_info_shop_like = (TextView) view.findViewById(R.id.tv_info_shop_like);
+        tv_info_shop_view_comment = (TextView) view.findViewById(R.id.tv_info_shop_view_comment);
 //        txt_info_shop_comment = (TextView) view.findViewById(R.id.tv_info_shop_comment);
         txt_info_shop_rate = (TextView) view.findViewById(R.id.tv_info_shop_rate);
         tv_qr_reward = (TextView) view.findViewById(R.id.tv_qr_reward);
@@ -104,7 +103,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
         img_bar_code = (ImageView) view.findViewById(R.id.img_bar_code);
         img_bar_code.setOnClickListener(this);
         img_avatar = (RoundImage) view.findViewById(R.id.user_avatar_rate);
-        img_avatar_background = (RoundImage) view.findViewById(R.id.store_info_background);
+//        img_avatar_background = (RoundImage) view.findViewById(R.id.store_info_background);
         img_like = (ImageView) view.findViewById(R.id.img_action_like);
         img_like.setOnClickListener(this);
         img_comment = (ImageView) view.findViewById(R.id.img_action_comment);
@@ -124,7 +123,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
 
         initRatingBar();
         initUnderLine();
-        initAppBar();
+//        initAppBar();
         getDataFromFragmentShop();
         setExpandTextView();
 //        setExpandTextView();
@@ -161,13 +160,13 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
             @Override
             public void onStateEXPANDED() {
                 img_brand.setVisibility(View.VISIBLE);
-                img_avatar_background.setVisibility(View.VISIBLE);
+//                img_avatar_background.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onStateIDLE() {
                 img_brand.setVisibility(View.GONE);
-                img_avatar_background.setVisibility(View.GONE);
+//                img_avatar_background.setVisibility(View.GONE);
             }
         });
     }
@@ -246,7 +245,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
         double current_rate = newsObj.getCurrent_rate();
         Log.e("Curent rate value", String.valueOf(current_rate));
 
-        if (String.valueOf(current_rate) != "0.0") {
+        if (current_rate != 0.0) {
 
             /** Rate Time **/
             long rate_time = newsObj.getRate_time();
@@ -267,7 +266,8 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
         WidgetHelper.getInstance().setTextViewNoResult(txt_info_shop_view, shopView);
         WidgetHelper.getInstance().setTextViewNoResult(txt_info_shop_like, shopLike);
         WidgetHelper.getInstance().setTextViewNoResult(txt_info_shop_rate, shopRate);
-        WidgetHelper.getInstance().setTextViewNoResult(tv_temp_text, shopDescription);
+        WidgetHelper.getInstance().setTextViewNoResult(tv_info_shop_view_comment, shopComment);
+        WidgetHelper.getInstance().setTextViewFromHtmlWithImage(tv_temp_text, shopDescription);
         WidgetHelper.getInstance().setTextViewNoResult(tv_info_shop_title, shopTitle);
 
         String banner = newsObj.getBanner();
@@ -275,7 +275,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
         if (favorite_check != 0) {
             WidgetHelper.getInstance().setImageResource(img_like, R.mipmap.ic_action_liked);
         } else {
-            WidgetHelper.getInstance().setImageResource(img_like, R.mipmap.ic_action_not_like);
+            WidgetHelper.getInstance().setImageResource(img_like, R.mipmap.icon_favore_cycle);
         }
 
         if (sales != 0) {
@@ -316,7 +316,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
         WidgetHelper.getInstance().setAvatarImageURL(img_qr_code, qr_code_voucher);
         WidgetHelper.getInstance().setAvatarImageURL(img_bar_code, barcode_voucher);
         WidgetHelper.getInstance().setTextViewNoResult(tv_voucher_cocde, code);
-        WidgetHelper.getInstance().setTextViewDate(tv_voucher_expired_time, "", expired_time);
+        WidgetHelper.getInstance().setTextViewDateWithHour(tv_voucher_expired_time, "Hạn sử dụng: ", expired_time);
     }
 
     @Override
@@ -342,7 +342,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
 
     private void ratingAction() {
         float rating_value = ratingBar.getRating();
-        rated = Double.parseDouble(String.valueOf(rating_value));
+        rated = rating_value;
         Log.e("Rating value", String.valueOf(rated));
         checkNetWork(2);
     }
@@ -412,15 +412,14 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
 
     @Override
     public void onRateSuccess() {
-        int rated_set = Integer.parseInt(String.valueOf(rated));
-        int val = Math.round(rated_set);
-        Log.e("Value rate set", String.valueOf(val));
-        ratingBar.setEnabled(false);
-        ratingBar.setRating(rated_set);
-        ratingBar.setNumStars(val);
-//        tv_status.setText("Đã đánh giá");
-        WidgetHelper.getInstance().setTextViewNoResult(tv_status, "", "Đã đánh giá");
-        btn_rating.setVisibility(View.GONE);
+//        int val = Math.round(rated);
+//        Log.e("Value rate set", String.valueOf(val));
+//        ratingBar.setEnabled(false);
+//        ratingBar.setRating(rated);
+////        tv_status.setText("Đã đánh giá");
+//        WidgetHelper.getInstance().setTextViewNoResult(tv_status, "Đã đánh giá");
+//        btn_rating.setVisibility(View.GONE);
+        checkNetWork(1);
     }
 
     private void fillData(RESP_NewsObject resp_newsObject) {
@@ -485,5 +484,11 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
     @Override
     public void startActivityAndFinish(Class clazz) {
         super.startActivityAndFinish(clazz);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkNetWork(1);
     }
 }

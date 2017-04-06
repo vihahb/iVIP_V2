@@ -4,7 +4,7 @@
 
 
     <group
-        android:id="@+id/grp0"
+        android:id="@+id/gr_1"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
@@ -21,7 +21,7 @@
     </group>
 
     <group
-        android:id="@+id/grp1"
+        android:id="@+id/gr_2"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_notify"
@@ -30,7 +30,7 @@
             app:actionLayout="@layout/menu_item_counter" />
 
         <item
-            android:id="@+id/nav_voucher"
+            android:id="@+id/nav_voucher_user"
             android:icon="@mipmap/ic_menu_voucher"
             android:title="Thẻ giảm giá" />
 
@@ -46,7 +46,7 @@
     </group>
 
     <group
-        android:id="@+id/grp4"
+        android:id="@+id/gr_3"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_faq"

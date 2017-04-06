@@ -23,6 +23,7 @@ import com.xtel.sdk.commons.NetWorkInfo;
 public class FragmentNewsListPresenter {
 
     private IFragmentNewsListView view;
+    private String TAG = "NewsList Pre";
     public FragmentNewsListPresenter(IFragmentNewsListView view) {
         this.view = view;
     }
@@ -49,22 +50,27 @@ public class FragmentNewsListPresenter {
                 @Override
                 public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
                     int code = error.getCode();
-                    if (code == 2) {
-                        CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
-                            @Override
-                            public void onSuccess(RESP_Login success) {
-                                getNewsList(type, page, pagesize);
-                            }
+                    if (String.valueOf(code) != null) {
+                        if (code == 2) {
+                            CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                                @Override
+                                public void onSuccess(RESP_Login success) {
+                                    getNewsList(type, page, pagesize);
+                                }
 
-                            @Override
-                            public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
-                                view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-                                view.startActivityAndFinish(LoginActivity.class);
-                            }
-                        });
+                                @Override
+                                public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+                                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                    view.startActivityAndFinish(LoginActivity.class);
+                                }
+                            });
+                        } else {
+                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
+                            Log.e("Code err shop", String.valueOf(code));
+                        }
                     } else {
-                        view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
-                        Log.e("Code err shop", String.valueOf(code));
+                        Log.e(TAG, "Err " + JsonHelper.toJson(error));
+                        view.showShortToast("Co loi");
                     }
                 }
             });

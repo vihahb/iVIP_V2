@@ -1,10 +1,8 @@
 package com.xtel.sdk.utils;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 
-import com.xtel.ivipu.R;
 import com.xtel.sdk.dialog.BadgetItemCount;
 
 /**
@@ -17,16 +15,16 @@ public class BadgeUtils {
         BadgetItemCount badgetItemCount;
 
         //Reuse drawable if possible
-        Drawable reuse = icon.findDrawableByLayerId(R.id.ic_badge);
-        if (reuse != null && reuse instanceof BadgetItemCount) {
-            badgetItemCount = (BadgetItemCount) reuse;
-        } else {
-            badgetItemCount = new BadgetItemCount(context);
-        }
-
-        badgetItemCount.setCount(count);
-        icon.mutate();
-        icon.setDrawableByLayerId(R.id.ic_badge, badgetItemCount);
+//        Drawable reuse = icon.findDrawableByLayerId(R.id.ic_badge);
+//        if (reuse != null && reuse instanceof BadgetItemCount) {
+//            badgetItemCount = (BadgetItemCount) reuse;
+//        } else {
+//            badgetItemCount = new BadgetItemCount(context);
+//        }
+//
+//        badgetItemCount.setCount(count);
+//        icon.mutate();
+//        icon.setDrawableByLayerId(R.id.ic_badge, badgetItemCount);
     }
 
 }

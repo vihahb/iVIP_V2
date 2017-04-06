@@ -2,6 +2,7 @@ package com.xtel.ivipu.view.adapter;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,31 +26,21 @@ import java.util.Random;
 public class AdapterNotify extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Random random = new Random();
+    private String TAG = "AdapNotify";
     private ArrayList<RESP_NewEntity> arrayList;
     private IFragmentNotify view;
-    private ArrayList<Integer> background_alpha_item;
     private boolean isLoadMore = true;
     private int TYPE_VIEW = 1, TYPE_LOAD = 2;
 
     public AdapterNotify(ArrayList<RESP_NewEntity> arrayList, IFragmentNotify view) {
         this.arrayList = arrayList;
         this.view = view;
-        background_alpha_item = new ArrayList<>();
-        background_alpha_item.add(R.drawable.item_list_notify_1);
-        background_alpha_item.add(R.drawable.item_list_notify_2);
-        background_alpha_item.add(R.drawable.item_list_notify_3);
-        background_alpha_item.add(R.drawable.item_list_notify_4);
-        background_alpha_item.add(R.drawable.item_list_notify_5);
-        background_alpha_item.add(R.drawable.item_list_notify_6);
-        background_alpha_item.add(R.drawable.item_list_notify_7);
-        background_alpha_item.add(R.drawable.item_list_notify_8);
-        background_alpha_item.add(R.drawable.item_list_notify_9);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_VIEW) {
-            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rcl_notify, parent, false));
+            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.v2_item_notification, parent, false));
         } else if (viewType == TYPE_LOAD) {
             return new ViewProgressBar(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_progress_bar, parent, false));
         }
@@ -64,19 +55,35 @@ public class AdapterNotify extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         if (holder instanceof ViewHolder) {
             ViewHolder viewHolder = (ViewHolder) holder;
-            if (arrayList.get(position).getBg_position() == 0) {
-                arrayList.get(position).setBg_position(background_alpha_item.get(random.nextInt(background_alpha_item.size())));
-            }
 
             final RESP_NewEntity newsEntity = arrayList.get(position);
             Log.e("Arr adapter", arrayList.toString());
 
-            WidgetHelper.getInstance().setAvatarImageURL(viewHolder.img_avatar, newsEntity.getLogo());
-            WidgetHelper.getInstance().setAvatarImageURL(viewHolder.img_banner_shop, newsEntity.getBanner());
-            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_title, newsEntity.getTitle());
-            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_store, newsEntity.getStore_name());
-            WidgetHelper.getInstance().setViewBackground(viewHolder.fr_canvas, newsEntity.getBg_position());
+            String string_result = "<font color=\"#4CAD50\"><b>Bạn</font></p> nhận được thông báo từ <b>" + newsEntity.getStore_name() + "</b>";
+//            Spanned spanned = Html.fromHtml(string_result, Html.FROM_HTML_OPTION_USE_CSS_COLORS);
+            Log.e(TAG, string_result);
+            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.tv_notification_title, newsEntity.getTitle());
+//            WidgetHelper.getInstance().setTextViewFromHtml(viewHolder.tv_notification_store_name, string_result);
+//            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.tv_notification_time, newsEntity.getCreate_time());
+            viewHolder.tv_notification_store_name.setText(Html.fromHtml(string_result), TextView.BufferType.SPANNABLE);
 
+            if (newsEntity.getType() == 2) {
+                WidgetHelper.getInstance().setImageResource(viewHolder.im_notification_type, R.mipmap.ic_fashions);
+            } else if (newsEntity.getType() == 3) {
+                WidgetHelper.getInstance().setImageResource(viewHolder.im_notification_type, R.mipmap.ic_notify_food);
+            } else if (newsEntity.getType() == 4) {
+                WidgetHelper.getInstance().setImageResource(viewHolder.im_notification_type, R.mipmap.ic_tech);
+            } else if (newsEntity.getType() == 5) {
+                WidgetHelper.getInstance().setImageResource(viewHolder.im_notification_type, R.mipmap.ic_heart);
+            } else if (newsEntity.getType() == 6) {
+                WidgetHelper.getInstance().setImageResource(viewHolder.im_notification_type, R.mipmap.ic_other_service);
+            } else {
+                WidgetHelper.getInstance().setImageResource(viewHolder.im_notification_type, R.mipmap.ic_other_service);
+            }
+            WidgetHelper.getInstance().comparingTime(viewHolder.tv_notification_time, newsEntity.getCreate_time());
+            if (newsEntity.getSeen() == 1) {
+                viewHolder.im_notification_status.setVisibility(View.GONE);
+            }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -117,17 +124,16 @@ public class AdapterNotify extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView img_avatar, img_banner_shop;
-        private TextView txt_title, txt_store;
-        private View fr_canvas;
+        private ImageView im_notification_type, im_notification_status;
+        private TextView tv_notification_store_name, tv_notification_time, tv_notification_title;
 
         ViewHolder(View itemView) {
             super(itemView);
-            img_avatar = (ImageView) itemView.findViewById(R.id.item_notify_img_avatar);
-            img_banner_shop = (ImageView) itemView.findViewById(R.id.item_notify_img_banner);
-            txt_title = (TextView) itemView.findViewById(R.id.item_notify_txt_title);
-            txt_store = (TextView) itemView.findViewById(R.id.item_notify_txt_store_name);
-            fr_canvas = (View) itemView.findViewById(R.id.item_notify_img_background);
+            im_notification_type = (ImageView) itemView.findViewById(R.id.im_notification_type);
+            im_notification_status = (ImageView) itemView.findViewById(R.id.im_notification_status);
+            tv_notification_store_name = (TextView) itemView.findViewById(R.id.tv_notification_store_name);
+            tv_notification_time = (TextView) itemView.findViewById(R.id.tv_notification_time);
+            tv_notification_title = (TextView) itemView.findViewById(R.id.tv_notification_title);
         }
     }
 

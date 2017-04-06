@@ -23,7 +23,7 @@ public class RESP_NewEntity implements Serializable {
     @Expose
     private int comment;
     @Expose
-    private int rate;
+    private double rate;
     @Expose
     private int view;
     @Expose
@@ -34,6 +34,8 @@ public class RESP_NewEntity implements Serializable {
     private int bg_position;
     @Expose
     private String title;
+    @Expose
+    private int type;
 
     public int getId() {
         return id;
@@ -83,7 +85,7 @@ public class RESP_NewEntity implements Serializable {
         this.comment = comment;
     }
 
-    public int getRate() {
+    public double getRate() {
         return rate;
     }
 
@@ -131,6 +133,14 @@ public class RESP_NewEntity implements Serializable {
         this.title = title;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "RESP_NewEntity{" +
@@ -146,6 +156,7 @@ public class RESP_NewEntity implements Serializable {
                 ", seen=" + seen +
                 ", bg_position=" + bg_position +
                 ", title='" + title + '\'' +
+                ", type=" + type +
                 '}';
     }
 }

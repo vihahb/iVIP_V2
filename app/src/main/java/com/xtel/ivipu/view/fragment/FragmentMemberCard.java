@@ -1,25 +1,28 @@
 package com.xtel.ivipu.view.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.entity.MemberObj;
 import com.xtel.ivipu.presenter.FragmentNavMemberCardPresenter;
-import com.xtel.ivipu.view.activity.ActivityInfoContent;
 import com.xtel.ivipu.view.activity.HistoryTransactionsActivity;
-import com.xtel.ivipu.view.adapter.AdapterMemberCard;
+import com.xtel.ivipu.view.adapter.AdapterCard;
 import com.xtel.ivipu.view.fragment.inf.IFragmentMemberCard;
-import com.xtel.ivipu.view.widget.ProgressView;
+import com.xtel.ivipu.view.widget.WidgetHelper;
+import com.xtel.nipservicesdk.utils.JsonHelper;
 import com.xtel.sdk.commons.Constants;
+import com.yarolegovich.discretescrollview.DiscreteScrollView;
+import com.yarolegovich.discretescrollview.transform.Pivot;
+import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 
 import java.util.ArrayList;
 
@@ -27,75 +30,123 @@ import java.util.ArrayList;
  * Created by vuhavi on 07/03/2017.
  */
 
-public class FragmentMemberCard extends BasicFragment implements IFragmentMemberCard {
+public class FragmentMemberCard extends BasicFragment implements IFragmentMemberCard, View.OnClickListener, DiscreteScrollView.ScrollListener {
 
+    DiscreteScrollView scrollView;
+    AdapterCard pagerAdapter;
+    long date_create;
+    int id_Card;
+    //    PagerContainer mContainer;
+//    ViewPager viewPager;
+    int loop_count = 0;
     private int page = 1, pagesize = 5;
     private FragmentNavMemberCardPresenter presenter;
-    private RecyclerView rcl_member_card;
-    private AdapterMemberCard adapter;
-    private ArrayList<MemberObj> arrayList;
-    private ProgressView progressView;
+    //    private RecyclerView rcl_member_card;
+    private ArrayList<MemberObj> cardArraylist;
+    //    private ProgressView progressView;
     private int REQUEST_VIEW_CARD = 66;
     private int position = -1;
+    private MemberObj memberObj;
+    private String store_name;
+    private int total_point;
+    private int current_point;
+    private TextView tv_store_name, tv_level, tv_current_point, tv_date_create, tv_card_total_point, tv_action_view_his, tv_store;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_nav_member_card, container, false);
+        return inflater.inflate(R.layout.v2_fragment_member_card, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         presenter = new FragmentNavMemberCardPresenter(this);
-        initRecyclerView(view);
-        initProgressView(view);
+//        initRecyclerView(view);
+//        initProgressView(view);
+//        initializeViews(view);
+        initView(view);
+        getData();
     }
 
-    private void initRecyclerView(View view) {
-        arrayList = new ArrayList<>();
-        Log.e("arr member object ", arrayList.toString());
-        rcl_member_card = (RecyclerView) view.findViewById(R.id.rcl_ivip);
-        rcl_member_card.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        rcl_member_card.setLayoutManager(layoutManager);
-        adapter = new AdapterMemberCard(arrayList, this);
-        rcl_member_card.setAdapter(adapter);
+    private void initView(View view) {
+
+        tv_store_name = (TextView) view.findViewById(R.id.tv_card_store_name);
+        tv_level = (TextView) view.findViewById(R.id.tv_card_level);
+        tv_card_total_point = (TextView) view.findViewById(R.id.tv_card_total_point);
+        tv_current_point = (TextView) view.findViewById(R.id.tv_card_current_point);
+        tv_date_create = (TextView) view.findViewById(R.id.tv_date);
+        tv_action_view_his = (TextView) view.findViewById(R.id.tv_action_view_his);
+        tv_store = (TextView) view.findViewById(R.id.tv_store);
+        tv_action_view_his.setOnClickListener(this);
+
+        cardArraylist = new ArrayList<>();
+        scrollView = (DiscreteScrollView) view.findViewById(R.id.picker);
+        pagerAdapter = new AdapterCard(this, cardArraylist);
+        scrollView.setAdapter(pagerAdapter);
     }
 
+//    private void initializeViews(View view) {
+//        cardArraylist = new ArrayList<>();
+//        mContainer = (PagerContainer) view.findViewById(R.id.pager_container);
+//        viewPager = (ViewPager) mContainer.findViewById(R.id.viewPagerCard);
+//        pagerAdapter = new CardPagerAdapter(getContext(), cardArraylist);
+    //Necessary or the pager will only have one extra page to show
+    // make this at least however many pages you can see
+//        viewPager.setAdapter(pagerAdapter);
+//        viewPager.setOffscreenPageLimit(pagerAdapter.getCount());
+    //A little space between pages
+//        viewPager.setPageMargin(18);
+    //If hardware acceleration is enabled, you should also remove
+    // clipping on the pager for its children.
+//        viewPager.setClipChildren(false);
+//        getData();
+//    }
 
-    private void initProgressView(View view) {
-        progressView = new ProgressView(null, view);
-        progressView.initData(R.mipmap.ic_launcher, getString(R.string.no_news), getString(R.string.try_again), getString(R.string.loading_data), Color.parseColor("#05b589"));
-        progressView.setUpWithView(rcl_member_card);
+//    private void initRecyclerView(View view) {
+//        cardArraylist = new ArrayList<>();
+//        Log.e("arr member object ", cardArraylist.toString());
+//        rcl_member_card = (RecyclerView) view.findViewById(R.id.rcl_ivip);
+//        rcl_member_card.setHasFixedSize(true);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+//        rcl_member_card.setLayoutManager(layoutManager);
+//        adapter = new AdapterMemberCard(cardArraylist, this);
+//        rcl_member_card.setAdapter(adapter);
+//    }
 
-        progressView.onLayoutClicked(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getData();
-            }
-        });
 
-        progressView.onRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                page = 1;
-                arrayList.clear();
-                getData();
-                adapter.notifyDataSetChanged();
-            }
-        });
-
-        progressView.onSwipeLayoutPost(new Runnable() {
-            @Override
-            public void run() {
-                getData();
-            }
-        });
-    }
+//    private void initProgressView(View view) {
+//        progressView = new ProgressView(null, view);
+//        progressView.initData(R.mipmap.ic_launcher, getString(R.string.no_news), getString(R.string.try_again), getString(R.string.loading_data), Color.parseColor("#05b589"));
+//        progressView.setUpWithView(rcl_member_card);
+//
+//        progressView.onLayoutClicked(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getData();
+//            }
+//        });
+//
+//        progressView.onRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                page = 1;
+//                cardArraylist.clear();
+//                getData();
+//                adapter.notifyDataSetChanged();
+//            }
+//        });
+//
+//        progressView.onSwipeLayoutPost(new Runnable() {
+//            @Override
+//            public void run() {
+//                getData();
+//            }
+//        });
+//    }
 
     private void getData() {
-        progressView.setRefreshing(true);
+//        progressView.setRefreshing(true);
         initDataMemberCard();
     }
 
@@ -104,37 +155,66 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
     }
 
     @Override
-    public void onGetMemberCardSuccess(ArrayList<MemberObj> arrayList) {
-        Log.e("arr news entity", arrayList.toString());
-        if (arrayList.size() < 10) {
-            adapter.onSetLoadMore(false);
-        }
-        this.arrayList.addAll(arrayList);
+    public void onGetMemberCardSuccess(final ArrayList<MemberObj> arrayList) {
+        Log.e("arr news member", arrayList.toString());
+//        if (cardArraylist.size() < 10) {
+//            adapter.onSetLoadMore(false);
+//        }
+        cardArraylist.addAll(arrayList);
+        pagerAdapter.notifyDataSetChanged();
+//        scrollView.setOffscreenItems(this.cardArraylist.size());
 //        adapter.notifyDataSetChanged();
-        checkListData();
+//        checkListData();
+        onStateChangeListener();
     }
 
-    @SuppressWarnings("CollectionAddedToSelf")
-    private void setDataRecyclerView(ArrayList<MemberObj> arrayList) {
-        arrayList.addAll(arrayList);
-        adapter.notifyDataSetChanged();
-    }
+    private void onStateChangeListener() {
+        loop_count++;
+        scrollView.getCurrentItem();
+        scrollView.scrollToPosition(0);
+        scrollView.smoothScrollToPosition(0);
+        scrollView.setHasFixedSize(true);
+        scrollView.setItemAnimator(new DefaultItemAnimator());
+        scrollView.setItemTransformer(new ScaleTransformer.Builder()
+                .setMinScale(0.8f)
+                .setMaxScale(1.05f)
+                .setPivotX(Pivot.X.CENTER)
+                .setPivotY(Pivot.Y.CENTER)
+                .build());
+        memberObj = new MemberObj();
+        scrollView.setOnItemChangedListener(new DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder>() {
+            @Override
+            public void onCurrentItemChanged(@NonNull RecyclerView.ViewHolder viewHolder, int adapterPosition) {
+                memberObj = cardArraylist.get(adapterPosition);
 
-    private void checkListData() {
-        progressView.setRefreshing(false);
+                Log.e("Position scroll", String.valueOf(adapterPosition));
+                Log.e("Obj member", JsonHelper.toJson(memberObj));
 
-        if (arrayList.size() == 0) {
-            progressView.updateData(R.mipmap.ic_launcher, getString(R.string.no_news), getString(R.string.try_again));
-            progressView.show();
-        } else {
-//            rcl_member_card.getAdapter().notifyDataSetChanged();
-            adapter.notifyDataSetChanged();
-            progressView.hide();
-        }
+                store_name = memberObj.getStore_name();
+                current_point = memberObj.getCurrent_point();
+                total_point = memberObj.getTotal_point();
+                date_create = memberObj.getCreate_time();
+
+                id_Card = cardArraylist.get(adapterPosition).getId();
+
+                WidgetHelper.getInstance().setTextViewNoResult(tv_store_name, store_name);
+                WidgetHelper.getInstance().setTextViewNoResult(tv_store, store_name);
+                WidgetHelper.getInstance().setTextViewNoResult(tv_level, "Khách hàng thân thiết");
+                WidgetHelper.getInstance().setTextViewNoResult(tv_current_point, String.valueOf(current_point));
+                WidgetHelper.getInstance().setTextViewNoResult(tv_card_total_point, total_point + " điểm");
+                WidgetHelper.getInstance().setTextViewDate(tv_date_create, "", date_create);
+            }
+        });
+
     }
 
     @Override
     public void onGetMemberCardError() {
+
+    }
+
+    @Override
+    public void onNetworkDisable() {
 
     }
 
@@ -150,8 +230,7 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
 
     @Override
     public void onLoadMore() {
-        page++;
-        getData();
+
     }
 
     @Override
@@ -161,9 +240,30 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
     }
 
     @Override
-    public void onNetworkDisable(){
-        progressView.setRefreshing(false);
-        progressView.updateData(R.mipmap.ic_launcher, getString(R.string.no_internet), getString(R.string.try_again));
-        progressView.showData();
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.tv_action_view_his) {
+            onClickCardItem(id_Card, memberObj, v);
+        }
+    }
+
+    @Override
+    public void onScroll(float scrollPosition, @NonNull RecyclerView.ViewHolder currentHolder, @NonNull RecyclerView.ViewHolder newCurrent) {
+
+    }
+
+//    @Override
+//    public void onNetworkDisable(){
+//        progressView.setRefreshing(false);
+//        progressView.updateData(R.mipmap.ic_launcher, getString(R.string.no_internet), getString(R.string.try_again));
+//        progressView.showData();
+//    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("Resume", "Da resume");
+        onStateChangeListener();
     }
 }

@@ -26,7 +26,7 @@ import com.xtel.sdk.commons.NetWorkInfo;
 public class CommentActionPresenter {
 
     private IComment view;
-
+    private String TAG = "CommentAction Pre";
     public CommentActionPresenter(IComment view) {
         this.view = view;
     }
@@ -58,23 +58,28 @@ public class CommentActionPresenter {
                 public void onError(Error error) {
                     if (error != null) {
                         int code = error.getCode();
-                        if (code == 2) {
-                            CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
-                                @Override
-                                public void onSuccess(RESP_Login success) {
-                                    postComment(id_news, comment_content);
-                                }
+                        if (String.valueOf(code) != null) {
+                            if (code == 2) {
+                                CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                                    @Override
+                                    public void onSuccess(RESP_Login success) {
+                                        postComment(id_news, comment_content);
+                                    }
 
-                                @Override
-                                public void onError(Error error) {
-                                    Log.e("Err post comment sess", String.valueOf(error.getCode()));
-                                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-                                    view.startActivityAndFinish(LoginActivity.class);
-                                }
-                            });
+                                    @Override
+                                    public void onError(Error error) {
+                                        Log.e("Err post comment sess", String.valueOf(error.getCode()));
+                                        view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                        view.startActivityAndFinish(LoginActivity.class);
+                                    }
+                                });
+                            } else {
+                                Log.e("Err post comment", String.valueOf(error.getCode()));
+                                view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                            }
                         } else {
-                            Log.e("Err post comment", String.valueOf(error.getCode()));
-                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                            view.showShortToast("Co loi");
+                            Log.e(TAG, "err" + JsonHelper.toJson(error));
                         }
                     }
                 }

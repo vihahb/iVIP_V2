@@ -1,6 +1,7 @@
 package com.xtel.ivipu.presenter;
 
 import android.os.Handler;
+import android.util.Log;
 
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.HomeModel;
@@ -13,6 +14,7 @@ import com.xtel.nipservicesdk.callback.CallbacListener;
 import com.xtel.nipservicesdk.callback.ResponseHandle;
 import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.model.entity.RESP_Login;
+import com.xtel.nipservicesdk.utils.JsonHelper;
 import com.xtel.nipservicesdk.utils.JsonParse;
 import com.xtel.sdk.commons.Constants;
 import com.xtel.sdk.commons.NetWorkInfo;
@@ -25,7 +27,7 @@ public class FragmentMyShopPresenter {
 
     private IMyShopActivity view;
     private String session = LoginManager.getCurrentSession();
-
+    private String TAG = "MyShop Pre";
     public FragmentMyShopPresenter(IMyShopActivity view) {
         this.view = view;
     }
@@ -55,24 +57,30 @@ public class FragmentMyShopPresenter {
                     public void onError(Error error) {
                         if (error != null) {
                             int code = error.getCode();
-                            if (code == 2) {
-                                CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
-                                    @Override
-                                    public void onSuccess(RESP_Login success) {
-                                        getMyShopCheckin(page, pagesize);
-                                    }
-
-                                    @Override
-                                    public void onError(Error error) {
-                                        if (error != null) {
-                                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-                                            view.startActivityAndFinish(LoginActivity.class);
+                            if (String.valueOf(code) != null) {
+                                if (code == 2) {
+                                    CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                                        @Override
+                                        public void onSuccess(RESP_Login success) {
+                                            getMyShopCheckin(page, pagesize);
                                         }
-                                    }
-                                });
+
+                                        @Override
+                                        public void onError(Error error) {
+                                            if (error != null) {
+                                                view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                                view.startActivityAndFinish(LoginActivity.class);
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                }
                             } else {
-                                view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                Log.e(TAG, "Err " + JsonHelper.toJson(error));
+                                view.showShortToast("Co loi");
                             }
+
                         }
                     }
                 });

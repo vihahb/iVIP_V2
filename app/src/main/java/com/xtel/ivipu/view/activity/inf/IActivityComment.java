@@ -21,6 +21,8 @@ public interface IActivityComment {
 
     void postCommentError();
 
+    void onPostCommentSuccess();
+
     void onNetworkDisable();
 
     void startActivityAndFinish(Class clazz);

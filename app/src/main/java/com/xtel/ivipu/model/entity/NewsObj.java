@@ -20,7 +20,7 @@ public class NewsObj {
     @Expose
     private int comment;
     @Expose
-    private int rate;
+    private double rate;
     @Expose
     private int view;
     @Expose
@@ -116,11 +116,11 @@ public class NewsObj {
         this.comment = comment;
     }
 
-    public int getRate() {
+    public double getRate() {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(double rate) {
         this.rate = rate;
     }
 

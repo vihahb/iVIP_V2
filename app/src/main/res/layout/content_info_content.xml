@@ -20,7 +20,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5" />
+                android:layout_weight="0.3" />
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -33,19 +33,19 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="@dimen/size_22"
-                        android:layout_height="@dimen/size_22"
-                        android:src="@drawable/ic_action_eye" />
+                        android:layout_width="@dimen/size_18"
+                        android:layout_height="@dimen/size_18"
+                        android:src="@drawable/ic_news_view" />
 
                     <TextView
                         android:id="@+id/tv_info_shop_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="100"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/text_style"
                         android:textSize="11sp" />
                 </LinearLayout>
                 <LinearLayout
@@ -53,20 +53,20 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:paddingLeft="@dimen/size_16">
 
                     <ImageView
-                        android:layout_width="@dimen/size_22"
-                        android:layout_height="@dimen/size_22"
-                        android:src="@drawable/ic_action_favorite_white" />
+                        android:layout_width="@dimen/size_18"
+                        android:layout_height="@dimen/size_18"
+                        android:src="@drawable/ic_news_like" />
 
                     <TextView
                         android:id="@+id/tv_info_shop_like"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="100"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/text_style"
                         android:textSize="11sp" />
                 </LinearLayout>
                 <!--<LinearLayout-->
@@ -96,20 +96,42 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:paddingLeft="@dimen/size_16">
 
                     <ImageView
-                        android:layout_width="@dimen/size_22"
-                        android:layout_height="@dimen/size_22"
-                        android:src="@mipmap/ic_action_star" />
+                        android:layout_width="@dimen/size_18"
+                        android:layout_height="@dimen/size_18"
+                        android:src="@drawable/ic_news_comment" />
+
+                    <TextView
+                        android:id="@+id/tv_info_shop_view_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="100"
+                        android:textColor="@color/text_style"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/size_16">
+
+                    <ImageView
+                        android:layout_width="@dimen/size_18"
+                        android:layout_height="@dimen/size_18"
+                        android:src="@drawable/ic_news_rate" />
 
                     <TextView
                         android:id="@+id/tv_info_shop_rate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="100"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/text_style"
                         android:textSize="11sp" />
                 </LinearLayout>
             </LinearLayout>

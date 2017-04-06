@@ -151,4 +151,11 @@
         <item name="android:scrollHorizontally">true</item>
     </style>
 
+    <!-- EditText Style -->
+    <style name="EditTextNoBottom" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlActivated">@android:color/white</item>
+        <item name="colorControlHighlight">@android:color/white</item>
+    </style>
+
 </resources>

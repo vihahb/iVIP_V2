@@ -30,7 +30,7 @@ import com.xtel.sdk.commons.NetWorkInfo;
 public class ActivityInfoPropertiesPresenter {
     String session = LoginManager.getCurrentSession();
     private IActivityInfo view;
-    private String TAG = "Info presenter";
+    private String TAG = "Activity Info presenter";
 
     public ActivityInfoPropertiesPresenter(IActivityInfo view) {
         this.view = view;
@@ -68,22 +68,27 @@ public class ActivityInfoPropertiesPresenter {
                     if (error != null) {
                         int code = error.getCode();
                         Log.e("err json", error.toString());
-                        if (code == 2) {
-                            CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
-                                @Override
-                                public void onSuccess(RESP_Login success) {
-                                    getNewsInfomation(id_news, session);
-                                }
+                        if (String.valueOf(code) != null) {
+                            if (code == 2) {
+                                CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                                    @Override
+                                    public void onSuccess(RESP_Login success) {
+                                        getNewsInfomation(id_news, session);
+                                    }
 
-                                @Override
-                                public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
-                                    Log.e("err callback", JsonHelper.toJson(error));
-                                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-                                    view.startActivityAndFinish(LoginActivity.class);
-                                }
-                            });
+                                    @Override
+                                    public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+                                        Log.e("err callback", JsonHelper.toJson(error));
+                                        view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                        view.startActivityAndFinish(LoginActivity.class);
+                                    }
+                                });
+                            } else {
+                                view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                            }
                         } else {
-                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                            Log.e(TAG, "Lỗi " + JsonHelper.toJson(error));
+                            view.showShortToast("Có lỗi...");
                         }
                     }
                 }
@@ -118,23 +123,28 @@ public class ActivityInfoPropertiesPresenter {
                     public void onError(Error error) {
                         if (error != null) {
                             int code = error.getCode();
-                            if (code == 2) {
-                                CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
-                                    @Override
-                                    public void onSuccess(RESP_Login success) {
-                                        onLikeAction(id_news);
-                                    }
+                            if (String.valueOf(code) != null) {
+                                if (code == 2) {
+                                    CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                                        @Override
+                                        public void onSuccess(RESP_Login success) {
+                                            onLikeAction(id_news);
+                                        }
 
-                                    @Override
-                                    public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
-                                        Log.e("err callback", JsonHelper.toJson(error));
-                                        view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-                                        view.startActivityAndFinish(LoginActivity.class);
-                                    }
-                                });
+                                        @Override
+                                        public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+                                            Log.e("err callback", JsonHelper.toJson(error));
+                                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                            view.startActivityAndFinish(LoginActivity.class);
+                                        }
+                                    });
+                                } else {
+                                    Log.e(TAG, "Err like" + JsonHelper.toJson(error));
+                                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                }
                             } else {
-                                Log.e(TAG + "err like", JsonHelper.toJson(error));
-                                view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                Log.e(TAG, "Lỗi " + JsonHelper.toJson(error));
+                                view.showShortToast("Có lỗi...");
                             }
                         }
                     }
@@ -176,23 +186,27 @@ public class ActivityInfoPropertiesPresenter {
                     public void onError(Error error) {
                         if (error != null) {
                             int code = error.getCode();
-                            if (code == 2) {
-                                CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
-                                    @Override
-                                    public void onSuccess(RESP_Login success) {
-                                        onRatesNews(id_news, rate_value);
-                                    }
+                            if (String.valueOf(code) != null) {
+                                if (code == 2) {
+                                    CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                                        @Override
+                                        public void onSuccess(RESP_Login success) {
+                                            onRatesNews(id_news, rate_value);
+                                        }
 
-                                    @Override
-                                    public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
-                                        Log.e("err callback", JsonHelper.toJson(error));
-                                        view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-                                        view.startActivityAndFinish(LoginActivity.class);
-                                    }
-                                });
+                                        @Override
+                                        public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+                                            Log.e("err callback", JsonHelper.toJson(error));
+                                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                            view.startActivityAndFinish(LoginActivity.class);
+                                        }
+                                    });
+                                } else {
+                                    Log.e(TAG, "rate err " + JsonHelper.toJson(error));
+                                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                }
                             } else {
-                                Log.e(TAG + "err like", JsonHelper.toJson(error));
-                                view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                Log.e(TAG, "Lỗi " + JsonHelper.toJson(error));
                             }
                         }
                     }
@@ -230,21 +244,27 @@ public class ActivityInfoPropertiesPresenter {
                     public void onError(Error error) {
                         if (error != null) {
                             int code = error.getCode();
-                            if (code == 2) {
-                                CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
-                                    @Override
-                                    public void onSuccess(RESP_Login success) {
-                                        onGetVoucher(id_news);
-                                    }
+                            if (String.valueOf(code) != null) {
+                                if (code == 2) {
+                                    CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                                        @Override
+                                        public void onSuccess(RESP_Login success) {
+                                            onGetVoucher(id_news);
+                                        }
 
-                                    @Override
-                                    public void onError(Error error) {
-                                        view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-                                        view.startActivityAndFinish(LoginActivity.class);
-                                    }
-                                });
+                                        @Override
+                                        public void onError(Error error) {
+                                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                            view.startActivityAndFinish(LoginActivity.class);
+                                        }
+                                    });
+                                } else {
+                                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
+                                    Log.e(TAG, "Loi getVoucher" + JsonHelper.toJson(error));
+                                }
                             } else {
-                                view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
+                                Log.e(TAG, "Loi " + JsonHelper.toJson(error));
+                                view.showShortToast("Co loi");
                             }
                         }
                     }

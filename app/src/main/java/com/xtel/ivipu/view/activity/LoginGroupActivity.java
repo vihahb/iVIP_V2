@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -62,15 +61,6 @@ public class LoginGroupActivity extends BasicActivity implements ILoginGroup, Vi
     private void setUnderLine() {
         WidgetHelper.getInstance().setUnderLine("Kích hoạt tài khoản?", tv_active);
         WidgetHelper.getInstance().setUnderLine("Quên mật khẩu?", tv_reset);
-    }
-
-
-    @SuppressWarnings("ConstantConditions")
-    private void initToolbars() {
-        Toolbar toolbar_login_group = (Toolbar) findViewById(R.id.toolbar_login_group);
-        setSupportActionBar(toolbar_login_group);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override

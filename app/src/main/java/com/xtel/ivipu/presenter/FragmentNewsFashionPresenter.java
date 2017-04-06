@@ -10,6 +10,7 @@ import com.xtel.ivipu.view.fragment.inf.IFragmentFashionView;
 import com.xtel.nipservicesdk.CallbackManager;
 import com.xtel.nipservicesdk.callback.CallbacListener;
 import com.xtel.nipservicesdk.callback.ResponseHandle;
+import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.model.entity.RESP_Login;
 import com.xtel.nipservicesdk.utils.JsonHelper;
 import com.xtel.nipservicesdk.utils.JsonParse;
@@ -23,6 +24,8 @@ import com.xtel.sdk.commons.NetWorkInfo;
 public class FragmentNewsFashionPresenter {
 
     private IFragmentFashionView view;
+    private String TAG = "Fashion Presenter";
+
     public FragmentNewsFashionPresenter(IFragmentFashionView view) {
         this.view = view;
     }
@@ -46,7 +49,7 @@ public class FragmentNewsFashionPresenter {
                 }
 
                 @Override
-                public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+                public void onError(Error error) {
                     int code = error.getCode();
                     if (code == 2) {
                         CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
@@ -56,7 +59,7 @@ public class FragmentNewsFashionPresenter {
                             }
 
                             @Override
-                            public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+                            public void onError(Error error) {
                                 view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
                                 view.startActivityAndFinish(LoginActivity.class);
                             }

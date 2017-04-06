@@ -17,10 +17,22 @@ public class MyShopCheckin {
     private String banner;
     @Expose
     private long checkin_time;
+    @Expose
+    private int bg_point;
+    @Expose
+    private int point;
+
     private String date;
     private boolean isTitle = false;
 
 
+    public MyShopCheckin() {
+    }
+
+    public MyShopCheckin(boolean isTitle, String date) {
+        this.date = date;
+        this.isTitle = isTitle;
+    }
 
     public boolean isTitle() {
         return isTitle;
@@ -36,14 +48,6 @@ public class MyShopCheckin {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public MyShopCheckin() {
-    }
-
-    public MyShopCheckin(boolean isTitle, String date) {
-        this.date = date;
-        this.isTitle = isTitle;
     }
 
     public int getStore_id() {
@@ -86,6 +90,22 @@ public class MyShopCheckin {
         this.checkin_time = checkin_time;
     }
 
+    public int getBg_point() {
+        return bg_point;
+    }
+
+    public void setBg_point(int bg_point) {
+        this.bg_point = bg_point;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
     @Override
     public String toString() {
         return "MyShopCheckin{" +
@@ -94,6 +114,10 @@ public class MyShopCheckin {
                 ", logo='" + logo + '\'' +
                 ", banner='" + banner + '\'' +
                 ", checkin_time=" + checkin_time +
+                ", bg_point=" + bg_point +
+                ", point=" + point +
+                ", date='" + date + '\'' +
+                ", isTitle=" + isTitle +
                 '}';
     }
 }

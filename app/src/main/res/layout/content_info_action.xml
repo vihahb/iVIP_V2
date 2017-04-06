@@ -16,7 +16,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@drawable/gradient_line_view" />
+            android:background="@color/text_style" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,26 +29,26 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/size_28"
                 android:layout_weight="1"
-                android:src="@mipmap/ic_action_not_like" />
+                android:src="@mipmap/icon_favore_cycle" />
 
             <ImageView
                 android:id="@+id/img_action_comment"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/size_28"
                 android:layout_weight="1"
-                android:src="@mipmap/comment1home" />
+                android:src="@mipmap/icon_comment_cycle" />
 
             <ImageView
                 android:id="@+id/img_action_share"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/size_28"
                 android:layout_weight="1"
-                android:src="@mipmap/share" />
+                android:src="@mipmap/icon_share_cycle" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@drawable/gradient_line_view" />
+            android:background="@color/text_style" />
     </LinearLayout>
 </LinearLayout>

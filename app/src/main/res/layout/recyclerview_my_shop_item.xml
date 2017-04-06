@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/size_8"
     android:layout_marginBottom="@dimen/size_8"
+    android:layout_marginTop="@dimen/size_8"
     android:background="@android:color/transparent"
     android:orientation="vertical">
 
@@ -15,49 +15,49 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <FrameLayout
-                android:background="@color/his_checkin_header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:alpha="0.85"/>
+                android:alpha="0.85"
+                android:background="@color/his_checkin_header" />
             <LinearLayout
-                android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
                 <FrameLayout
-                    android:gravity="center"
-                    android:layout_weight="0.3"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:gravity="center">
                     <com.xtel.ivipu.view.widget.RoundImage
-                        android:layout_gravity="center"
-                        android:src="@mipmap/bg_white"
                         android:layout_width="@dimen/size_46"
-                        android:layout_height="@dimen/size_46" />
+                        android:layout_height="@dimen/size_46"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/bg_white" />
 
                     <com.xtel.ivipu.view.widget.RoundImage
-                        android:layout_gravity="center"
                         android:id="@+id/img_brand_store"
-                        android:src="@mipmap/user_demo"
                         android:layout_width="@dimen/size_44"
-                        android:layout_height="@dimen/size_44" />
+                        android:layout_height="@dimen/size_44"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/user_demo" />
                 </FrameLayout>
                 <LinearLayout
-                    android:paddingRight="@dimen/size_16"
-                    android:paddingEnd="@dimen/size_16"
-                    android:layout_weight="0.7"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:paddingEnd="@dimen/size_16"
+                    android:paddingRight="@dimen/size_16">
                     <TextView
-                        android:singleLine="true"
-                        android:ellipsize="end"
                         android:id="@+id/tv_store_name"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/font_20"
-                        android:text="Aoel Mall Long Bien"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="Aoel Mall Long Bien"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/font_20" />
                 </LinearLayout>
             </LinearLayout>
         </FrameLayout>
@@ -71,40 +71,40 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/his_checkin_item"
-                android:alpha="0.7"/>
+                android:alpha="0.7"
+                android:background="@color/his_checkin_item" />
             <LinearLayout
-                android:paddingBottom="@dimen/size_8"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/size_8">
                 <LinearLayout
-                    android:gravity="center_horizontal"
-                    android:layout_weight="0.3"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:gravity="center_horizontal">
 
                     <LinearLayout
-                        android:layout_weight="1"
-                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
                         <View
-                            android:background="@android:color/white"
-                            android:layout_gravity="right"
                             android:layout_width="0.5dp"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:layout_gravity="right"
+                            android:background="@android:color/white" />
                     </LinearLayout>
                     <LinearLayout
-                        android:layout_weight="1"
-                        android:orientation="vertical"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
                         <LinearLayout
-                            android:gravity="bottom"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
-                            android:layout_height="0dp">
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="bottom">
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="0.5dp"
@@ -112,10 +112,10 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:gravity="bottom"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
-                            android:layout_height="0dp">
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="bottom">
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="0.5dp"
@@ -125,53 +125,53 @@
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_weight="0.7"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:orientation="vertical">
                     <LinearLayout
-                        android:paddingTop="@dimen/size_8"
-                        android:paddingEnd="@dimen/size_16"
-                        android:paddingRight="@dimen/size_16"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingEnd="@dimen/size_16"
+                        android:paddingRight="@dimen/size_16"
+                        android:paddingTop="@dimen/size_8">
                         <LinearLayout
-                            android:layout_weight="1"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
                             <ImageView
-                                android:padding="@dimen/size_4"
                                 android:layout_width="@dimen/size_30"
                                 android:layout_height="@dimen/size_30"
+                                android:padding="@dimen/size_4"
                                 android:src="@mipmap/ic_checkin_history_date"/>
                             <TextView
-                                android:paddingLeft="@dimen/size_6"
-                                android:layout_gravity="center_vertical"
-                                android:textSize="@dimen/font_12"
-                                android:gravity="center"
-                                android:textColor="@android:color/white"
-                                android:text="Ngày:"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center"
+                                android:paddingLeft="@dimen/size_6"
+                                android:text="Ngày:"
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/font_12" />
                         </LinearLayout>
                         <LinearLayout
-                            android:layout_weight="1"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
                         <LinearLayout
-                            android:layout_weight="1"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
                             <TextView
                                 android:id="@+id/tv_checkin_his_date"
-                                android:textColor="@android:color/white"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:textSize="@dimen/font_13"
                                 android:gravity="center"
                                 android:text="06/03/2017"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/font_13" />
                         </LinearLayout>
                     </LinearLayout>
                     <View
@@ -179,49 +179,48 @@
                         android:layout_height="0.5dp"
                         android:background="@android:color/white"/>
                     <LinearLayout
-                        android:paddingTop="@dimen/size_8"
-                        android:paddingEnd="@dimen/size_16"
-                        android:paddingRight="@dimen/size_16"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingEnd="@dimen/size_16"
+                        android:paddingRight="@dimen/size_16"
+                        android:paddingTop="@dimen/size_8">
                         <LinearLayout
-                            android:layout_weight="1"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
                             <ImageView
-                                android:padding="@dimen/size_4"
                                 android:layout_width="@dimen/size_30"
                                 android:layout_height="@dimen/size_30"
+                                android:padding="@dimen/size_4"
                                 android:src="@mipmap/ic_checkin_history_time"/>
                             <TextView
-                                android:id="@+id/tv_checkin_time"
-                                android:paddingLeft="@dimen/size_6"
-                                android:layout_gravity="center_vertical"
-                                android:textSize="@dimen/font_12"
-                                android:gravity="center"
-                                android:textColor="@android:color/white"
-                                android:text="Giờ:"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center"
+                                android:paddingLeft="@dimen/size_6"
+                                android:text="Giờ:"
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/font_12" />
                         </LinearLayout>
                         <LinearLayout
-                            android:layout_weight="1"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
                         <LinearLayout
-                            android:layout_weight="1"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
                             <TextView
                                 android:id="@+id/tv_checkin_his_time"
-                                android:textColor="@android:color/white"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:textSize="@dimen/font_13"
                                 android:gravity="center"
                                 android:text="06/03/2017"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/font_13" />
                         </LinearLayout>
                     </LinearLayout>
                     <View

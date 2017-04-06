@@ -63,7 +63,12 @@ public class JsonParse {
 
     public static String getCodeMessage(Activity activity, int code, String content) {
 
-        if (code == 2) {
+        String code_string = String.valueOf(code);
+        if (code_string == null) {
+            return activity.getString(R.string.error_exception_null);
+        } else if (code == -1) {
+            return activity.getString(R.string.system_exception);
+        } else if (code == 2) {
             return activity.getString(R.string.error_session_invalid);
         } else if (code == 1) {
             return activity.getString(R.string.error_input_invalid);

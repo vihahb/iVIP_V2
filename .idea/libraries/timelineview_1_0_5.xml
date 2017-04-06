@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="timelineview-1.0.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/5867ec6898e9628bd31da0215b019cd5dff74cfc/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/5867ec6898e9628bd31da0215b019cd5dff74cfc/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.vipulasri/timelineview/1.0.5/2003e06060b1c66c3a055e360915c8efe951bb72/timelineview-1.0.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

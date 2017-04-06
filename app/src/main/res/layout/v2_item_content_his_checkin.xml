@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/size_16"
+    android:paddingRight="@dimen/size_24">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_78"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_78"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.github.vipulasri.timelineview.TimelineView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                app:line="@color/colorAccent"
+                app:linePadding="5dp"
+                app:markerSize="1dp" />
+
+            <TextView
+                android:id="@+id/tv_checkin_point"
+                android:layout_width="@dimen/size_30"
+                android:layout_height="@dimen/size_30"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="@drawable/circle_point_1"
+                android:gravity="center"
+                android:text="100"
+                android:textColor="@android:color/white" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_78"
+            android:layout_marginLeft="@dimen/size_16"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.2">
+
+                <TextView
+                    android:id="@+id/tv_title_check"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
+                    android:text="Checkin tại BigC Thăng Long 222 Trần Duy Hưng, Trung Hòa, Ba Đình, Hà Nội."
+                    android:textSize="@dimen/font_15" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_time_check"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.8"
+                android:gravity="right|center_vertical"
+                android:text="05:00 PM" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -61,8 +61,8 @@ public class AdapterCommentActivity extends RecyclerView.Adapter<RecyclerView.Vi
             Log.e("Arr adapter", JsonHelper.toJson(arrayList));
             ViewHolder viewHolder = (ViewHolder) holder;
             WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_user_name, commentObj.getFullname());
-            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_comment_content, "Nội dung: ", commentObj.getComment());
-            WidgetHelper.getInstance().setTextViewDate(viewHolder.txt_date_time, "Đã bình luận vào: ", commentObj.getComment_time());
+            WidgetHelper.getInstance().setTextViewNoResult(viewHolder.txt_comment_content, commentObj.getComment());
+            WidgetHelper.getInstance().comparingTime(viewHolder.txt_date_time, commentObj.getComment_time());
             WidgetHelper.getInstance().setAvatarImageURL(viewHolder.img_avatar, commentObj.getAvatar());
         } else {
             ViewProgressBar viewProgressBar = (ViewProgressBar) holder;

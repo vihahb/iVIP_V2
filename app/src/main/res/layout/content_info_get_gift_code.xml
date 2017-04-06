@@ -15,9 +15,9 @@
         android:id="@+id/btn_get_gift_code"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_72"
-        android:background="@drawable/button_style_app"
+        android:background="@drawable/btn_outline_color_primary"
         android:text="Lấy mã khuyến mại"
         android:textAllCaps="false"
-        android:textColor="@android:color/white"
+        android:textColor="@color/colorAccent"
         android:textSize="@dimen/font_20" />
 </LinearLayout>

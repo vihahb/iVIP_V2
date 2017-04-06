@@ -75,9 +75,8 @@ public class FragmentMyShop extends BasicFragment implements IMyShopActivity {
             @Override
             public void onRefresh() {
                 page = 1;
-                arr.clear();
-                adapter.notifyChange();
-                adapter.onSetLoadMore(true);
+//                adapter.notifyChange();
+//                adapter.onSetLoadMore(true);
                 getData();
             }
         });
@@ -98,8 +97,9 @@ public class FragmentMyShop extends BasicFragment implements IMyShopActivity {
     }
 
     private void setDataRecyclerView(ArrayList<MyShopCheckin> newsCheckinsArrayList) {
+        arr.clear();
         arr.addAll(newsCheckinsArrayList);
-        adapter.notifyChange();
+        adapter.notifyDataSetChanged();
     }
 
     private void inirDataCheckIn() {

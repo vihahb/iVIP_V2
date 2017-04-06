@@ -39,6 +39,7 @@ import com.xtel.ivipu.view.fragment.FragmentHomeNewsForMe;
 import com.xtel.ivipu.view.fragment.FragmentHomeNewsList;
 import com.xtel.ivipu.view.fragment.FragmentHomeOtherService;
 import com.xtel.ivipu.view.fragment.FragmentHomeTechnology;
+import com.xtel.ivipu.view.fragment.FragmentHomeVoucherList;
 import com.xtel.ivipu.view.fragment.FragmentMemberCard;
 import com.xtel.ivipu.view.fragment.FragmentMyShop;
 import com.xtel.ivipu.view.fragment.HistoryFragment;
@@ -428,6 +429,15 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
             replaceFragment(R.id.home_frame, new FavoriteFragment(), "FAVORITE");
             renameToolbar(R.string.nav_favorite);
         } else if (id == R.id.nav_faq) {
+        } else if (id == R.id.nav_voucher_user) {
+            if (session != null) {
+                disableItem();
+                nav_bottom_home.setVisibility(View.GONE);
+                replaceFragment(R.id.home_frame, new FragmentHomeVoucherList(), "USER_VOUCHER");
+                renameToolbar(R.string.nav_voucher_user);
+            } else {
+                alertLogin();
+            }
         } else if (id == R.id.nav_about) {
         } else if (id == R.id.nav_exit) {
             exitApp();
@@ -528,10 +538,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.img_avatar) {
-            startActivity(ProfileActivity.class);
-            drawer.closeDrawer(GravityCompat.START);
-        } else if (id == R.id.ln_layout_transparent) {
+        if (id == R.id.ln_layout_transparent) {
             disableItem();
         } else if (id == R.id.btn_health) {
             replaceHealth();

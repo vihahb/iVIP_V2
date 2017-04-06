@@ -65,7 +65,6 @@
             android:text="@string/checkin_now" />
 
         <TextView
-            android:id="@+id/textView2"
             style="@style/Scanner_TextView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_36"

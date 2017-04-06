@@ -26,6 +26,7 @@ import com.xtel.sdk.commons.NetWorkInfo;
 public class FragmentGalleryPresenter {
 
     private IFragmentGalleryView view;
+    private String TAG = "Gallery Pre";
     private String session = LoginManager.getCurrentSession();
 
     public FragmentGalleryPresenter(IFragmentGalleryView view) {
@@ -56,19 +57,27 @@ public class FragmentGalleryPresenter {
                 public void onError(Error error) {
                     if (error != null) {
                         int code = error.getCode();
-                        if (code == 2) {
-                            CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
-                                @Override
-                                public void onSuccess(RESP_Login success) {
-                                    getGalleryFragment(news_id, type, page, pagesize);
-                                }
+                        if (String.valueOf(code) != null) {
+                            if (code == 2) {
+                                CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                                    @Override
+                                    public void onSuccess(RESP_Login success) {
+                                        getGalleryFragment(news_id, type, page, pagesize);
+                                    }
 
-                                @Override
-                                public void onError(Error error) {
-                                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
-                                    view.startActivityAndFinish(LoginActivity.class);
-                                }
-                            });
+                                    @Override
+                                    public void onError(Error error) {
+                                        view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                        view.startActivityAndFinish(LoginActivity.class);
+                                    }
+                                });
+                            } else {
+                                view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
+                                Log.e(TAG, "Err " + error.getCode());
+                            }
+                        } else {
+                            Log.e(TAG, "Err " + JsonHelper.toJson(error));
+                            view.showShortToast("Co loi");
                         }
                     } else {
                         view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));

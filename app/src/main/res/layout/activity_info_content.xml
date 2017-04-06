@@ -4,81 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bgr_app"
+    android:background="@color/colorPrimary"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.xtel.ivipu.view.activity.ActivityInfoContent">
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp"
+        tools:targetApi="lollipop">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_info_content"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/button_transparent"
+            app:popupTheme="@style/AppTheme.AppBarOverlay" />
+    </android.support.design.widget.AppBarLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:alpha="0.5"
-                android:background="@color/color_toolbar" />
-
-            <android.support.design.widget.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:theme="@style/AppTheme.AppBarOverlay"
-                app:elevation="0dp"
-                tools:targetApi="lollipop">
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar_info_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@drawable/button_transparent"
-                    android:elevation="@dimen/size_6"
-                    android:minHeight="?attr/actionBarSize"
-                    android:padding="0dp"
-                    app:popupTheme="@style/AppTheme.AppBarOverlay" />
-            </android.support.design.widget.AppBarLayout>
-        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@android:color/white"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <FrameLayout
-                    android:id="@+id/info_frame"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
             <FrameLayout
+                android:id="@+id/info_frame"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/size_56">
-
-                <android.support.design.widget.BottomNavigationView
-                    android:id="@+id/bottom_navigation_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_56"
-                    android:layout_alignParentBottom="true"
-                    android:theme="@style/AppTheme.AppBarOverlay"
-                    app:itemBackground="@android:color/transparent"
-                    app:itemIconTint="@android:color/white"
-                    app:itemTextColor="@android:color/white"
-                    app:menu="@menu/bottom_nav_info"/>
-
-            </FrameLayout>
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
         </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_56">
+
+            <android.support.design.widget.BottomNavigationView
+                android:id="@+id/bottom_navigation_info"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_56"
+                android:layout_alignParentBottom="true"
+                android:theme="@style/AppTheme.AppBarOverlay"
+                app:itemBackground="@color/colorPrimary"
+                app:itemIconTint="@android:color/white"
+                app:itemTextColor="@android:color/white"
+                app:menu="@menu/bottom_nav_info" />
+
+        </FrameLayout>
     </LinearLayout>
 
 </LinearLayout>

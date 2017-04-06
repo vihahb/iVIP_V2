@@ -52,7 +52,7 @@
                     android:paddingTop="@dimen/size_6"
                     android:text="Trạng thái"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/font_13"/>
+                    android:textSize="@dimen/font_13" />
 
                 <TextView
                     android:id="@+id/tv_rate_time"
@@ -63,8 +63,9 @@
                     android:text="Time"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/font_13"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </FrameLayout>
+
             <Button
                 android:id="@+id/btn_rating"
                 android:layout_width="wrap_content"
@@ -82,8 +83,7 @@
             android:layout_height="@dimen/size_70"
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/fab_margin"
-            android:contentDescription="@null"
-            android:src="@mipmap/user_demo" />
+            android:contentDescription="@null" />
 
 
     </FrameLayout>

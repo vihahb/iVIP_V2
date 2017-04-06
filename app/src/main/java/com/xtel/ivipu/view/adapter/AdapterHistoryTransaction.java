@@ -3,9 +3,11 @@ package com.xtel.ivipu.view.adapter;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -35,7 +37,7 @@ public class AdapterHistoryTransaction extends RecyclerView.Adapter<RecyclerView
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_VIEW) {
-            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_history_transaction, parent, false));
+            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.v2_item_history_transaction, parent, false));
         } else if (viewType == TYPE_LOAD) {
             return new ViewProgressBar(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_progress_bar, parent, false));
         }
@@ -53,8 +55,16 @@ public class AdapterHistoryTransaction extends RecyclerView.Adapter<RecyclerView
 
             ViewHolder viewHolder = (ViewHolder) holder;
                 HistoryTransactionObj transactionObj = arrayList.get(position);
-                WidgetHelper.getInstance().setTextViewDate(viewHolder.tv_action_time, "Ngày: ", transactionObj.getAction_time());
-                viewHolder.tv_action_des.setText(Html.fromHtml(transactionObj.getAction_desc()));
+                String result = transactionObj.getAction_desc();
+                if (result.contains("Sử dụng")) {
+                    Log.e("Adapter character", "có từ đó trong chuỗi:  " + result);
+                    WidgetHelper.getInstance().setImageResource(viewHolder.img_his_trans_type, R.mipmap.icon_02);
+                } else {
+                    Log.e("Adapter character", "not có từ đó trong chuỗi" + result);
+                    WidgetHelper.getInstance().setImageResource(viewHolder.img_his_trans_type, R.mipmap.icon_01);
+                }
+                WidgetHelper.getInstance().comparingTime(viewHolder.tv_action_time, transactionObj.getAction_time());
+                viewHolder.tv_action_des.setText(Html.fromHtml(result));
             } else {
                 ViewProgressBar viewProgressBar = (ViewProgressBar) holder;
                 viewProgressBar.progressBar.getIndeterminateDrawable().setColorFilter(
@@ -90,11 +100,13 @@ public class AdapterHistoryTransaction extends RecyclerView.Adapter<RecyclerView
     private class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView tv_action_time, tv_action_des;
+        private ImageView img_his_trans_type;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tv_action_des = (TextView) itemView.findViewById(R.id.tv_action_des);
             tv_action_time = (TextView) itemView.findViewById(R.id.tv_action_time);
+            img_his_trans_type = (ImageView) itemView.findViewById(R.id.img_his_trans_type);
 
         }
 

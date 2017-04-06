@@ -58,34 +58,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/size_6"
-                android:background="@drawable/layout_outline"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="@dimen/size_8">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hiệu lực tới: "
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/font_13" />
-
-                <TextView
-                    android:id="@+id/tv_voucher_expired_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/size_3"
-                    android:layout_marginStart="@dimen/size_3"
-                    android:text="2017-01-30"
-                    android:textColor="@color/backgroun_round_red"
-                    android:textSize="@dimen/font_13" />
-            </LinearLayout>
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
@@ -140,6 +112,26 @@
                     android:text="@string/qr_reward"
                     android:textColor="@android:color/white"
                     android:visibility="gone"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/size_2"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/size_4">
+
+                <TextView
+                    android:id="@+id/tv_voucher_expired_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_3"
+                    android:layout_marginStart="@dimen/size_3"
+                    android:text="2017-01-30"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font_13" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.entity.CommentObj;
@@ -33,9 +35,11 @@ import java.util.ArrayList;
  * Created by vivhp on 2/18/2017.
  */
 
-public class ListCommentActivity extends BasicActivity implements IActivityComment {
+public class ListCommentActivity extends BasicActivity implements IActivityComment, View.OnClickListener {
 
     int news_id, page = 1, pagesize = 9;
+    ImageButton btn_send;
+    EditText edt_comment;
     private int REQUEST_ACTION_COMMENT = 91;
     private int id_toolbar = R.id.toolbar_comment;
     private ArrayList<CommentObj> arrayList;
@@ -44,6 +48,7 @@ public class ListCommentActivity extends BasicActivity implements IActivityComme
     private AdapterCommentActivity adapter;
     private CommentPresenter presenter;
     private String st_news_id;
+    private String cmtContent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,8 +56,15 @@ public class ListCommentActivity extends BasicActivity implements IActivityComme
         setContentView(R.layout.list_comment_activity);
         initToolbar(id_toolbar, this.getString(R.string.activity_comment));
         presenter = new CommentPresenter(this);
+        initView();
         initRecyclerView();
         initProgressView();
+    }
+
+    private void initView() {
+        btn_send = (ImageButton) findViewById(R.id.btn_send);
+        edt_comment = (EditText) findViewById(R.id.edt_comment);
+        btn_send.setOnClickListener(this);
     }
 
     private void initRecyclerView() {
@@ -107,6 +119,16 @@ public class ListCommentActivity extends BasicActivity implements IActivityComme
         super.showShortToast(message);
     }
 
+    @Override
+    public void onPostCommentSuccess() {
+        showShortToast("Bình luận thành công!");
+        page = 1;
+        arrayList.clear();
+        getData();
+        adapter.notifyDataSetChanged();
+        edt_comment.setText(null);
+    }
+
     private void getData() {
 //        progressView.hideData();
         progressView.setRefreshing(true);
@@ -131,15 +153,6 @@ public class ListCommentActivity extends BasicActivity implements IActivityComme
 //    }
 
     private boolean validIdNewsl() {
-        Intent intent = getIntent();
-        st_news_id = intent.getStringExtra(Constants.NEWS_ID);
-        news_id = Integer.parseInt(st_news_id);
-        Log.e("Cmt news id", String.valueOf(news_id));
-
-        return news_id != -1;
-    }
-
-    private boolean validComment() {
         Intent intent = getIntent();
         st_news_id = intent.getStringExtra(Constants.NEWS_ID);
         news_id = Integer.parseInt(st_news_id);
@@ -253,6 +266,28 @@ public class ListCommentActivity extends BasicActivity implements IActivityComme
         return this;
     }
 
+    private void setData2Comment() {
+        checkNetWork(2);
+    }
+
+    private void postDataFromListComment() {
+        if (validIdNewsl()) {
+            Log.e("Status Comment", "Ok");
+            validContent();
+        }
+    }
+
+    private void validContent() {
+        if (edt_comment.getText().length() > 0) {
+            cmtContent = edt_comment.getText().toString();
+            Log.e("Comment content", cmtContent);
+            setData2Comment();
+        } else {
+            showShortToast("Vui lòng nhập nội dung bình luận");
+        }
+    }
+
+
     private void checkNetWork(int type) {
         final Context context = getContext();
         if (!NetWorkInfo.isOnline(context)) {
@@ -281,7 +316,7 @@ public class ListCommentActivity extends BasicActivity implements IActivityComme
             if (type == 1) {
                 presenter.getComment(news_id, page, pagesize);
             } else if (type == 2) {
-
+                presenter.postComment(news_id, cmtContent);
             } else if (type == 3) {
 
             } else if (type == 4) {
@@ -289,6 +324,14 @@ public class ListCommentActivity extends BasicActivity implements IActivityComme
             } else if (type == 5) {
 
             }
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.btn_send) {
+            postDataFromListComment();
         }
     }
 }

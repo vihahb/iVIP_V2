@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
@@ -19,6 +20,8 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.view.MyApplication;
+import com.xtel.sdk.utils.PicassoImageGetter;
+import com.xtel.sdk.utils.TimeUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,6 +36,9 @@ import jp.wasabeef.blurry.Blurry;
 public class WidgetHelper {
 
     private static WidgetHelper instance;
+    private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+    private final SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
+    private String TAG = "Widget Helper";
 
     public static WidgetHelper getInstance() {
         if (instance == null) {
@@ -45,6 +51,12 @@ public class WidgetHelper {
         if (content != null) {
             textView.setText(content);
         }
+    }
+
+    public static void main(String[] args) {
+        String test = "Hlxkgxyc&nbsp;<br><img src=\"http://124.158.5.112:9190/upload/store/files/2017/03/28/1490697533902@aVnXlthyg6.png\" alt=\"iVipBusiness\"><br>";
+        String content = test.replaceAll("\\\"", "\"");
+        System.out.print(content);
     }
 
     public void setImageURL(ImageView view, String url) {
@@ -177,19 +189,29 @@ public class WidgetHelper {
             view.setText((content + convertLong2Time(milliseconds)));
     }
 
+    public void setTextViewDateWithHour(TextView view, String content, long milliseconds) {
+        if (milliseconds == 0)
+            view.setText((content + MyApplication.context.getString(R.string.updating)));
+        else
+            view.setText((content + convertLong2TimeWithHour(milliseconds)));
+    }
+
     public void setTextViewNoResult(TextView view, String content) {
         view.setText(content);
     }
 
-    public void setTextViewNoResult(TextView view, String title, String content) {
-        view.setText((title + ": " + content));
+    public void setTextViewFromHtml(TextView view, String content) {
+        view.setText(Html.fromHtml(content));
     }
 
-    public void setTextViewWithResult(TextView view, String content, String result) {
-        if (content == null || content.isEmpty())
-            view.setText(result);
-        else
-            view.setText(content);
+    public void setTextViewFromHtmlWithImage(TextView view, String content) {
+        String content_replace = content.replace("\\\"", "\"");
+        view.setText(Html.fromHtml(content_replace, new PicassoImageGetter(view), null));
+        Log.e(TAG, "asdasdasf " + content_replace);
+    }
+
+    public void setTextViewNoResult(TextView view, String title, String content) {
+        view.setText((title + ": " + content));
     }
 
 
@@ -216,6 +238,13 @@ public class WidgetHelper {
 //        return day + "-" + month + "-" + mYear;
 //    }
 
+    public void setTextViewWithResult(TextView view, String content, String result) {
+        if (content == null || content.isEmpty())
+            view.setText(result);
+        else
+            view.setText(content);
+    }
+
     public String convertLong2Time(long time) {
 //        long time_set = time * 10000;
 //        Date date = new Timestamp(time_set);
@@ -235,7 +264,7 @@ public class WidgetHelper {
 //        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC+7"));
 //        String formatTime = dateFormat.format(date);
         Date date = new Date(time * 1000);
-        SimpleDateFormat formatTime = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm dd/MM/yyyy");
         formatTime.setTimeZone(TimeZone.getTimeZone("GMT+7"));
         return formatTime.format(date);
     }
@@ -288,4 +317,86 @@ public class WidgetHelper {
         underLineString.setSpan(new UnderlineSpan(), 0, mystring.length(), 0);
         textView.setText(content);
     }
+
+    public void comparingTime(TextView textView, long time_get) {
+//        int c_day;
+//        int c_hour;
+//        int c_minutes;
+//        int c_month;
+//        int c_year;
+//        String time_now;
+//
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//        Calendar calendar = Calendar.getInstance();
+//        c_minutes = calendar.get(Calendar.MINUTE);
+//        c_hour = calendar.get(Calendar.HOUR_OF_DAY);
+//        c_day = calendar.get(Calendar.DAY_OF_MONTH);
+//        c_month = calendar.get(Calendar.MONTH);
+//        c_year = calendar.get(Calendar.YEAR);
+//        time_now = c_day + "/" + c_month + "/" + c_year;
+//
+//        //Current date
+//        Date date_now = new Date();
+//        try {
+//            date_now = simpleDateFormat.parse(time_now);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        Log.e(TAG, String.valueOf(date_now));
+//
+//        //Date get from server
+//        Date date_get = new Date();
+//        try {
+//            date_get = simpleDateFormat.parse(convertLong2Time(time_get));
+//            Log.e(TAG, String.valueOf(date_get));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Log.e(TAG, "Time comparing week" + TimeUtil.getInstance().betweenTime(date_get, date_now).getWeek());
+//        Log.e(TAG, "Time comparing day" + TimeUtil.getInstance().betweenTime(date_get, date_now).getDay());
+//        Log.e(TAG, "Time comparing hour" + TimeUtil.getInstance().betweenTime(date_get, date_now).getHours());
+//        Log.e(TAG, "Time comparing minus" + TimeUtil.getInstance().betweenTime(date_get, date_now).getMinute());
+
+        Date create_time = new Date(time_get * 1000);
+
+        TimeUtil.TimeBetween tw = TimeUtil.getInstance().betweenTime(create_time, new Date());
+
+        String txt = null;
+        long value = 0;
+        if (tw.getDay() > 7) {
+            txt = String.format("%s lúc %s", sdf.format(create_time), sdf1.format(create_time));
+        } else if (tw.getDay() == 7) {
+            txt = "1 tuần trước";
+        } else if ((value = tw.getDay()) >= 1) {
+            txt = value + " ngày trước";
+        } else if ((value = tw.getHours()) > 0) {
+            txt = value + " giờ trước";
+        } else if ((value = tw.getMinute()) > 0) {
+            txt = value + " phút trước trước";
+        } else {
+            txt = "vừa xong";
+        }
+        textView.setText(txt);
+    }
+
+    public void setTimeComparingCheckin(TextView textView, long time) {
+        Date create_time = new Date(time * 1000);
+        TimeUtil.TimeBetween tbw = TimeUtil.getInstance().betweenTime(create_time, new Date());
+        String txt = null;
+        long value = 0;
+
+        if (tbw.getDay() > 7) {
+            txt = String.format("%s lúc %s", sdf.format(create_time), sdf1.format(create_time));
+        } else if (tbw.getDay() == 7) {
+            txt = "1 tuần trước";
+        } else if ((value = tbw.getDay()) > 1) {
+            txt = value + " ngày trước";
+        } else if ((value = tbw.getHours()) == 1) {
+            txt = "Hôm nay";
+        }
+
+        textView.setText(txt);
+    }
+
 }

@@ -42,6 +42,7 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
     private ProgressView progressView;
     private RecyclerView.LayoutManager layoutManager;
     private BottomNavigationView nav_home;
+    private boolean isLoadDone = false, isRefresh = false;
 
     @Nullable
     @Override
@@ -87,6 +88,7 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
             @Override
             public void run() {
                 getData();
+                adapter.notifyDataSetChanged();
             }
         });
     }
@@ -94,6 +96,7 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
     private void getData() {
 //        progressView.hideData();
         progressView.setRefreshing(true);
+//        adapter.onSetLoadMore(true);
         initDataNews();
     }
 
@@ -148,6 +151,7 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
     public void onGetNewsListSuccess(ArrayList<RESP_NewEntity> arrayList) {
 //        progressView.setRefreshing(false);
         Log.e("arr news entity", arrayList.toString());
+        Log.e("arr size", String.valueOf(arrayList.size()));
         if (arrayList.size() < 10) {
             adapter.onSetLoadMore(false);
         }

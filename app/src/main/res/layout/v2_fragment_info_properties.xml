@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <include
+                            layout="@layout/content_info_banner"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size_150" />
+
+                        <include
+                            layout="@layout/content_info_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="@dimen/size_84"
+                    android:layout_height="@dimen/size_84"
+                    android:layout_marginTop="@dimen/size_110">
+
+                    <LinearLayout
+                        android:layout_width="@dimen/size_74"
+                        android:layout_height="@dimen/size_74"
+                        android:layout_gravity="center"
+                        android:background="@drawable/round_white"
+                        android:contentDescription="@null"
+                        android:orientation="horizontal" />
+
+                    <com.xtel.ivipu.view.widget.RoundImage
+                        android:id="@+id/store_info"
+                        android:layout_width="@dimen/size_70"
+                        android:layout_height="@dimen/size_70"
+                        android:layout_gravity="center"
+                        android:contentDescription="@null"
+                        android:src="@mipmap/user_demo"
+                        android:transitionName="@string/transition_shop_ava"
+                        tools:targetApi="lollipop" />
+                </FrameLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
