@@ -10,11 +10,11 @@
     <string name="can_not_request">Không thể kết nối tới Server</string>
     <string name="error_no_service_code">Không tìm thấy service code</string>
     <string name="error_session_invalid">Phiên làm việc đã hết hiệu lực</string>
-    <string name="error_exception_null">Phiên làm việc đã hết hiệu lực</string>
+    <string name="error_exception_null">Lỗi không xác định</string>
     <string name="error_input_invalid">Đầu vào không hợp lệ</string>
     <string name="error_system">Lỗi hệ thống</string>
     <string name="error_activation_failed">Xác thực thất bại</string>
-    <string name="error_service_not_valid">Dịch vũ không tồn tại</string>
+    <string name="error_service_not_valid">Dịch vụ không tồn tại</string>
     <string name="error_service_in_valid">Dịch vụ chưa được kích hoạt</string>
     <string name="error_email_already">Email đã tồn tại</string>
     <string name="error_user_name_already">Tên tài khoản đã tồn tại</string>

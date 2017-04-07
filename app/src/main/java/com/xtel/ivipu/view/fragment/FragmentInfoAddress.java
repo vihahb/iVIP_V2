@@ -107,8 +107,6 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Log.e("Request code permission", String.valueOf(requestCode));
 
-
-
 //        if (grantResults.length > 0) {
 //            boolean fineLocationAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
 //            boolean coasLocationAccepted = grantResults[2] == PackageManager.PERMISSION_GRANTED;
