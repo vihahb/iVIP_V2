@@ -58,6 +58,8 @@
     <string name="tab_gallery">Thư viện</string>
     <string name="tab_suggestion">Thể loại liên quan</string>
 
+    <!-- Info Address -->
+    <string name="introduce">Giới thiệu</string>
 
     <!-- Action -->
     <string name="action_success">Success</string>

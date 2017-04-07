@@ -8,11 +8,15 @@ import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -44,7 +48,6 @@ import com.xtel.sdk.utils.GPSTracker;
 
 import java.util.ArrayList;
 
-
 /**
  * Created by vihahb on 1/17/2017.
  */
@@ -65,8 +68,12 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
     private NewsObj newsObject;
     private String[] permission = new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
     private int REQUEST_PERMISSION_LOCATION_ADDRESS = 11;
-//    private HashMap<Marker, Shop_Address> hashMap_Maker;
-//    private Marker getPickMarker;
+
+    private ImageButton img_direction;
+    private ImageView img_logo;
+    private TextView txt_title, txt_address, txt_phone, txt_content;
+
+    private BottomSheetBehavior bottomSheetBehavior;
 
     @Nullable
     @Override
@@ -80,6 +87,9 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
         tracker = new GPSTracker(getContext());
         presenter = new FragmentInfoAddressPresenter(this);
         initPermission();
+        initView(view);
+        initListener();
+        initBottomSheet(view);
     }
 
     private void initPermission() {
@@ -96,6 +106,45 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
             initGoogleMaps();
             getDataFromFragmentShop();
         }
+    }
+
+    private void initView(View view) {
+        img_direction = (ImageButton) view.findViewById(R.id.fragment_info_address_img_direction);
+        img_logo = (ImageView) view.findViewById(R.id.fragment_info_address_img_logo);
+        txt_title = (TextView) view.findViewById(R.id.fragment_info_address_txt_title);
+        txt_address = (TextView) view.findViewById(R.id.fragment_info_address_txt_address);
+        txt_phone = (TextView) view.findViewById(R.id.fragment_info_address_txt_phone);
+        txt_content = (TextView) view.findViewById(R.id.fragment_info_address_txt_content);
+    }
+
+    private void initListener() {
+        img_direction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    /*
+    * Khởi tạo bottom sheet
+    * */
+    private void initBottomSheet(View view) {
+        View llBottomSheet = view.findViewById(R.id.fragment_info_address_bottom_sheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(llBottomSheet);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
     }
 
     public void requestPermission() {
@@ -221,8 +270,8 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        if (!isFindMyLocation) {
-        }
+//        if (!isFindMyLocation) {
+//        }
         startLocationUpdates();
     }
 
@@ -236,8 +285,8 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
 
     @Override
     public void onCameraIdle() {
-        double lat = mMap.getProjection().getVisibleRegion().latLngBounds.getCenter().latitude;
-        double lng = mMap.getProjection().getVisibleRegion().latLngBounds.getCenter().longitude;
+//        double lat = mMap.getProjection().getVisibleRegion().latLngBounds.getCenter().latitude;
+//        double lng = mMap.getProjection().getVisibleRegion().latLngBounds.getCenter().longitude;
 
         if (isCanLoadMap) {
             isCanLoadMap = false;
@@ -256,7 +305,18 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        return false;
+        Shop_Address shop_address = (Shop_Address) marker.getTag();
+
+        Log.e("onMarkerClick", JsonHelper.toJson(shop_address));
+
+        WidgetHelper.getInstance().setImageURL(img_logo, shop_address.getLogo());
+        WidgetHelper.getInstance().setTextViewNoResult(txt_address, shop_address.getAddress());
+        WidgetHelper.getInstance().setTextViewNoResult(txt_title, shop_address.getStore_name());
+        WidgetHelper.getInstance().setTextViewNoResult(txt_phone, "phone");
+        WidgetHelper.getInstance().setTextViewNoResult(txt_content, shop_address.getStore_name());
+
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        return true;
     }
 
     @Override
@@ -288,13 +348,17 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
     }
 
     //Add marker
-    private void addMarkerToMap(String shop_name, double lat,  double lng) {
+    private void addMarkerToMap(Shop_Address obj, double lat,  double lng) {
         LatLng latLng = new LatLng(lat, lng);
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.title(shop_name);
+        markerOptions.title(obj.getStore_name());
         markerOptions.position(latLng);
         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker));
-        mMap.addMarker(markerOptions).showInfoWindow();
+
+        Marker marker = mMap.addMarker(markerOptions);
+        marker.setTag(obj);
+        marker.showInfoWindow();
+
         showLocation(latLng);
     }
 
@@ -391,7 +455,7 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
             double lat = arrayList.get(i).getLocation_lat();
             double lng = arrayList.get(i).getLocation_lng();
             String shop_name = arrayList.get(i).getStore_name();
-            addMarkerToMap(shop_name, lat, lng);
+            addMarkerToMap(arrayList.get(i), lat, lng);
             Log.e("Shop position", "Lat: " + lat + ", lng: " + lng);
         }
     }
