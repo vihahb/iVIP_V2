@@ -3,6 +3,16 @@ package com.xtel.ivipu.view.fragment;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -10,6 +20,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.content.ContextCompat;
+import android.text.Html;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +44,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.RESP.RESP_NewEntity;
 import com.xtel.ivipu.model.RESP.RESP_NewsObject;
@@ -40,16 +54,20 @@ import com.xtel.ivipu.model.entity.Shop_Address;
 import com.xtel.ivipu.presenter.FragmentInfoAddressPresenter;
 import com.xtel.ivipu.view.fragment.inf.IFragmentAddressView;
 import com.xtel.ivipu.view.widget.WidgetHelper;
+import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.utils.JsonHelper;
+import com.xtel.nipservicesdk.utils.JsonParse;
 import com.xtel.nipservicesdk.utils.PermissionHelper;
 import com.xtel.sdk.commons.Constants;
 import com.xtel.sdk.commons.NetWorkInfo;
 import com.xtel.sdk.utils.GPSTracker;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
- * Created by vihahb on 1/17/2017.
+ * Created by vihahb on 1/17/2017
  */
 
 public class FragmentInfoAddress extends BasicFragment implements IFragmentAddressView, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
@@ -69,10 +87,10 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
     private String[] permission = new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
     private int REQUEST_PERMISSION_LOCATION_ADDRESS = 11;
 
-    private ImageButton img_direction;
-    private ImageView img_logo;
+    private ImageView img_logo, img_direction;
     private TextView txt_title, txt_address, txt_phone, txt_content;
 
+    protected Shop_Address shop_address;
     private BottomSheetBehavior bottomSheetBehavior;
 
     @Nullable
@@ -109,7 +127,7 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
     }
 
     private void initView(View view) {
-        img_direction = (ImageButton) view.findViewById(R.id.fragment_info_address_img_direction);
+        img_direction = (ImageView) view.findViewById(R.id.fragment_info_address_img_direction);
         img_logo = (ImageView) view.findViewById(R.id.fragment_info_address_img_logo);
         txt_title = (TextView) view.findViewById(R.id.fragment_info_address_txt_title);
         txt_address = (TextView) view.findViewById(R.id.fragment_info_address_txt_address);
@@ -121,7 +139,21 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
         img_direction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mGoogleApiClient.isConnected()) {
+                    if (permission == null || permission.length == 0 || getActivity() == null)
+                        return;
 
+                    if (PermissionHelper.checkListPermission(permission, getActivity(), 1001)) {
+                        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+                        if (mLastLocation != null) {
+                            showProgressBar(false, false, null, getString(R.string.doing_get_data));
+                            presenter.getPolyLine(mLastLocation.getLatitude(), mLastLocation.getLongitude(), shop_address.getLocation_lat(), shop_address.getLocation_lng());
+                        } else
+                            showShortToast(getString(R.string.can_not_find_location));
+                    }
+                } else
+                    mGoogleApiClient.connect();
             }
         });
     }
@@ -137,7 +169,12 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    if (polyline != null)
+                        polyline.remove();
 
+                    shop_address = null;
+                }
             }
 
             @Override
@@ -295,7 +332,7 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
 
     @Override
     public void onMapClick(LatLng latLng) {
-
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     }
 
     @Override
@@ -306,9 +343,12 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
     @Override
     public boolean onMarkerClick(Marker marker) {
         Shop_Address shop_address = (Shop_Address) marker.getTag();
-
         Log.e("onMarkerClick", JsonHelper.toJson(shop_address));
 
+        if (shop_address == null)
+            return false;
+
+        this.shop_address = shop_address;
         WidgetHelper.getInstance().setImageURL(img_logo, shop_address.getLogo());
         WidgetHelper.getInstance().setTextViewNoResult(txt_address, shop_address.getAddress());
         WidgetHelper.getInstance().setTextViewNoResult(txt_title, shop_address.getStore_name());
@@ -354,12 +394,48 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
         markerOptions.title(obj.getStore_name());
         markerOptions.position(latLng);
         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker));
-
         Marker marker = mMap.addMarker(markerOptions);
+
+        try {
+            URL url = new URL(obj.getLogo());
+            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+            marker.setIcon(BitmapDescriptorFactory.fromBitmap(getCroppedBitmap(bmp)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         marker.setTag(obj);
         marker.showInfoWindow();
 
         showLocation(latLng);
+    }
+
+    public float convertDpToPixel(float dp) {
+        Resources resources = getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return dp * (metrics.densityDpi / 160f);
+    }
+
+    /*
+    * Bo tròn bitmap
+    * */
+    public Bitmap getCroppedBitmap(Bitmap bitmap) {
+        View customMarkerView = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker, null);
+        ImageView background = (ImageView) customMarkerView.findViewById(R.id.custom_marker_background);
+        ImageView markerImageView = (ImageView) customMarkerView.findViewById(R.id.custom_marker);
+        markerImageView.setImageBitmap(bitmap);
+        customMarkerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        customMarkerView.layout(0, 0, background.getMeasuredWidth(), background.getMeasuredHeight());
+        customMarkerView.buildDrawingCache();
+        Bitmap returnedBitmap = Bitmap.createBitmap(customMarkerView.getMeasuredWidth(), customMarkerView.getMeasuredHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN);
+        Drawable drawable = customMarkerView.getBackground();
+        if (drawable != null)
+            drawable.draw(canvas);
+        customMarkerView.draw(canvas);
+        return returnedBitmap;
     }
 
     @Override
@@ -479,6 +555,31 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
     @Override
     public void onGetAddressError() {
 
+    }
+
+    private Polyline polyline;
+
+    @Override
+    public void onGetPolylineSuccess(LatLng latLng, PolylineOptions polylineOptions) {
+        closeProgressBar();
+
+        if (polyline != null)
+            polyline.remove();
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+        polyline = mMap.addPolyline(polylineOptions);
+        polyline.setWidth(16);
+        polyline.setColor(Color.parseColor("#62B1F6"));
+    }
+
+    @Override
+    public void onGetPolyLineError(Error error) {
+        closeProgressBar();
+        if (error.getCode() == -4) {
+            showShortToast(error.getMessage());
+        } else {
+            showShortToast(JsonParse.getCodeMessage(getActivity(), error.getCode(), getString(R.string.has_error)));
+        }
     }
 
     @Override
