@@ -3,16 +3,32 @@ package com.xtel.ivipu.view.fragment;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.content.ContextCompat;
+import android.text.Html;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -28,6 +44,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.RESP.RESP_NewEntity;
 import com.xtel.ivipu.model.RESP.RESP_NewsObject;
@@ -36,17 +54,20 @@ import com.xtel.ivipu.model.entity.Shop_Address;
 import com.xtel.ivipu.presenter.FragmentInfoAddressPresenter;
 import com.xtel.ivipu.view.fragment.inf.IFragmentAddressView;
 import com.xtel.ivipu.view.widget.WidgetHelper;
+import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.utils.JsonHelper;
+import com.xtel.nipservicesdk.utils.JsonParse;
 import com.xtel.nipservicesdk.utils.PermissionHelper;
 import com.xtel.sdk.commons.Constants;
 import com.xtel.sdk.commons.NetWorkInfo;
 import com.xtel.sdk.utils.GPSTracker;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
-
 /**
- * Created by vihahb on 1/17/2017.
+ * Created by vihahb on 1/17/2017
  */
 
 public class FragmentInfoAddress extends BasicFragment implements IFragmentAddressView, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
@@ -65,8 +86,12 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
     private NewsObj newsObject;
     private String[] permission = new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
     private int REQUEST_PERMISSION_LOCATION_ADDRESS = 11;
-//    private HashMap<Marker, Shop_Address> hashMap_Maker;
-//    private Marker getPickMarker;
+
+    private ImageView img_logo, img_direction;
+    private TextView txt_title, txt_address, txt_phone, txt_content;
+
+    protected Shop_Address shop_address;
+    private BottomSheetBehavior bottomSheetBehavior;
 
     @Nullable
     @Override
@@ -80,6 +105,9 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
         tracker = new GPSTracker(getContext());
         presenter = new FragmentInfoAddressPresenter(this);
         initPermission();
+        initView(view);
+        initListener();
+        initBottomSheet(view);
     }
 
     private void initPermission() {
@@ -96,6 +124,64 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
             initGoogleMaps();
             getDataFromFragmentShop();
         }
+    }
+
+    private void initView(View view) {
+        img_direction = (ImageView) view.findViewById(R.id.fragment_info_address_img_direction);
+        img_logo = (ImageView) view.findViewById(R.id.fragment_info_address_img_logo);
+        txt_title = (TextView) view.findViewById(R.id.fragment_info_address_txt_title);
+        txt_address = (TextView) view.findViewById(R.id.fragment_info_address_txt_address);
+        txt_phone = (TextView) view.findViewById(R.id.fragment_info_address_txt_phone);
+        txt_content = (TextView) view.findViewById(R.id.fragment_info_address_txt_content);
+    }
+
+    private void initListener() {
+        img_direction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mGoogleApiClient.isConnected()) {
+                    if (permission == null || permission.length == 0 || getActivity() == null)
+                        return;
+
+                    if (PermissionHelper.checkListPermission(permission, getActivity(), 1001)) {
+                        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+                        if (mLastLocation != null) {
+                            showProgressBar(false, false, null, getString(R.string.doing_get_data));
+                            presenter.getPolyLine(mLastLocation.getLatitude(), mLastLocation.getLongitude(), shop_address.getLocation_lat(), shop_address.getLocation_lng());
+                        } else
+                            showShortToast(getString(R.string.can_not_find_location));
+                    }
+                } else
+                    mGoogleApiClient.connect();
+            }
+        });
+    }
+
+    /*
+    * Khởi tạo bottom sheet
+    * */
+    private void initBottomSheet(View view) {
+        View llBottomSheet = view.findViewById(R.id.fragment_info_address_bottom_sheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(llBottomSheet);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    if (polyline != null)
+                        polyline.remove();
+
+                    shop_address = null;
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
     }
 
     public void requestPermission() {
@@ -221,8 +307,8 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        if (!isFindMyLocation) {
-        }
+//        if (!isFindMyLocation) {
+//        }
         startLocationUpdates();
     }
 
@@ -236,8 +322,8 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
 
     @Override
     public void onCameraIdle() {
-        double lat = mMap.getProjection().getVisibleRegion().latLngBounds.getCenter().latitude;
-        double lng = mMap.getProjection().getVisibleRegion().latLngBounds.getCenter().longitude;
+//        double lat = mMap.getProjection().getVisibleRegion().latLngBounds.getCenter().latitude;
+//        double lng = mMap.getProjection().getVisibleRegion().latLngBounds.getCenter().longitude;
 
         if (isCanLoadMap) {
             isCanLoadMap = false;
@@ -246,7 +332,7 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
 
     @Override
     public void onMapClick(LatLng latLng) {
-
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     }
 
     @Override
@@ -256,7 +342,21 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        return false;
+        Shop_Address shop_address = (Shop_Address) marker.getTag();
+        Log.e("onMarkerClick", JsonHelper.toJson(shop_address));
+
+        if (shop_address == null)
+            return false;
+
+        this.shop_address = shop_address;
+        WidgetHelper.getInstance().setImageURL(img_logo, shop_address.getLogo());
+        WidgetHelper.getInstance().setTextViewNoResult(txt_address, shop_address.getAddress());
+        WidgetHelper.getInstance().setTextViewNoResult(txt_title, shop_address.getStore_name());
+        WidgetHelper.getInstance().setTextViewNoResult(txt_phone, "phone");
+        WidgetHelper.getInstance().setTextViewNoResult(txt_content, shop_address.getStore_name());
+
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        return true;
     }
 
     @Override
@@ -288,14 +388,54 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
     }
 
     //Add marker
-    private void addMarkerToMap(String shop_name, double lat,  double lng) {
+    private void addMarkerToMap(Shop_Address obj, double lat,  double lng) {
         LatLng latLng = new LatLng(lat, lng);
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.title(shop_name);
+        markerOptions.title(obj.getStore_name());
         markerOptions.position(latLng);
         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker));
-        mMap.addMarker(markerOptions).showInfoWindow();
+        Marker marker = mMap.addMarker(markerOptions);
+
+        try {
+            URL url = new URL(obj.getLogo());
+            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+            marker.setIcon(BitmapDescriptorFactory.fromBitmap(getCroppedBitmap(bmp)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        marker.setTag(obj);
+        marker.showInfoWindow();
+
         showLocation(latLng);
+    }
+
+    public float convertDpToPixel(float dp) {
+        Resources resources = getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return dp * (metrics.densityDpi / 160f);
+    }
+
+    /*
+    * Bo tròn bitmap
+    * */
+    public Bitmap getCroppedBitmap(Bitmap bitmap) {
+        View customMarkerView = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker, null);
+        ImageView background = (ImageView) customMarkerView.findViewById(R.id.custom_marker_background);
+        ImageView markerImageView = (ImageView) customMarkerView.findViewById(R.id.custom_marker);
+        markerImageView.setImageBitmap(bitmap);
+        customMarkerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        customMarkerView.layout(0, 0, background.getMeasuredWidth(), background.getMeasuredHeight());
+        customMarkerView.buildDrawingCache();
+        Bitmap returnedBitmap = Bitmap.createBitmap(customMarkerView.getMeasuredWidth(), customMarkerView.getMeasuredHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN);
+        Drawable drawable = customMarkerView.getBackground();
+        if (drawable != null)
+            drawable.draw(canvas);
+        customMarkerView.draw(canvas);
+        return returnedBitmap;
     }
 
     @Override
@@ -391,7 +531,7 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
             double lat = arrayList.get(i).getLocation_lat();
             double lng = arrayList.get(i).getLocation_lng();
             String shop_name = arrayList.get(i).getStore_name();
-            addMarkerToMap(shop_name, lat, lng);
+            addMarkerToMap(arrayList.get(i), lat, lng);
             Log.e("Shop position", "Lat: " + lat + ", lng: " + lng);
         }
     }
@@ -415,6 +555,31 @@ public class FragmentInfoAddress extends BasicFragment implements IFragmentAddre
     @Override
     public void onGetAddressError() {
 
+    }
+
+    private Polyline polyline;
+
+    @Override
+    public void onGetPolylineSuccess(LatLng latLng, PolylineOptions polylineOptions) {
+        closeProgressBar();
+
+        if (polyline != null)
+            polyline.remove();
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+        polyline = mMap.addPolyline(polylineOptions);
+        polyline.setWidth(16);
+        polyline.setColor(Color.parseColor("#62B1F6"));
+    }
+
+    @Override
+    public void onGetPolyLineError(Error error) {
+        closeProgressBar();
+        if (error.getCode() == -4) {
+            showShortToast(error.getMessage());
+        } else {
+            showShortToast(JsonParse.getCodeMessage(getActivity(), error.getCode(), getString(R.string.has_error)));
+        }
     }
 
     @Override

@@ -39,7 +39,7 @@ public class CallbackManager {
 
     private ICmd iCmd = new ICmd() {
         @Override
-        public void execute() {
+        public void execute(Object... params) {
             if ((Integer) object.get(0) == 1) {
 
                 LoginModel.getInstance().getNewSession((String) object.get(1), new ResponseHandle<RESP_Login>(RESP_Login.class) {

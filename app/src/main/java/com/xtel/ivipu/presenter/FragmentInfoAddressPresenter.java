@@ -3,14 +3,20 @@ package com.xtel.ivipu.presenter;
 import android.os.Handler;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.HomeModel;
 import com.xtel.ivipu.model.RESP.RESP_Address_Arr;
 import com.xtel.ivipu.model.RESP.RESP_NewsObject;
+import com.xtel.ivipu.model.RESP.RESP_Router;
+import com.xtel.ivipu.model.entity.Steps;
 import com.xtel.ivipu.view.activity.LoginActivity;
 import com.xtel.ivipu.view.fragment.inf.IFragmentAddressView;
 import com.xtel.nipservicesdk.CallbackManager;
 import com.xtel.nipservicesdk.LoginManager;
 import com.xtel.nipservicesdk.callback.CallbacListener;
+import com.xtel.nipservicesdk.callback.ICmd;
 import com.xtel.nipservicesdk.callback.ResponseHandle;
 import com.xtel.nipservicesdk.model.entity.Error;
 import com.xtel.nipservicesdk.model.entity.RESP_Login;
@@ -18,6 +24,9 @@ import com.xtel.nipservicesdk.utils.JsonHelper;
 import com.xtel.nipservicesdk.utils.JsonParse;
 import com.xtel.sdk.commons.Constants;
 import com.xtel.sdk.commons.NetWorkInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by vivhp on 3/1/2017.
@@ -27,6 +36,33 @@ public class FragmentInfoAddressPresenter {
 
     private IFragmentAddressView view;
     private String session = LoginManager.getCurrentSession();
+
+    private ICmd iCmd = new ICmd() {
+        @Override
+        public void execute(Object... params) {
+            final double from_lat = (double) params[0];
+            final double from_lng = (double) params[1];
+            HomeModel.getInstance().getPolyLine(from_lat, from_lng, (double) params[2], (double) params[3], new ResponseHandle<RESP_Router>(RESP_Router.class) {
+                @Override
+                public void onSuccess(RESP_Router obj) {
+                    if (obj != null) {
+                        LatLng latLng = new LatLng(from_lat, from_lng);
+                        PolylineOptions polylineOptions = getPolylineOption(obj.getRoutes().get(0).getLegs().get(0).getSteps());
+
+                        if (polylineOptions != null)
+                            view.onGetPolylineSuccess(latLng, polylineOptions);
+                        else
+                            view.onGetPolyLineError(new Error(-4, view.getActivity().getString(R.string.error), view.getActivity().getString(R.string.error_can_not_get_polyline)));
+                    }
+                }
+
+                @Override
+                public void onError(Error error) {
+                    view.onGetPolyLineError(error);
+                }
+            });
+        }
+    };
 
     public FragmentInfoAddressPresenter(IFragmentAddressView view) {
         this.view = view;
@@ -125,4 +161,27 @@ public class FragmentInfoAddressPresenter {
         }
     }
 
+    public void getPolyLine(final double from_lat, final double from_lng, double to_lat, double to_lng) {
+        iCmd.execute(from_lat, from_lng, to_lat, to_lng);
+    }
+
+    private PolylineOptions getPolylineOption(ArrayList<Steps> steps) {
+        try {
+            PolylineOptions polylineOptions = new PolylineOptions();
+
+            for (int i = 0; i < steps.size(); i++) {
+                List<LatLng> poly = Constants.decodePoly(steps.get(i).getPolyline().getPoints());
+
+                for (int j = 0; j < poly.size(); j++) {
+                    polylineOptions.add(poly.get(j));
+                }
+            }
+
+            return polylineOptions;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

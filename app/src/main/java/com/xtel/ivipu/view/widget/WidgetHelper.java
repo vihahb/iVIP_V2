@@ -40,6 +40,11 @@ public class WidgetHelper {
     private final SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
     private String TAG = "Widget Helper";
 
+    /*
+    * Cấn sửa lại
+    * tất cả các error của picasso thành ảnh ( không được set màu )
+    * */
+
     public static WidgetHelper getInstance() {
         if (instance == null) {
             instance = new WidgetHelper();

@@ -147,6 +147,7 @@
     <style name="TextView_Elipend">
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">marquee</item>
+        <item name="android:textStyle"></item>
         <item name="android:marqueeRepeatLimit">marquee_forever</item>
         <item name="android:scrollHorizontally">true</item>
     </style>
