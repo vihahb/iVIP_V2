@@ -123,6 +123,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         //Init TabLayout
         tabDots = (TabLayout) findViewById(R.id.tabDots);
         scrollNew = (DiscreteScrollView) findViewById(R.id.scrollNew);
+        ln_new_slider = (LinearLayout) findViewById(R.id.ln_new_slider);
         newArrayList = new ArrayList<>();
         newPluginAdapter = new AdapterNewPlugin(newArrayList);
         scrollNew.setAdapter(newPluginAdapter);
@@ -427,6 +428,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         disableItem();
         if (id == R.id.nav_home) {
             // Handle the camera action
+            ln_new_slider.setVisibility(View.VISIBLE);
             nav_bottom_home.setVisibility(View.VISIBLE);
             replaceDefaultFragment();
         } else if (id == R.id.nav_my_shop) {
@@ -445,19 +447,23 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
             pushData(toNotification);
         } else if (id == R.id.nav_news_history) {
             disableItem();
+            ln_new_slider.setVisibility(View.GONE);
             nav_bottom_home.setVisibility(View.GONE);
             replaceFragment(R.id.home_frame, new HistoryFragment(), "HISTORY");
             renameToolbar(R.string.nav_history);
         } else if (id == R.id.nav_news_favorite) {
             disableItem();
+            ln_new_slider.setVisibility(View.GONE);
             nav_bottom_home.setVisibility(View.GONE);
             replaceFragment(R.id.home_frame, new FavoriteFragment(), "FAVORITE");
             renameToolbar(R.string.nav_favorite);
         } else if (id == R.id.nav_faq) {
+            ln_new_slider.setVisibility(View.GONE);
         } else if (id == R.id.nav_voucher_user) {
             if (session != null) {
                 disableItem();
                 nav_bottom_home.setVisibility(View.GONE);
+                ln_new_slider.setVisibility(View.GONE);
                 replaceFragment(R.id.home_frame, new FragmentHomeVoucherList(), "USER_VOUCHER");
                 renameToolbar(R.string.nav_voucher_user);
             } else {
@@ -474,6 +480,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     private void replaceMyShopFragment() {
         disableItem();
         nav_bottom_home.setVisibility(View.GONE);
+        ln_new_slider.setVisibility(View.GONE);
         replaceFragment(R.id.home_frame, new FragmentMyShop(), "MYSHOP");
         renameToolbar(R.string.fragment_myshop_content);
     }
@@ -481,6 +488,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     private void replaceMemberCardFragment() {
         disableItem();
         nav_bottom_home.setVisibility(View.GONE);
+        ln_new_slider.setVisibility(View.GONE);
         replaceFragment(R.id.home_frame, new FragmentMemberCard(), "MEMBER");
         renameToolbar(R.string.fragment_member_card_content);
     }
@@ -591,6 +599,7 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
                 disableItem();
                 drawer.closeDrawer(GravityCompat.START);
                 nav_bottom_home.setVisibility(View.GONE);
+                ln_new_slider.setVisibility(View.GONE);
                 replaceFragment(R.id.home_frame, new NotifyFragment(), "NOTIFY");
                 renameToolbar(R.string.action_notify);
             }

@@ -6,14 +6,18 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.provider.Settings;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
@@ -402,6 +406,37 @@ public class WidgetHelper {
         }
 
         textView.setText(txt);
+    }
+
+    public void hideViewActivity(BottomNavigationView navigationView, LinearLayout linearLayout) {
+        navigationView.animate().translationY(navigationView.getHeight()).setInterpolator(new AccelerateInterpolator(2)).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+//             nav_home.setVisibility(View.GONE);
+            }
+        }).start();
+
+        linearLayout.animate().translationY(-linearLayout.getHeight()).setInterpolator(new AccelerateInterpolator(2)).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+//                ln_new_slider.setVisibility(View.GONE);
+            }
+        }).start();
+    }
+
+    public void showViewActivity(BottomNavigationView navigationView, LinearLayout linearLayout) {
+        navigationView.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+//                nav_home.setVisibility(View.VISIBLE);
+            }
+        }).start();
+        linearLayout.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+//                ln_new_slider.setVisibility(View.VISIBLE);
+            }
+        }).start();
     }
 
 }

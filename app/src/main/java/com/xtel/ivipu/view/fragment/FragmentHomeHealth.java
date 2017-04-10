@@ -11,18 +11,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
+import android.widget.LinearLayout;
 
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.RESP.RESP_NewEntity;
 import com.xtel.ivipu.presenter.FragmentHomeHealthPresenter;
 import com.xtel.ivipu.view.activity.ActivityInfoContent;
 import com.xtel.ivipu.view.adapter.AdapterRecycleHealth;
-import com.xtel.ivipu.view.adapter.AdapterRecycleNewsList;
 import com.xtel.ivipu.view.fragment.inf.IFragmentHomeHealth;
 import com.xtel.ivipu.view.widget.ProgressView;
 import com.xtel.ivipu.view.widget.RecyclerOnScrollListener;
+import com.xtel.ivipu.view.widget.WidgetHelper;
 import com.xtel.sdk.commons.Constants;
 
 import java.util.ArrayList;
@@ -43,6 +42,7 @@ public class FragmentHomeHealth extends BasicFragment implements IFragmentHomeHe
     private int REQUEST_VIEW_NEWS_HEALTH = 99;
     private RecyclerView.LayoutManager layoutManager;
     private BottomNavigationView nav_home;
+    private LinearLayout ln_new_slider;
 
     @Nullable
     @Override
@@ -147,6 +147,7 @@ public class FragmentHomeHealth extends BasicFragment implements IFragmentHomeHe
 
     private void initRecylerView(View view) {
         nav_home = (BottomNavigationView) getActivity().findViewById(R.id.bottom_navigation_item);
+        ln_new_slider = (LinearLayout) getActivity().findViewById(R.id.ln_new_slider);
         rcl_healt = (RecyclerView) view.findViewById(R.id.rcl_ivip);
         rcl_healt.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
@@ -173,13 +174,11 @@ public class FragmentHomeHealth extends BasicFragment implements IFragmentHomeHe
     }
 
     private void hideBottomNavigation() {
-        nav_home.animate().translationY(nav_home.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
-        nav_home.setVisibility(View.GONE);
+        WidgetHelper.getInstance().hideViewActivity(nav_home, ln_new_slider);
     }
 
     private void showBottomNavigation() {
-        nav_home.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
-        nav_home.setVisibility(View.VISIBLE);
+        WidgetHelper.getInstance().showViewActivity(nav_home, ln_new_slider);
     }
 
     private void setDataRecyclerView(ArrayList<RESP_NewEntity> newEntities) {

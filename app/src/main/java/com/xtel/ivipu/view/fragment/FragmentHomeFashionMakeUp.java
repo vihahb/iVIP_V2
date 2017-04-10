@@ -11,8 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
+import android.widget.LinearLayout;
 
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.RESP.RESP_NewEntity;
@@ -22,6 +21,7 @@ import com.xtel.ivipu.view.adapter.AdapterRecyclerFashion;
 import com.xtel.ivipu.view.fragment.inf.IFragmentFashionView;
 import com.xtel.ivipu.view.widget.ProgressView;
 import com.xtel.ivipu.view.widget.RecyclerOnScrollListener;
+import com.xtel.ivipu.view.widget.WidgetHelper;
 import com.xtel.sdk.commons.Constants;
 
 import java.util.ArrayList;
@@ -42,6 +42,7 @@ public class FragmentHomeFashionMakeUp extends BasicFragment implements IFragmen
     private FragmentNewsFashionPresenter presenter;
     private int type = 2, page = 1, pagesize = 10;
     private BottomNavigationView nav_home;
+    private LinearLayout ln_new_slider;
 
     @Nullable
     @Override
@@ -58,6 +59,7 @@ public class FragmentHomeFashionMakeUp extends BasicFragment implements IFragmen
     }
 
     private void initView(View view) {
+        ln_new_slider = (LinearLayout) getActivity().findViewById(R.id.ln_new_slider);
         nav_home = (BottomNavigationView) getActivity().findViewById(R.id.bottom_navigation_item);
         rcl_fashion = (RecyclerView) view.findViewById(R.id.rcl_ivip);
         rcl_fashion.setHasFixedSize(true);
@@ -86,13 +88,11 @@ public class FragmentHomeFashionMakeUp extends BasicFragment implements IFragmen
     }
 
     private void hideBottomNavigation() {
-        nav_home.animate().translationY(nav_home.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
-        nav_home.setVisibility(View.GONE);
+        WidgetHelper.getInstance().hideViewActivity(nav_home, ln_new_slider);
     }
 
     private void showBottomNavigation() {
-        nav_home.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
-        nav_home.setVisibility(View.VISIBLE);
+        WidgetHelper.getInstance().showViewActivity(nav_home, ln_new_slider);
     }
 
     private void initProgressView(View view) {

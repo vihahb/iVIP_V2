@@ -11,8 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 
 import com.xtel.ivipu.R;
@@ -23,6 +21,7 @@ import com.xtel.ivipu.view.adapter.AdapterRecycleNewsList;
 import com.xtel.ivipu.view.fragment.inf.IFragmentNewsListView;
 import com.xtel.ivipu.view.widget.ProgressView;
 import com.xtel.ivipu.view.widget.RecyclerOnScrollListener;
+import com.xtel.ivipu.view.widget.WidgetHelper;
 import com.xtel.sdk.commons.Constants;
 
 import java.util.ArrayList;
@@ -138,33 +137,11 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
     }
 
     private void hideBottomNavigation() {
-        nav_home.animate().translationY(nav_home.getHeight()).setInterpolator(new AccelerateInterpolator(2)).withEndAction(new Runnable() {
-            @Override
-            public void run() {
-//             nav_home.setVisibility(View.GONE);
-            }
-        }).start();
-        ln_new_slider.animate().translationY(-ln_new_slider.getHeight()).setInterpolator(new AccelerateInterpolator(2)).withEndAction(new Runnable() {
-            @Override
-            public void run() {
-//                ln_new_slider.setVisibility(View.GONE);
-            }
-        }).start();
+        WidgetHelper.getInstance().hideViewActivity(nav_home, ln_new_slider);
     }
 
     private void showBottomNavigation() {
-        nav_home.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).withEndAction(new Runnable() {
-            @Override
-            public void run() {
-//                nav_home.setVisibility(View.VISIBLE);
-            }
-        }).start();
-        ln_new_slider.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).withEndAction(new Runnable() {
-            @Override
-            public void run() {
-//                ln_new_slider.setVisibility(View.VISIBLE);
-            }
-        }).start();
+        WidgetHelper.getInstance().showViewActivity(nav_home, ln_new_slider);
     }
 
     private void setDataRecyclerView(ArrayList<RESP_NewEntity> newEntities) {

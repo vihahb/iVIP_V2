@@ -11,8 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
+import android.widget.LinearLayout;
 
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.RESP.RESP_NewEntity;
@@ -22,6 +21,7 @@ import com.xtel.ivipu.view.adapter.AdapterRecycleFood;
 import com.xtel.ivipu.view.fragment.inf.IFragmentFoodView;
 import com.xtel.ivipu.view.widget.ProgressView;
 import com.xtel.ivipu.view.widget.RecyclerOnScrollListener;
+import com.xtel.ivipu.view.widget.WidgetHelper;
 import com.xtel.sdk.commons.Constants;
 
 import java.util.ArrayList;
@@ -41,6 +41,7 @@ public class FragmentHomeFood extends BasicFragment implements IFragmentFoodView
     private int position = -1;
     private int REQUEST_VIEW_FOOD = 92;
     private BottomNavigationView nav_home;
+    private LinearLayout ln_new_slider;
 
     @Nullable
     @Override
@@ -61,6 +62,7 @@ public class FragmentHomeFood extends BasicFragment implements IFragmentFoodView
 
         Log.e("arr food object ", arraylist_food.toString());
         nav_home = (BottomNavigationView) getActivity().findViewById(R.id.bottom_navigation_item);
+        ln_new_slider = (LinearLayout) getActivity().findViewById(R.id.ln_new_slider);
         rcl_food = (RecyclerView) view.findViewById(R.id.rcl_ivip);
         rcl_food.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -86,13 +88,11 @@ public class FragmentHomeFood extends BasicFragment implements IFragmentFoodView
     }
 
     private void hideBottomNavigation() {
-        nav_home.animate().translationY(nav_home.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
-        nav_home.setVisibility(View.GONE);
+        WidgetHelper.getInstance().hideViewActivity(nav_home, ln_new_slider);
     }
 
     private void showBottomNavigation() {
-        nav_home.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
-        nav_home.setVisibility(View.VISIBLE);
+        WidgetHelper.getInstance().showViewActivity(nav_home, ln_new_slider);
     }
 
     private void initProgressView(View view) {
