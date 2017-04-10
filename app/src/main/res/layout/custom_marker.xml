@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/custom_marker_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/custom_marker_background"
+        android:layout_width="@dimen/size_48"
+        android:layout_height="@dimen/size_66"
+        android:contentDescription="@null"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/marker" />
+
+    <com.xtel.ivipu.view.widget.RoundImage
+        android:id="@+id/custom_marker"
+        android:layout_width="@dimen/size_44"
+        android:layout_height="@dimen/size_44"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/size_2"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher" />
+</FrameLayout>

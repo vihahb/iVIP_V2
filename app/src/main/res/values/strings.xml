@@ -84,6 +84,11 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- Get Polyline -->
+    <string name="error_can_not_get_polyline">Không thể đẫn đường</string>
+    <string name="has_error">Có lỗi xảy ra, vui lòng thử lại</string>
+    <string name="can_not_find_location">Không thể tìm vị trí của bạn</string>
+    <string name="doing_get_data">Đang tải dữ liệu…</string>
 
     <!-- Request -->
     <string name="error_server_request">Không thể kết nối tới Server</string>
