@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.LinearLayout;
 
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.RESP.RESP_NewEntity;
@@ -37,12 +38,15 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
     int type = 1, page = 1, pagesize = 10;
     private RecyclerView rcl_new_list;
     private ArrayList<RESP_NewEntity> arrayListNewsList;
+
+
     private int position = -1;
     private int REQUEST_VIEW_NEWS_LIST = 99;
     private ProgressView progressView;
     private RecyclerView.LayoutManager layoutManager;
     private BottomNavigationView nav_home;
-    private boolean isLoadDone = false, isRefresh = false;
+    private LinearLayout ln_new_slider;
+
 
     @Nullable
     @Override
@@ -111,6 +115,7 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
         rcl_new_list.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         rcl_new_list.setLayoutManager(layoutManager);
+        ln_new_slider = (LinearLayout) getActivity().findViewById(R.id.ln_new_slider);
 
         arrayListNewsList = new ArrayList<>();
         adapter = new AdapterRecycleNewsList(arrayListNewsList, this);
@@ -133,13 +138,33 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
     }
 
     private void hideBottomNavigation() {
-        nav_home.animate().translationY(nav_home.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
-        nav_home.setVisibility(View.GONE);
+        nav_home.animate().translationY(nav_home.getHeight()).setInterpolator(new AccelerateInterpolator(2)).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+//             nav_home.setVisibility(View.GONE);
+            }
+        }).start();
+        ln_new_slider.animate().translationY(-ln_new_slider.getHeight()).setInterpolator(new AccelerateInterpolator(2)).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+//                ln_new_slider.setVisibility(View.GONE);
+            }
+        }).start();
     }
 
     private void showBottomNavigation() {
-        nav_home.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
-        nav_home.setVisibility(View.VISIBLE);
+        nav_home.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+//                nav_home.setVisibility(View.VISIBLE);
+            }
+        }).start();
+        ln_new_slider.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+//                ln_new_slider.setVisibility(View.VISIBLE);
+            }
+        }).start();
     }
 
     private void setDataRecyclerView(ArrayList<RESP_NewEntity> newEntities) {
@@ -176,6 +201,7 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
     @Override
     public void onGetNewsListErr() {
     }
+
 
     @Override
     public void startActivityAndFinish(Class clazz) {

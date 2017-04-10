@@ -10,11 +10,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -28,9 +30,11 @@ import android.widget.TextView;
 
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.RESP.RESP_Short;
+import com.xtel.ivipu.model.entity.HotSaleNewsObj;
 import com.xtel.ivipu.model.entity.UserShort;
 import com.xtel.ivipu.presenter.HomePresenter;
 import com.xtel.ivipu.view.activity.inf.IHome;
+import com.xtel.ivipu.view.adapter.AdapterNewPlugin;
 import com.xtel.ivipu.view.fragment.FavoriteFragment;
 import com.xtel.ivipu.view.fragment.FragmentHomeFashionMakeUp;
 import com.xtel.ivipu.view.fragment.FragmentHomeFood;
@@ -49,6 +53,9 @@ import com.xtel.ivipu.view.widget.WidgetHelper;
 import com.xtel.nipservicesdk.LoginManager;
 import com.xtel.sdk.commons.Constants;
 import com.xtel.sdk.commons.NetWorkInfo;
+import com.yarolegovich.discretescrollview.DiscreteScrollView;
+
+import java.util.ArrayList;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
 
@@ -65,6 +72,8 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     FrameLayout fr_home_overlay;
     LoginActivity loginActivity;
     boolean isChecked = false;
+    AdapterNewPlugin newPluginAdapter;
+    HotSaleNewsObj newsObj;
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private ActionBar actionBar;
@@ -84,6 +93,10 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
     private String TAG = "Home Activity";
     private int notificationId = R.id.nav_notify;
     private int toProfile = 1, toNotification = 2;
+    private ArrayList<HotSaleNewsObj> newArrayList;
+    private TabLayout tabDots;
+    private DiscreteScrollView scrollNew;
+    private LinearLayout ln_new_slider;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,11 +109,23 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
         initNavigation();
         initNavigationWidget();
         initBottomNavigation();
+        initPlugin();
         presenter.postFCMKey();
         presenter.onGetShortUser();
         presenter.onGetUserNip();
+        presenter.getNewHotSales();
         loginActivity = new LoginActivity();
         getData();
+    }
+
+    private void initPlugin() {
+
+        //Init TabLayout
+        tabDots = (TabLayout) findViewById(R.id.tabDots);
+        scrollNew = (DiscreteScrollView) findViewById(R.id.scrollNew);
+        newArrayList = new ArrayList<>();
+        newPluginAdapter = new AdapterNewPlugin(newArrayList);
+        scrollNew.setAdapter(newPluginAdapter);
     }
 
     private void initNavigationWidget() {
@@ -595,6 +620,35 @@ public class HomeActivity extends IActivity implements NavigationView.OnNavigati
             }
         });
         dialog.show();
+    }
+
+    @Override
+    public void onGetNew(ArrayList<HotSaleNewsObj> arrayList) {
+        newArrayList.addAll(arrayList);
+        Log.e("Arr New Plugin", newArrayList.toString());
+        newPluginAdapter.notifyDataSetChanged();
+        onStateListener();
+        for (int i = 0; i < newArrayList.size(); i++) {
+            TabLayout.Tab dots = tabDots.newTab();
+            tabDots.addTab(dots, i);
+        }
+    }
+
+    private void onStateListener() {
+        scrollNew.getCurrentItem();
+        scrollNew.scrollToPosition(0);
+        scrollNew.smoothScrollToPosition(0);
+        scrollNew.setHasFixedSize(true);
+
+        newsObj = new HotSaleNewsObj();
+
+        scrollNew.setOnItemChangedListener(new DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder>() {
+            @Override
+            public void onCurrentItemChanged(@NonNull RecyclerView.ViewHolder viewHolder, int adapterPosition) {
+                //noinspection ConstantConditions
+                tabDots.getTabAt(adapterPosition).select();
+            }
+        });
     }
 
     private void renameToolbar(int StringResource) {

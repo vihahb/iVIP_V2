@@ -17,6 +17,7 @@ public interface IFragmentNewsListView {
 
     void onGetNewsListErr();
 
+
     void startActivityAndFinish(Class clazz);
 
     void onLoadMore();

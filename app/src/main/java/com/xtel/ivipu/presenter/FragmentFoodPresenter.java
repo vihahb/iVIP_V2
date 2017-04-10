@@ -41,7 +41,7 @@ public class FragmentFoodPresenter {
         } else {
             String url_shop = Constants.SERVER_IVIP + "v0.1/news?type=" + type + "&page=" + page + "&pagesize=" + pagesize;
             String session = LoginManager.getCurrentSession();
-            HomeModel.getInstance().getShopNews(url_shop, session, new ResponseHandle<RESP_ListNews>(RESP_ListNews.class) {
+            HomeModel.getInstance().getNews(url_shop, session, new ResponseHandle<RESP_ListNews>(RESP_ListNews.class) {
                 @Override
                 public void onSuccess(RESP_ListNews obj) {
                     Log.e("obj news shop", JsonHelper.toJson(obj));

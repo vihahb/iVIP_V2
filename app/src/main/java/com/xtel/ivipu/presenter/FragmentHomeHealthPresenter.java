@@ -44,7 +44,7 @@ private String TAG = "Health";
 
 //            Log.e("Session", session);
             Log.e("Url request arr news", url_health);
-            HomeModel.getInstance().getShopNews(url_health, null, new ResponseHandle<RESP_ListNews>(RESP_ListNews.class) {
+            HomeModel.getInstance().getNews(url_health, null, new ResponseHandle<RESP_ListNews>(RESP_ListNews.class) {
                 @Override
                 public void onSuccess(RESP_ListNews obj) {
                     Log.e("obj news shop", JsonHelper.toJson(obj));

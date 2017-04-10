@@ -3,7 +3,9 @@ package com.xtel.ivipu.presenter;
 import android.os.Handler;
 import android.util.Log;
 
+import com.xtel.ivipu.model.HomeModel;
 import com.xtel.ivipu.model.LoginModel;
+import com.xtel.ivipu.model.RESP.RESP_NewsHotSales;
 import com.xtel.ivipu.model.RESP.RESP_Profile;
 import com.xtel.ivipu.model.RESP.RESP_Short;
 import com.xtel.ivipu.model.entity.Fcm_object;
@@ -258,6 +260,55 @@ public class HomePresenter {
     public void showQrCode(String url_qr) {
         if (url_qr != null) {
             view.onShowQrCode(url_qr);
+        }
+    }
+
+    public void getNewHotSales() {
+        if (!NetWorkInfo.isOnline(view.getActivity())) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    view.onNetworkDisable();
+                }
+            }, 500);
+            return;
+        } else {
+            String url_shop = Constants.SERVER_IVIP + "v0.1/manual_news?type=1";
+            Log.e("Url hot_new_sale", url_shop);
+            HomeModel.getInstance().getNews(url_shop, null, new ResponseHandle<RESP_NewsHotSales>(RESP_NewsHotSales.class) {
+                @Override
+                public void onSuccess(RESP_NewsHotSales obj) {
+                    Log.e("Arr Hot new", String.valueOf(obj.getData()));
+                    view.onGetNew(obj.getData());
+                }
+
+                @Override
+                public void onError(Error error) {
+                    int code = error.getCode();
+                    if (String.valueOf(code) != null) {
+                        if (code == 2) {
+                            CallbackManager.create(view.getActivity()).getNewSesion(new CallbacListener() {
+                                @Override
+                                public void onSuccess(RESP_Login success) {
+                                    getNewHotSales();
+                                }
+
+                                @Override
+                                public void onError(com.xtel.nipservicesdk.model.entity.Error error) {
+                                    view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), error.getCode(), null));
+                                    view.startActivityFinish(LoginActivity.class);
+                                }
+                            });
+                        } else {
+                            view.showShortToast(JsonParse.getCodeMessage(view.getActivity(), code, null));
+                            Log.e("Code err shop", String.valueOf(code));
+                        }
+                    } else {
+                        Log.e(TAG, "Err " + JsonHelper.toJson(error));
+                        view.showShortToast("Co loi");
+                    }
+                }
+            });
         }
     }
 }

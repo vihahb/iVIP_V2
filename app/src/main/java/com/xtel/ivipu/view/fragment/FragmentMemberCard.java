@@ -38,7 +38,6 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
     int id_Card;
     //    PagerContainer mContainer;
 //    ViewPager viewPager;
-    int loop_count = 0;
     private int page = 1, pagesize = 5;
     private FragmentNavMemberCardPresenter presenter;
     //    private RecyclerView rcl_member_card;
@@ -169,7 +168,6 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
     }
 
     private void onStateChangeListener() {
-        loop_count++;
         scrollView.getCurrentItem();
         scrollView.scrollToPosition(0);
         scrollView.smoothScrollToPosition(0);

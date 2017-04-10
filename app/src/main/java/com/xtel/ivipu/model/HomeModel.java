@@ -15,7 +15,7 @@ public class HomeModel extends Model {
         return instance;
     }
 
-    public void getShopNews(String url, String session, ResponseHandle responseHandle) {
+    public void getNews(String url, String session, ResponseHandle responseHandle) {
         requestServer.getApi(url, session, responseHandle);
     }
 
