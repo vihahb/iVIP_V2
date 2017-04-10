@@ -2,6 +2,7 @@ package com.xtel.ivipu.model;
 
 import com.xtel.ivipu.model.RESP.RESP_NewsObject;
 import com.xtel.nipservicesdk.callback.ResponseHandle;
+import com.xtel.sdk.commons.Constants;
 
 /**
  * Created by vivhp on 2/14/2017.
@@ -81,5 +82,10 @@ public class HomeModel extends Model {
 
     public void getNotifyNumber(String url, String session, ResponseHandle responseHandle) {
         requestServer.getApi(url, session, responseHandle);
+    }
+
+    public void getPolyLine(double from_lat, double from_lng, double to_lat, double to_lng, ResponseHandle responseHandle) {
+        String url = Constants.POLY_HTTP + from_lat + "," + from_lng + Constants.POLY_DESTINATION + to_lat + "," + to_lng;
+        requestServer.getApi(url, null, responseHandle);
     }
 }
