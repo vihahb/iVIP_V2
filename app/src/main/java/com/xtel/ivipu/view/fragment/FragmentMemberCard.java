@@ -1,5 +1,6 @@
 package com.xtel.ivipu.view.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,6 +37,7 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
     AdapterCard pagerAdapter;
     long date_create;
     int id_Card;
+    Activity activity = getActivity();
     //    PagerContainer mContainer;
 //    ViewPager viewPager;
     private int page = 1, pagesize = 5;
@@ -85,72 +87,15 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
         scrollView.setAdapter(pagerAdapter);
     }
 
-//    private void initializeViews(View view) {
-//        cardArraylist = new ArrayList<>();
-//        mContainer = (PagerContainer) view.findViewById(R.id.pager_container);
-//        viewPager = (ViewPager) mContainer.findViewById(R.id.viewPagerCard);
-//        pagerAdapter = new CardPagerAdapter(getContext(), cardArraylist);
-    //Necessary or the pager will only have one extra page to show
-    // make this at least however many pages you can see
-//        viewPager.setAdapter(pagerAdapter);
-//        viewPager.setOffscreenPageLimit(pagerAdapter.getCount());
-    //A little space between pages
-//        viewPager.setPageMargin(18);
-    //If hardware acceleration is enabled, you should also remove
-    // clipping on the pager for its children.
-//        viewPager.setClipChildren(false);
-//        getData();
-//    }
-
-//    private void initRecyclerView(View view) {
-//        cardArraylist = new ArrayList<>();
-//        Log.e("arr member object ", cardArraylist.toString());
-//        rcl_member_card = (RecyclerView) view.findViewById(R.id.rcl_ivip);
-//        rcl_member_card.setHasFixedSize(true);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-//        rcl_member_card.setLayoutManager(layoutManager);
-//        adapter = new AdapterMemberCard(cardArraylist, this);
-//        rcl_member_card.setAdapter(adapter);
-//    }
-
-
-//    private void initProgressView(View view) {
-//        progressView = new ProgressView(null, view);
-//        progressView.initData(R.mipmap.ic_launcher, getString(R.string.no_news), getString(R.string.try_again), getString(R.string.loading_data), Color.parseColor("#05b589"));
-//        progressView.setUpWithView(rcl_member_card);
-//
-//        progressView.onLayoutClicked(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getData();
-//            }
-//        });
-//
-//        progressView.onRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                page = 1;
-//                cardArraylist.clear();
-//                getData();
-//                adapter.notifyDataSetChanged();
-//            }
-//        });
-//
-//        progressView.onSwipeLayoutPost(new Runnable() {
-//            @Override
-//            public void run() {
-//                getData();
-//            }
-//        });
-//    }
-
     private void getData() {
 //        progressView.setRefreshing(true);
         initDataMemberCard();
     }
 
     private void initDataMemberCard() {
-        presenter.getMemberCard(page, pagesize);
+        if (activity != null && isAdded()) {
+            presenter.getMemberCard(page, pagesize);
+        }
     }
 
     @Override

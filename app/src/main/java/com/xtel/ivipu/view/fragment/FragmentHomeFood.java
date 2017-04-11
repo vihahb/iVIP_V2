@@ -1,5 +1,6 @@
 package com.xtel.ivipu.view.fragment;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -46,7 +47,7 @@ public class FragmentHomeFood extends BasicFragment implements IFragmentFoodView
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home_food, container, false);
+        return inflater.inflate(R.layout.fragment_home_news_list, container, false);
     }
 
     @Override
@@ -137,7 +138,10 @@ public class FragmentHomeFood extends BasicFragment implements IFragmentFoodView
     }
 
     private void initDataNews() {
-        presenter.getFood(type, page, pagesize);
+        Activity activity = getActivity();
+        if (activity != null && isAdded()) {
+            presenter.getFood(type, page, pagesize);
+        }
     }
 
     @Override

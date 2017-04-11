@@ -29,7 +29,6 @@ import com.xtel.ivipu.model.entity.VoucherObj;
 import com.xtel.ivipu.presenter.ActivityInfoPropertiesPresenter;
 import com.xtel.ivipu.view.activity.ListCommentActivity;
 import com.xtel.ivipu.view.activity.inf.IActivityInfo;
-import com.xtel.ivipu.view.widget.AppBarStateChangeListener;
 import com.xtel.ivipu.view.widget.RoundImage;
 import com.xtel.ivipu.view.widget.WidgetHelper;
 import com.xtel.nipservicesdk.utils.JsonHelper;
@@ -48,7 +47,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
     ActivityInfoPropertiesPresenter presenter;
     private RESP_NewEntity newEntity;
     private TextView txt_info_shop_name, txt_info_shop_view, txt_info_shop_like, txt_info_shop_rate, tv_info_shop_title, tv_info_shop_view_comment;
-    private TextView tv_qr_reward, tv_set_expand, tv_status, tv_Expand, tv_rate_time, tv_voucher_cocde, tv_voucher_expired_time, tv_temp_text;
+    private TextView tv_qr_reward, tv_name_rate, tv_status, tv_Expand, tv_rate_time, tv_voucher_cocde, tv_voucher_expired_time, tv_temp_text;
     private RoundImage img_brand, img_avatar, img_avatar_background;
     private ImageView img_qr_code, img_bar_code, img_content_banner;
     private ImageView img_like, img_comment, img_share;
@@ -90,7 +89,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
         expandableTextView = (ExpandableTextView) view.findViewById(R.id.expandableTextView);
         tv_temp_text = (TextView) view.findViewById(R.id.tv_temp_text);
         tv_info_shop_title = (TextView) view.findViewById(R.id.tv_info_shop_title);
-//        tv_set_expand = (TextView) view.findViewById(R.id.tv_set_expand);
+        tv_name_rate = (TextView) view.findViewById(R.id.tv_name_rate);
         tv_status = (TextView) view.findViewById(R.id.tv_rate_status);
         tv_rate_time = (TextView) view.findViewById(R.id.tv_rate_time);
         tv_voucher_cocde = (TextView) view.findViewById(R.id.tv_voucher_code);
@@ -130,11 +129,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
     }
 
     private void initRatingBar() {
-        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
-        stars.getDrawable(0).setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
-        stars.getDrawable(1).setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
-
+        custom_rating_bar();
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -151,22 +146,6 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
                 } else if (rating == 5.0) {
                     tv_status.setText("Rất thích");
                 }
-            }
-        });
-    }
-
-    private void initAppBar() {
-        appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
-            @Override
-            public void onStateEXPANDED() {
-                img_brand.setVisibility(View.VISIBLE);
-//                img_avatar_background.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onStateIDLE() {
-                img_brand.setVisibility(View.GONE);
-//                img_avatar_background.setVisibility(View.GONE);
             }
         });
     }
@@ -230,6 +209,20 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
         }
     }
 
+    private void custom_rating_bar() {
+        /*
+* For custom color only using layerdrawable to fill the star colors
+*/
+        LayerDrawable stars = (LayerDrawable) ratingBar
+                .getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(Color.parseColor("#ffda44"),
+                PorterDuff.Mode.SRC_IN); // for filled stars
+        stars.getDrawable(1).setColorFilter(Color.parseColor("#ffda44"),
+                PorterDuff.Mode.SRC_IN); // for half filled stars
+        stars.getDrawable(0).setColorFilter(Color.parseColor("#ffffff"),
+                PorterDuff.Mode.SRC_IN); // for empty stars
+    }
+
     private void setupData2View(NewsObj newsObj) {
         VoucherObj voucherObj = new VoucherObj();
         voucherObj = newsObj.getVoucher();
@@ -240,6 +233,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
         String shopRate = String.valueOf(newsObj.getRate());
         String shopDescription = newsObj.getDescription();
         String shopTitle = newsObj.getTitle();
+        String user_name = SharedPreferencesUtils.getInstance().getStringValue(Constants.PROFILE_FULL_NAME);
         int sales = newsObj.getSales();
         int favorite_check = newsObj.getFavorite();
         double current_rate = newsObj.getCurrent_rate();
@@ -251,12 +245,22 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
             long rate_time = newsObj.getRate_time();
             WidgetHelper.getInstance().setTextViewDate(tv_rate_time, "Đã đánh giá vào ", rate_time);
             tv_rate_time.setVisibility(View.VISIBLE);
-            tv_status.setVisibility(View.GONE);
 
             /** Rate Value **/
             current_rate = newsObj.getCurrent_rate();
             float rated_get = Float.parseFloat(String.valueOf(current_rate));
             int val = Math.round(rated_get);
+            if (val == 1) {
+                WidgetHelper.getInstance().setTextViewNoResult(tv_status, "Ghét");
+            } else if (val == 2) {
+                WidgetHelper.getInstance().setTextViewNoResult(tv_status, "Không thích");
+            } else if (val == 3) {
+                WidgetHelper.getInstance().setTextViewNoResult(tv_status, "OK");
+            } else if (val == 4) {
+                WidgetHelper.getInstance().setTextViewNoResult(tv_status, "Thích");
+            } else if (val == 5) {
+                WidgetHelper.getInstance().setTextViewNoResult(tv_status, "Rất thích");
+            }
             ratingBar.setEnabled(false);
             ratingBar.setRating(rated_get);
             btn_rating.setVisibility(View.GONE);
@@ -269,6 +273,7 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
         WidgetHelper.getInstance().setTextViewNoResult(tv_info_shop_view_comment, shopComment);
         WidgetHelper.getInstance().setTextViewFromHtmlWithImage(tv_temp_text, shopDescription);
         WidgetHelper.getInstance().setTextViewNoResult(tv_info_shop_title, shopTitle);
+        WidgetHelper.getInstance().setTextViewNoResult(tv_name_rate, user_name);
 
         String banner = newsObj.getBanner();
         String brand = newsObj.getLogo();
@@ -341,10 +346,14 @@ public class FragmentInfoProperties extends IFragment implements View.OnClickLis
     }
 
     private void ratingAction() {
-        float rating_value = ratingBar.getRating();
-        rated = rating_value;
+        rated = ratingBar.getRating();
         Log.e("Rating value", String.valueOf(rated));
-        checkNetWork(2);
+        if (rated == 0.0) {
+            showShortToast("Vui lòng chọn trạng thái.");
+            return;
+        } else {
+            checkNetWork(2);
+        }
     }
 
     @Override

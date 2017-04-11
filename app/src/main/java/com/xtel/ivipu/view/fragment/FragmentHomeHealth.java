@@ -1,5 +1,6 @@
 package com.xtel.ivipu.view.fragment;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -47,7 +48,7 @@ public class FragmentHomeHealth extends BasicFragment implements IFragmentHomeHe
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home_health, container, false);
+        return inflater.inflate(R.layout.fragment_home_news_list, container, false);
     }
 
     @Override
@@ -192,7 +193,10 @@ public class FragmentHomeHealth extends BasicFragment implements IFragmentHomeHe
     }
 
     private void initDataNews() {
-        presenter.getHealtNews(type, page, pagesize);
+        Activity activity = getActivity();
+        if (activity != null && isAdded()) {
+            presenter.getHealtNews(type, page, pagesize);
+        }
     }
 
     private void checkListData() {

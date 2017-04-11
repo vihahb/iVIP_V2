@@ -1,5 +1,6 @@
 package com.xtel.ivipu.view.fragment;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -103,7 +104,10 @@ public class FragmentHomeVoucherList extends BasicFragment implements IFragmentH
     }
 
     private void initDataVoucher() {
-        presenter.getVoucherList(page, pagesize);
+        Activity activity = getActivity();
+        if (activity != null && isAdded()) {
+            presenter.getVoucherList(page, pagesize);
+        }
     }
 
     private void checkListData() {

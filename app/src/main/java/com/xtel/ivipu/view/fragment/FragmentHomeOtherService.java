@@ -1,5 +1,6 @@
 package com.xtel.ivipu.view.fragment;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -46,7 +47,7 @@ public class FragmentHomeOtherService extends BasicFragment implements IFragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home_other_service, container, false);
+        return inflater.inflate(R.layout.fragment_home_news_list, container, false);
     }
 
     @Override
@@ -139,7 +140,10 @@ public class FragmentHomeOtherService extends BasicFragment implements IFragment
     }
 
     private void initDataNews() {
-        presenter.getService(type, page, pagesize);
+        Activity activity = getActivity();
+        if (activity != null && isAdded()) {
+            presenter.getService(type, page, pagesize);
+        }
     }
 
     private void checkListData() {

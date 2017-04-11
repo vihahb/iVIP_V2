@@ -137,6 +137,13 @@
         <item name="colorControlHighlight">@color/rating_checked</item>
     </style>
 
+    <!-- Rating bar new style -->
+    <style name="StarRatingBar" parent="@android:style/Widget.Material.RatingBar.Small">
+        <item name="android:progressDrawable">@drawable/rating_bar_selector</item>
+        <item name="android:minHeight">24dip</item>
+        <item name="android:maxHeight">24dip</item>
+    </style>
+
     <style name="Theme.MyAppTheme" parent="AppTheme">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>

@@ -1,5 +1,6 @@
 package com.xtel.ivipu.view.fragment;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -164,7 +165,10 @@ public class FragmentInfoGallery extends BasicFragment implements IFragmentGalle
         } else {
             type = "chain";
         }
-        presenter.getGalleryFragment(id, type, page, pagesize);
+        Activity activity = getActivity();
+        if (activity != null && isAdded()) {
+            presenter.getGalleryFragment(id, type, page, pagesize);
+        }
     }
 
     @Override
@@ -196,7 +200,9 @@ public class FragmentInfoGallery extends BasicFragment implements IFragmentGalle
     private void initDataGallery() {
         if (validData()) {
             id = newEntity.getId();
-            presenter.getNewsInfo(id);
+            if (isAdded()) {
+                presenter.getNewsInfo(id);
+            }
         }
     }
 

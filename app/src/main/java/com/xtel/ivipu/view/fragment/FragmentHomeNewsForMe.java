@@ -1,5 +1,6 @@
 package com.xtel.ivipu.view.fragment;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -48,7 +49,7 @@ public class FragmentHomeNewsForMe extends BasicFragment implements IFragmentNew
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home_news_4_me, container, false);
+        return inflater.inflate(R.layout.fragment_home_news_list, container, false);
     }
 
     @Override
@@ -141,7 +142,10 @@ public class FragmentHomeNewsForMe extends BasicFragment implements IFragmentNew
     }
 
     private void initDataNews() {
-        presenter.getNews4Me(type, page, pagesize);
+        Activity activity = getActivity();
+        if (activity != null && isAdded()) {
+            presenter.getNews4Me(type, page, pagesize);
+        }
     }
 
     @Override

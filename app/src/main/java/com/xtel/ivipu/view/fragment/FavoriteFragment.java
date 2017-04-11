@@ -1,5 +1,6 @@
 package com.xtel.ivipu.view.fragment;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -30,10 +31,10 @@ public class FavoriteFragment extends BasicFragment implements IFragmentFavorite
 
     RecyclerView rcl_favorite;
     ArrayList<RESP_NewEntity> arrayList;
-    private ProgressView progressView;
-    private int page = 1, pagesize = 5;
     AdapterRecycleFavorite adapter;
     FragmentProfileFavoritePresenter presenter;
+    private ProgressView progressView;
+    private int page = 1, pagesize = 5;
     private int REQUEST_VIEW_FAVORITE = 87;
     private int position = -1;
 
@@ -104,7 +105,10 @@ public class FavoriteFragment extends BasicFragment implements IFragmentFavorite
     }
 
     private void initFavoriteData() {
-        presenter.getFavorite(page, pagesize);
+        Activity activity = getActivity();
+        if (activity != null && isAdded()) {
+            presenter.getFavorite(page, pagesize);
+        }
     }
 
     @Override

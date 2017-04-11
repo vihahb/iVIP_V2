@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@android:color/transparent"
     android:orientation="vertical">
 
@@ -21,12 +21,13 @@
             android:paddingBottom="@dimen/size_8">
 
             <TextView
+                android:id="@+id/tv_name_rate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:paddingBottom="@dimen/size_8"
-                android:paddingTop="@dimen/size_36"
-                android:text="@string/rate_news"
+                android:paddingTop="@dimen/size_44"
+                android:text="Name"
                 android:textColor="@android:color/white" />
 
             <RatingBar
@@ -38,11 +39,12 @@
                 android:isIndicator="false"
                 android:numStars="5"
                 android:stepSize="1.0"
-                android:theme="@style/RatingBar" />
+                android:theme="@style/StarRatingBar" />
 
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_rate_status"
@@ -53,7 +55,6 @@
                     android:text="Trạng thái"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/font_13" />
-
                 <TextView
                     android:id="@+id/tv_rate_time"
                     android:layout_width="match_parent"
@@ -64,7 +65,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/font_13"
                     android:visibility="gone" />
-            </FrameLayout>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_rating"

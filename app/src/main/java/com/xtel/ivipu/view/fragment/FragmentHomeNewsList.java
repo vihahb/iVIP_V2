@@ -1,5 +1,6 @@
 package com.xtel.ivipu.view.fragment;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -104,7 +105,10 @@ public class FragmentHomeNewsList extends BasicFragment implements IFragmentNews
     }
 
     private void initDataNews() {
-        presenter.getNewsList(type, page, pagesize);
+        Activity activity = getActivity();
+        if (activity != null && isAdded()) {
+            presenter.getNewsList(type, page, pagesize);
+        }
     }
 
 

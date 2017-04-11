@@ -1,5 +1,6 @@
 package com.xtel.ivipu.view.fragment;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,6 +29,7 @@ public class FragmentMyShop extends BasicFragment implements IMyShopActivity {
 
     public RecyclerView rcl_my_shop;
     AdapterCheckinHistory adapter;
+    Activity activity = getActivity();
     private ArrayList<MyShopCheckin> arr;
     private FragmentMyShopPresenter presenter;
     private ProgressView progressView;
@@ -103,7 +105,9 @@ public class FragmentMyShop extends BasicFragment implements IMyShopActivity {
     }
 
     private void inirDataCheckIn() {
-        presenter.getMyShopCheckin(page, pagesize);
+        if (activity != null && isAdded()) {
+            presenter.getMyShopCheckin(page, pagesize);
+        }
     }
 
 //    @Override
