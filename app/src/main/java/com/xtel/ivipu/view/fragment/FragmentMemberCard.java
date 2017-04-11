@@ -93,9 +93,7 @@ public class FragmentMemberCard extends BasicFragment implements IFragmentMember
     }
 
     private void initDataMemberCard() {
-        if (activity != null && isAdded()) {
             presenter.getMemberCard(page, pagesize);
-        }
     }
 
     @Override

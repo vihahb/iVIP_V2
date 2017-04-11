@@ -47,7 +47,7 @@ public class FragmentHomeOtherService extends BasicFragment implements IFragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home_news_list, container, false);
+        return inflater.inflate(R.layout.fragment_home_other_service, container, false);
     }
 
     @Override

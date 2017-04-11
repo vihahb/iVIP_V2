@@ -1,5 +1,6 @@
 package com.xtel.ivipu.view.fragment;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +14,6 @@ import android.view.ViewGroup;
 
 import com.xtel.ivipu.R;
 import com.xtel.ivipu.model.RESP.RESP_NewEntity;
-import com.xtel.ivipu.model.entity.HistoryEntity;
 import com.xtel.ivipu.presenter.FragmentProfileHistoryPresenter;
 import com.xtel.ivipu.view.activity.ActivityInfoContent;
 import com.xtel.ivipu.view.adapter.AdapterRecycleHistory;
@@ -32,12 +32,13 @@ public class HistoryFragment extends BasicFragment implements IFragmentHistoryVi
 
     RecyclerView rcl_history;
     ArrayList<RESP_NewEntity> arrayList;
-    private LinearLayoutManager layoutManager;
-    private ProgressView progressView;
-    private int page = 1, pagesize = 4;
     AdapterRecycleHistory adapter;
     FragmentProfileHistoryPresenter presenter;
     int position = -1;
+    Activity activity = getActivity();
+    private LinearLayoutManager layoutManager;
+    private ProgressView progressView;
+    private int page = 1, pagesize = 4;
     private int REQUEST_VIEW_HISTORY = 89;
 
     @Nullable

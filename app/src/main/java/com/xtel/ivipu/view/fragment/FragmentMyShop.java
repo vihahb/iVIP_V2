@@ -105,9 +105,7 @@ public class FragmentMyShop extends BasicFragment implements IMyShopActivity {
     }
 
     private void inirDataCheckIn() {
-        if (activity != null && isAdded()) {
             presenter.getMyShopCheckin(page, pagesize);
-        }
     }
 
 //    @Override

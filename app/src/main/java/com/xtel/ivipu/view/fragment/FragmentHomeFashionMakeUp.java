@@ -33,9 +33,9 @@ import java.util.ArrayList;
 
 public class FragmentHomeFashionMakeUp extends BasicFragment implements IFragmentFashionView {
 
+    Activity activity = getActivity();
     private RecyclerView rcl_fashion;
     private ArrayList<RESP_NewEntity> arrayList_fashion;
-
     private int position = -1;
     private int REQUEST_VIEW_MOVIE = 91;
     private ProgressView progressView;
@@ -48,7 +48,7 @@ public class FragmentHomeFashionMakeUp extends BasicFragment implements IFragmen
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home_news_list, container, false);
+        return inflater.inflate(R.layout.fragment_home_fashion, container, false);
     }
 
     @Override

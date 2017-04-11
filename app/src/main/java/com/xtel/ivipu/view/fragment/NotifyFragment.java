@@ -1,5 +1,6 @@
 package com.xtel.ivipu.view.fragment;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 
 public class NotifyFragment extends BasicFragment implements IFragmentNotify {
 
+    Activity activity = getActivity();
     private NotifyPresenter presenter;
     private ProgressView progressView;
     private RecyclerView rcl_notify;
@@ -37,7 +39,6 @@ public class NotifyFragment extends BasicFragment implements IFragmentNotify {
     private int page = 1, pagesize = 4;
     private LinearLayoutManager layoutManager;
     private AdapterNotify adapter;
-
 
     @Nullable
     @Override

@@ -182,8 +182,8 @@ public class BasicActivity extends AppCompatActivity {
         if (getSupportFragmentManager().findFragmentByTag(tag) == null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(id, fragment, tag);
-            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            fragmentTransaction.commitNow();
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            fragmentTransaction.commit();
         }
     }
 

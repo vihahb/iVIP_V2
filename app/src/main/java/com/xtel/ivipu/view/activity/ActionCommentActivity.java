@@ -74,16 +74,22 @@ public class ActionCommentActivity extends BasicActivity implements IComment {
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    private void checkNetWork(int type) {
+        final Context context = getContext();
+        if (!NetWorkInfo.isOnline(context)) {
+            WidgetHelper.getInstance().showAlertNetwork(context);
+        } else {
+            if (type == 1) {
+                presenter.postComment(news_id, cmtContent);
+            } else if (type == 2) {
 
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-        } else if (id == R.id.action_send_comment) {
-            postDataFromListComment();
+            }
         }
-        return super.onOptionsItemSelected(item);
+    }
+
+    private void sendCommentDataRefesh() {
+        startActivityForResultValue(ListCommentActivity.class, Constants.NEWS_ID, String.valueOf(st_news_id), REQUEST_REFRESH);
+        finish();
     }
 
     private void postDataFromListComment() {
@@ -104,6 +110,18 @@ public class ActionCommentActivity extends BasicActivity implements IComment {
 
     private void setData2Comment() {
         checkNetWork(1);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+        } else if (id == R.id.action_send_comment) {
+            postDataFromListComment();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -148,23 +166,5 @@ public class ActionCommentActivity extends BasicActivity implements IComment {
     @Override
     public Context getContext() {
         return this;
-    }
-
-    private void checkNetWork(int type) {
-        final Context context = getContext();
-        if (!NetWorkInfo.isOnline(context)) {
-            WidgetHelper.getInstance().showAlertNetwork(context);
-        } else {
-            if (type == 1) {
-                presenter.postComment(news_id, cmtContent);
-            } else if (type == 2) {
-
-            }
-        }
-    }
-
-    private void sendCommentDataRefesh() {
-        startActivityForResultValue(ListCommentActivity.class, Constants.NEWS_ID, String.valueOf(st_news_id), REQUEST_REFRESH);
-        finish();
     }
 }

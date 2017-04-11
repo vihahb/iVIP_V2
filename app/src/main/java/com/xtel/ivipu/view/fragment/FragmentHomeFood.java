@@ -47,7 +47,7 @@ public class FragmentHomeFood extends BasicFragment implements IFragmentFoodView
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home_news_list, container, false);
+        return inflater.inflate(R.layout.fragment_home_food, container, false);
     }
 
     @Override

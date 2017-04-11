@@ -1,6 +1,5 @@
 package com.xtel.ivipu.view.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -33,7 +32,6 @@ import java.util.ArrayList;
 public class FragmentInfoSuggestion extends BasicFragment implements IFragmentSuggestionView {
 
     int id_news, page = 1, pagesize = 3;
-    Activity activity = getActivity();
     private FragmentSuggestionPresenter presenter;
     private RecyclerView rcl_suggestion;
     private ArrayList<RESP_NewEntity> arrayListNewsList;
@@ -195,9 +193,7 @@ public class FragmentInfoSuggestion extends BasicFragment implements IFragmentSu
         } else {
             if (type == 1) {
                 int id = newEntity.getId();
-                if (activity != null && isAdded()) {
                     presenter.getSuggestion(id, page, pagesize);
-                }
             } else if (type == 2) {
 
             }

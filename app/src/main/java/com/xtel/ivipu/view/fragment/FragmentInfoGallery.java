@@ -200,9 +200,7 @@ public class FragmentInfoGallery extends BasicFragment implements IFragmentGalle
     private void initDataGallery() {
         if (validData()) {
             id = newEntity.getId();
-            if (isAdded()) {
                 presenter.getNewsInfo(id);
-            }
         }
     }
 

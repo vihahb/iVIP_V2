@@ -1,6 +1,5 @@
 package com.xtel.ivipu.view.fragment;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,7 +28,7 @@ public class FragmentHomeVoucherList extends BasicFragment implements IFragmentH
 
     private RecyclerView rcl_voucher_list;
     private ProgressView progressView;
-    private int page = 1, pagesize = 5;
+    private int page = 1, pagesize = 8;
     private ArrayList<VoucherListObj> arrayList;
     private RecyclerView.LayoutManager layoutManager;
     private AdapterVoucherList adapter;
@@ -50,12 +49,11 @@ public class FragmentHomeVoucherList extends BasicFragment implements IFragmentH
     }
 
     private void initView(View view) {
+        arrayList = new ArrayList<>();
         rcl_voucher_list = (RecyclerView) view.findViewById(R.id.rcl_ivip);
         rcl_voucher_list.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         rcl_voucher_list.setLayoutManager(layoutManager);
-
-        arrayList = new ArrayList<>();
         adapter = new AdapterVoucherList(arrayList, this);
         rcl_voucher_list.setAdapter(adapter);
     }
@@ -104,10 +102,7 @@ public class FragmentHomeVoucherList extends BasicFragment implements IFragmentH
     }
 
     private void initDataVoucher() {
-        Activity activity = getActivity();
-        if (activity != null && isAdded()) {
             presenter.getVoucherList(page, pagesize);
-        }
     }
 
     private void checkListData() {
@@ -126,7 +121,7 @@ public class FragmentHomeVoucherList extends BasicFragment implements IFragmentH
     @Override
     public void onGetVoucherSuccess(ArrayList<VoucherListObj> arrayList) {
         Log.e("arr news entity", arrayList.toString());
-        if (arrayList.size() < 5) {
+        if (this.arrayList.size() < 8) {
             adapter.onSetLoadMore(false);
         }
         setDataRecyclerView(arrayList);
